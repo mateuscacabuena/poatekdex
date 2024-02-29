@@ -1,7 +1,7 @@
 import "./App.css";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Title from "./components/Title/Title";
-//import PokemonList from "./components/PokemonList/PokemonList";
+import PokemonList from "./components/PokemonList/PokemonList";
 
 function App() {
   return (
@@ -9,11 +9,9 @@ function App() {
       <header>
         <Title />
         <SearchBar />
-        searchBar
       </header>
       <main>
-        {/* <PokemonList /> */}
-        main
+        <PokemonList />
       </main>
     </div>
   );
