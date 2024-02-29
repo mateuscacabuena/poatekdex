@@ -9,8 +9,8 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { Search } from "../Icon/Search";
-import { Sort } from "../Icon/Sort";
+import { Search } from "../../Icon/Search";
+import { Sort } from "../../Icon/Sort";
 
 function searchBar() {
   return (
