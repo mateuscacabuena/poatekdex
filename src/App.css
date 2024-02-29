@@ -1,0 +1,22 @@
+.App {
+  background-color: #DC0A2D;
+  min-height: 100vh;
+  color: white;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  padding: .75rem .75rem 1rem .75rem;
+  gap: .5rem;
+}
+
+main {
+  background-color: #FFF;
+  border-radius: .5rem;
+  padding: 1rem .5rem 0 .5rem;
+  flex-grow: 1;
+}
