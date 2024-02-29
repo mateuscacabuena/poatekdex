@@ -5,7 +5,7 @@ function PokemonList() {
     const navigate = useNavigate();
 
   function handlePokemonClick() {
-    // navigate("/bulbasaur");
+    navigate("/bulbasaur");
   }
 
   return (
