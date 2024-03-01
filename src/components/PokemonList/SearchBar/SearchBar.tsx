@@ -30,7 +30,7 @@ function searchBar() {
             borderRadius={"2rem"}
             variant={"outline"}
           />
-          <MenuList color={"#DC0A2D"}>
+          <MenuList color={"#DC0A2D"} zIndex={2}>
             <MenuItem>Lowest Number</MenuItem>
             <MenuItem>Highest Number</MenuItem>
             <MenuItem>A-Z</MenuItem>

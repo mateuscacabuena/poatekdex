@@ -18,7 +18,7 @@
 .pokemon-card img {
   width: 72px;
   height: 72px;
-  position: absolute;
+  z-index: 1;
 }
 
 .pokemon-card .name {
@@ -26,10 +26,10 @@
   background-color: #efefef;
   border-radius: 0.5rem;
   text-align: center;
-  font-size: 10px;
+  font-size: .75rem;
   color: #1d1d1d;
   width: 100%;
-  margin-top: 3rem;
+  margin-top: -1.5rem;
 }
 
 .pokemon-card .number {

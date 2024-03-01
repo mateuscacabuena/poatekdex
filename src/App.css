@@ -1,6 +1,6 @@
 .App {
   background-color: #DC0A2D;
-  min-height: 100vh;
+  max-height: 100vh;
   color: white;
   padding: 4px;
   display: flex;
@@ -17,6 +17,8 @@ header {
 main {
   background-color: #FFF;
   border-radius: .5rem;
-  padding: 1rem .5rem 0 .5rem;
+  padding: 1rem .5rem .5rem;
   flex-grow: 1;
+  overflow-y: scroll; 
+  scrollbar-width: none;
 }
