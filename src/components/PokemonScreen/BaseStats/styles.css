@@ -1,0 +1,32 @@
+.stats {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.stats .name {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #B8B8B8;
+    padding-right: 0.25rem;
+}
+
+.stats .number {
+    font-size: 0.75rem;
+    padding: 0 0.25rem 0;
+}
+
+.progress-bar {
+    width: 100%;
+}
+
+.progress {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 0.4rem 0;
+}
