@@ -4,7 +4,7 @@ import pokeball from '../../assets/pokeball.svg'
 function Title() {
   return (
     <div className="Title">
-        <img src={pokeball} className="react-logo" alt="react logo" />
+        <img src={pokeball} alt="pokeball" />
         <h1>Pokédex</h1>
     </div>
   )
