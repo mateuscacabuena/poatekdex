@@ -18,7 +18,7 @@ main {
   background-color: #FFF;
   border-radius: .5rem;
   padding: 1rem .5rem .5rem;
-  flex-grow: 1;
   overflow-y: scroll; 
   scrollbar-width: none;
+  height: 100vh;
 }
