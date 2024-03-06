@@ -11,23 +11,46 @@ import {
 } from "@chakra-ui/react";
 import { Search } from "../Icon/Search";
 import { Sort } from "../Icon/Sort";
+import { usePokemonContext } from "../../hooks/usePokemonContext";
+import { Pokemon } from "../../interface/interfaces";
 
-function searchBar() {
+function SearchBar() {
+  const { pokemonList, setPokemonList } = usePokemonContext();
 
   function handleFilter(option: Number) {
     switch (option) {
       case 1:
-        console.log("Lowest Number");
+        if (pokemonList) {
+          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
+            return a.id - b.id;
+          });
+          setPokemonList(sortedList);
+        }
         break;
       case 2:
-        console.log("Highest Number")
+        if (pokemonList) {
+          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
+            return b.id - a.id;
+          });
+          setPokemonList(sortedList);
+        }
         break;
       case 3:
-        console.log("A-Z");
+        if (pokemonList) {
+          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
+            return a.name.localeCompare(b.name);
+          });
+          setPokemonList(sortedList);
+        }
         break;
       case 4:
+        if (pokemonList) {
+          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
+            return b.name.localeCompare(a.name);
+          });
+          setPokemonList(sortedList);
+        }
         break;
-        console.log("Z-A");
       default:
         console.log("Invalid option");
     }
@@ -61,7 +84,6 @@ function searchBar() {
               boxShadow: "0px 1px 3px 1px #00000033",
               transition: "box-shadow 0.3s ease",
             }}
-            
           />
           <MenuList color={"#DC0A2D"} zIndex={2}>
             <MenuItem onClick={() => handleFilter(1)}>Lowest Number</MenuItem>
@@ -75,4 +97,4 @@ function searchBar() {
   );
 }
 
-export default searchBar;
+export default SearchBar;
