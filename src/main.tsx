@@ -5,6 +5,7 @@ import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PokemonScreen from "./components/PokemonScreen/PokemonScreen.tsx";
+import { PokemonProvider } from "./context/PokemonContext.tsx";
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,7 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/:name", //futuramente, colocar o nome do pokemon
+    path: "/:name",
     element: <PokemonScreen />,
   },
 ]);
@@ -20,7 +21,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider>
-      <RouterProvider router={router} />
+      <PokemonProvider>
+        <RouterProvider router={router} />
+      </PokemonProvider>
     </ChakraProvider>
   </React.StrictMode>
 );

@@ -1,7 +1,10 @@
 import { Divider, Progress } from "@chakra-ui/react";
 import "./styles.css";
+import { usePokemonContext } from "../../../hooks/usePokemonContext";
 
 function BaseStats() {
+  const { pokemon } = usePokemonContext();
+
   return (
     <div className="stats">
       <div className="name">
@@ -14,50 +17,27 @@ function BaseStats() {
       </div>
       <Divider orientation="vertical" />
       <div className="number">
-        <p>999</p>
-        <p>999</p>
-        <p>999</p>
-        <p>999</p>
-        <p>999</p>
-        <p>999</p>
+        {pokemon.stats.map((stat) => (
+          <p key={stat.stat.name}>{stat.base_stat}</p>
+        ))}
       </div>
       <div className="progress">
-        <Progress
-          value={60}
-          size={"xs"}
-          colorScheme="gray"
-          borderRadius={"10px"}
-        />
-        <Progress
-          value={60}
-          size={"xs"}
-          colorScheme="gray"
-          borderRadius={"10px"}
-        />
-        <Progress
-          value={60}
-          size={"xs"}
-          colorScheme="gray"
-          borderRadius={"10px"}
-        />
-        <Progress
-          value={60}
-          size={"xs"}
-          colorScheme="gray"
-          borderRadius={"10px"}
-        />
-        <Progress
-          value={60}
-          size={"xs"}
-          colorScheme="gray"
-          borderRadius={"10px"}
-        />
-        <Progress
-          value={60}
-          size={"xs"}
-          colorScheme="gray"
-          borderRadius={"10px"}
-        />
+        {pokemon.stats.map((stat) => (
+          <Progress
+            key={stat.stat.name}
+            value={Number(stat.base_stat)}
+            max={255}
+            size={"xs"}
+            colorScheme={
+              Number(stat.base_stat) >= 100
+                ? "green"
+                : Number(stat.base_stat) >= 60
+                ? "yellow"
+                : "red"
+            }
+            borderRadius={"10px"}
+          />
+        ))}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import "./App.css";
-import SearchBar from "./components/PokemonList/SearchBar/SearchBar";
+import SearchBar from "./components/SearchBar/SearchBar";
 import Title from "./components/Title/Title";
 import PokemonList from "./components/PokemonList/PokemonList";
 

@@ -2,8 +2,11 @@ import weight from "../../../assets/weight.svg";
 import straighten from "../../../assets/straighten.svg";
 import "./styles.css";
 import { Divider } from "@chakra-ui/react";
+import { usePokemonContext } from "../../../hooks/usePokemonContext";
 
 function About() {
+  const { pokemon } = usePokemonContext();
+
   return (
     <div className="About">
       <div className="attribute-content">
@@ -12,7 +15,7 @@ function About() {
             <div className="attribute-icon">
               <img src={weight} alt="weight" />
             </div>
-            <p>9,9 kg</p>
+            <p>{pokemon.weight} kg</p>
           </div>
           <p className="attribute-name">Weight</p>
         </div>
@@ -26,15 +29,15 @@ function About() {
                 style={{ transform: "rotate(90deg)" }}
               />
             </div>
-            <p>9,9 m</p>
+            <p>{pokemon.height} m</p>
           </div>
           <p className="attribute-name">Height</p>
         </div>
         <Divider orientation="vertical" />
         <div className="attribute">
           <div className="ability">
-            <p>Ability 1</p>
-            <p>Ability 2</p>
+            <p>{pokemon.abilities[0].ability.name}</p>
+            <p>{pokemon.abilities[1].ability.name}</p>
           </div>
           <p className="attribute-name">Moves</p>
         </div>

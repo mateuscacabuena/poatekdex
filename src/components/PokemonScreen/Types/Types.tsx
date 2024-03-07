@@ -1,10 +1,14 @@
-import './styles.css';
+import "./styles.css";
+import { usePokemonContext } from "../../../hooks/usePokemonContext";
 
 function Types() {
+  const { pokemon } = usePokemonContext();
+  const firstType = pokemon.types[0].type.name;
+  const secondType = pokemon.types[1]?.type.name;
   return (
     <div className="Types">
-      <div className="type unknown">Type</div>
-      <div className="type unknown">Type</div>
+      {firstType && <div className={`type ${firstType}`}>{firstType}</div>}
+      {secondType && <div className={`type ${secondType}`}>{secondType}</div>}
     </div>
   );
 }
