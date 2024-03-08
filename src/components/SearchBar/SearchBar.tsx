@@ -13,9 +13,35 @@ import { Search } from "../Icon/Search";
 import { Sort } from "../Icon/Sort";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
 import { Pokemon } from "../../interface/interfaces";
+import { useEffect, useState } from "react";
 
-function SearchBar() {
-  const { pokemonList, setPokemonList } = usePokemonContext();
+interface Props {
+  onOpen: () => void;
+}
+
+function SearchBar({ onOpen }: Props) {
+  const { setPokemon, pokemonList, setPokemonList } = usePokemonContext();
+  const [selectList, setSelectList] = useState<Pokemon[]>([]);
+  const [searchText, setSearchText] = useState("");
+
+  function handleSearch() {
+    if (searchText === "") {
+      setSelectList([]);
+      return;
+    }
+    const searchedList = [...pokemonList]
+      .filter((pokemon: Pokemon) => {
+        return pokemon.name.toLowerCase().includes(searchText.toLowerCase());
+      })
+      .slice(0, 7);
+    setSelectList(searchedList);
+  }
+
+  function handleSelect(pokemon: Pokemon) {
+    setSearchText("");
+    setPokemon(pokemon);
+    onOpen();
+  }
 
   function handleFilter(option: Number) {
     switch (option) {
@@ -56,21 +82,48 @@ function SearchBar() {
     }
   }
 
+  useEffect(() => {
+    handleSearch();
+  }, [searchText]);
+
   return (
     <div className="search-bar">
-      <InputGroup color={"#1d1d1d"}>
-        <InputLeftElement pointerEvents="none">
-          <Search boxSize={"1.2rem"} />
-        </InputLeftElement>
-        <Input
-          type="tel"
-          placeholder="Search"
-          _focus={{
-            boxShadow: "0px 1px 3px 1px #00000033",
-            transition: "box-shadow 0.3s ease",
-          }}
-        />
-      </InputGroup>
+      <div className="search">
+        <InputGroup color={"#1d1d1d"}>
+          <InputLeftElement pointerEvents="none">
+            <Search boxSize={"1.2rem"} />
+          </InputLeftElement>
+          <Input
+            type="text"
+            placeholder="Search"
+            _focus={{
+              boxShadow: "0px 1px 3px 1px #00000033",
+              transition: "box-shadow 0.3s ease",
+            }}
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
+        </InputGroup>
+        {selectList.length > 0 ? (
+          <div className="select">
+            {selectList.map((pokemon) => (
+              <p
+                className="item"
+                key={pokemon.id}
+                onClick={() => {
+                  handleSelect(pokemon);
+                }}
+              >
+                {pokemon.name}
+              </p>
+            ))}
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
       <div className="filter">
         <Menu>
           <MenuButton
