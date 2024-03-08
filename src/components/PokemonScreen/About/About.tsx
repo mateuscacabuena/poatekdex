@@ -36,8 +36,9 @@ function About() {
         <Divider orientation="vertical" />
         <div className="attribute">
           <div className="ability">
-            <p>{pokemon.abilities[0].ability.name}</p>
-            <p>{pokemon.abilities[1].ability.name}</p>
+          {pokemon.abilities.map((ability) => (
+              <p key={ability.ability.name}>{ability.ability.name}</p>
+            ))}
           </div>
           <p className="attribute-name">Moves</p>
         </div>
