@@ -31,7 +31,7 @@ function SearchBar({ onOpen }: Props) {
     }
     const searchedList = [...pokemonList]
       .filter((pokemon: Pokemon) => {
-        return pokemon.name.toLowerCase().includes(searchText.toLowerCase());
+        return pokemon.name.toLowerCase().startsWith(searchText.toLowerCase());
       })
       .slice(0, 7);
     setSelectList(searchedList);
