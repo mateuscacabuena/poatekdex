@@ -1,13 +1,12 @@
-import { useEffect } from "react";
 import "./styles.css";
-import { useNavigate } from "react-router-dom";
-import { Spinner } from "@chakra-ui/react";
+import { Spinner, useDisclosure } from "@chakra-ui/react";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
 import { Pokemon } from "../../interface/interfaces";
+import PokemonScreen from "../PokemonScreen/PokemonScreen";
 
 function PokemonList() {
-  const navigate = useNavigate();
-  const { setPokemon, isLoading, pokemonList } = usePokemonContext();
+  const { pokemon, setPokemon, isLoading, pokemonList } = usePokemonContext();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   function handlePokemonClick(pokemon: Pokemon) {
     const obj = {
@@ -21,12 +20,17 @@ function PokemonList() {
       weight: pokemon.weight / 10,
     };
     setPokemon(obj);
-    navigate("/" + pokemon.name);
+    onOpen();
   }
 
-  function showPokemons() {
-    return (
-      <>
+  return (
+    <>
+      <div className="pokemon-list">
+        {isLoading && (
+          <div className="loading">
+            <Spinner color="red" size={"xl"} />
+          </div>
+        )}
         {pokemonList.map((pokemon) => (
           <div
             className="pokemon-card"
@@ -45,23 +49,9 @@ function PokemonList() {
             </div>
           </div>
         ))}
-      </>
-    );
-  }
-
-  useEffect(() => {
-    showPokemons();
-  }, [pokemonList]);
-
-  return (
-    <div className="pokemon-list">
-      {isLoading && (
-        <div className="loading">
-          <Spinner color="red" size={"xl"} />
-        </div>
-      )}
-      {showPokemons()}
-    </div>
+      </div>
+      {pokemon && <PokemonScreen isOpen={isOpen} onClose={onClose} />}
+    </>
   );
 }
 

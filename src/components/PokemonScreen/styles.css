@@ -1,32 +1,8 @@
-.background {
-  background-color: #cccccc;
-  opacity: 0.8;
-  background-image: repeating-radial-gradient(
-      circle at 0 0,
-      transparent 0,
-      #cccccc 10px
-    ),
-    repeating-linear-gradient(#60606055, #606060);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
 .pokemon-screen {
   display: flex;
   flex-direction: column;
   padding: 4px;
-  background-color: #b8b8b8;
-  max-height: 100vh;
-  max-width: 425px;
   position: relative;
-}
-
-@media (min-width: 426px) {
-  .pokemon-screen {
-    max-height: 95vh;
-  }
 }
 
 .pokemon-screen .title {
@@ -79,8 +55,12 @@
   padding: 1.5rem;
   margin-top: -4rem;
   box-shadow: 0px 1px 3px 1px #00000040 inset;
-  overflow-y: scroll;
-  scrollbar-width: none;
+}
+
+@media (max-height: 689px) {
+  .info {
+    gap: .75rem
+  }
 }
 
 .info h2 {
