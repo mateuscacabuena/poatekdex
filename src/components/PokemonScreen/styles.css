@@ -3,6 +3,7 @@
   flex-direction: column;
   padding: 4px;
   position: relative;
+  border-radius: 0.25rem;
 }
 
 .pokemon-screen .title {
@@ -59,7 +60,7 @@
 
 @media (max-height: 689px) {
   .info {
-    gap: .75rem
+    gap: .75rem;
   }
 }
 
@@ -72,4 +73,30 @@
   font-size: 0.75rem;
   text-align: justify;
   padding: 0.5rem 0;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(35%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(-35%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-left {
+  animation: slideInLeft 0.2s forwards;
+}
+
+.slide-right {
+  animation: slideInRight 0.2s forwards;
 }
