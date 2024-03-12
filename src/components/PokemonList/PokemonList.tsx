@@ -1,23 +1,25 @@
 import "./styles.css";
-import { Spinner, useDisclosure } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
 import { Pokemon } from "../../interface/interfaces";
-import PokemonScreen from "../PokemonScreen/PokemonScreen";
 
-function PokemonList() {
-  const { pokemon, setPokemon, isLoading, pokemonList } = usePokemonContext();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+interface Props {
+  onOpen: () => void;
+}
+
+function PokemonList( { onOpen }: Props) {
+  const { setPokemon, isLoading, pokemonList } = usePokemonContext();
 
   function handlePokemonClick(pokemon: Pokemon) {
     const obj = {
       abilities: pokemon.abilities,
       description: "descricao",
-      height: pokemon.height / 10,
+      height: pokemon.height,
       id: pokemon.id,
       name: pokemon.name,
       stats: pokemon.stats,
       types: pokemon.types,
-      weight: pokemon.weight / 10,
+      weight: pokemon.weight,
     };
     setPokemon(obj);
     onOpen();
@@ -50,7 +52,6 @@ function PokemonList() {
           </div>
         ))}
       </div>
-      {pokemon && <PokemonScreen isOpen={isOpen} onClose={onClose} />}
     </>
   );
 }
