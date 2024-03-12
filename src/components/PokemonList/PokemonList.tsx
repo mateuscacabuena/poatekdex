@@ -11,17 +11,7 @@ function PokemonList( { onOpen }: Props) {
   const { setPokemon, isLoading, pokemonList } = usePokemonContext();
 
   function handlePokemonClick(pokemon: Pokemon) {
-    const obj = {
-      abilities: pokemon.abilities,
-      description: "descricao",
-      height: pokemon.height,
-      id: pokemon.id,
-      name: pokemon.name,
-      stats: pokemon.stats,
-      types: pokemon.types,
-      weight: pokemon.weight,
-    };
-    setPokemon(obj);
+    setPokemon(pokemon);
     onOpen();
   }
 
