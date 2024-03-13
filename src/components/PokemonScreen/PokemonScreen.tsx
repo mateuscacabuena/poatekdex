@@ -66,7 +66,7 @@ function PokemonScreen({ isOpen, onClose }: Props) {
   }, [handleNextPokemon, handlePreviousPokemon]);
 
   return (
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered motionPreset="slideInRight">
         <ModalOverlay backdropFilter="blur(5px)" />
         <ModalContent bg={'transparent'}>
           <div className={"pokemon-screen " + firstType + " " + slideAnimation}>
