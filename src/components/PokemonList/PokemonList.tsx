@@ -1,5 +1,5 @@
 import "./styles.css";
-import { Spinner, useDisclosure } from "@chakra-ui/react";
+import { Skeleton, useDisclosure } from "@chakra-ui/react";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
 import { Pokemon } from "../../interface/interfaces";
 import PokemonScreen from "../PokemonScreen/PokemonScreen";
@@ -26,11 +26,10 @@ function PokemonList() {
   return (
     <>
       <div className="pokemon-list">
-        {isLoading && (
-          <div className="loading">
-            <Spinner color="red" size={"xl"} />
-          </div>
-        )}
+      {isLoading &&
+          Array.from({ length: 40 }).map((_, index) => (
+            <Skeleton key={index} height="110px" borderRadius=".5rem" />
+          ))}
         {pokemonList.map((pokemon) => (
           <div
             className="pokemon-card"
