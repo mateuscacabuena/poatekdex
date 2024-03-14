@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { Pokemon } from "../interface/interfaces";
+import { capitalizeFirstLetter } from "../utils/utils";
 
 export const PokemonContext = createContext<PokemonContextType>(
   {} as PokemonContextType
@@ -31,17 +32,26 @@ export const PokemonProvider = ({ children }: any) => {
     const responses = await Promise.all(promises);
     const pokemons = responses.map((response) => {
       const { abilities, height, id, name, stats, types, weight } = response;
-      const description = "teste de descricao";
+      const capitalizedAbilities = abilities.map((ability: any) => {
+        return capitalizeFirstLetter(ability.ability.name);
+      });
+      const metresHeight = height / 10;
+      const capitalizedName = capitalizeFirstLetter(name);
+      const capitalizedTypes = types.map((type: any) => {
+        return capitalizeFirstLetter(type.type.name);
+      });
+      const kilogramsWeight = weight / 10;
+      const description = "Descrição";
 
       return {
-        abilities,
+        abilities: capitalizedAbilities,
         description,
-        height,
+        height: metresHeight,
         id,
-        name,
+        name: capitalizedName,
         stats,
-        types,
-        weight,
+        types: capitalizedTypes,
+        weight: kilogramsWeight,
       };
     });
 
