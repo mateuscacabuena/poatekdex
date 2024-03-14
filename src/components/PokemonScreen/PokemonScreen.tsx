@@ -15,7 +15,7 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   isOpen: boolean;
@@ -34,7 +34,7 @@ function PokemonScreen({ isOpen, onClose }: Props) {
       setTimeout(() => {
         setPokemon(nextPokemon);
         setSlideAnimation("");
-      }, 100); 
+      }, 100);
     }
   }
 
@@ -45,81 +45,79 @@ function PokemonScreen({ isOpen, onClose }: Props) {
       setTimeout(() => {
         setPokemon(previousPokemon);
         setSlideAnimation("");
-      }, 100); 
+      }, 100);
     }
   }
 
-  useEffect(() => {
-    const handleKeyDown = (event: any) => {
-      if (event.key === "ArrowRight") {
-        handleNextPokemon();
-      } else if (event.key === "ArrowLeft") {
-        handlePreviousPokemon();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleNextPokemon, handlePreviousPokemon]);
-
   return (
-      <Modal isOpen={isOpen} onClose={onClose} isCentered motionPreset="slideInRight">
-        <ModalOverlay backdropFilter="blur(5px)" />
-        <ModalContent bg={'transparent'}>
-          <div className={"pokemon-screen " + firstType + " " + slideAnimation}>
-            <div className="title">
-              <IconButton
-                aria-label="Close"
-                isRound
-                icon={<ArrowBackIcon boxSize={"2rem"} color={"#FFFFFF"} />}
-                backgroundColor={"transparent"}
-                _hover={{ backgroundColor: "transparent", opacity: 0.5 }}
-                onClick={onClose}
-              />
-              <h1 className="name">{pokemon.name}</h1>
-              <p className="number">#{pokemon.id}</p>
-            </div>
-            <img src={pokeball} alt="pokeball" className="pokeball-icon" />
-            <div className="image-container">
-              <IconButton
-                aria-label="Back"
-                isRound
-                icon={<ChevronLeftIcon boxSize={"1.5rem"} color={"#FFFFFF"} />}
-                backgroundColor={"transparent"}
-                _hover={{ backgroundColor: "transparent", opacity: 0.5 }}
-                onClick={handlePreviousPokemon}
-              />
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-                alt="pokemon image"
-                className="pokemon-image"
-              />
-              <IconButton
-                aria-label="Back"
-                isRound
-                icon={<ChevronRightIcon boxSize={"1.5rem"} color={"#FFFFFF"} />}
-                backgroundColor={"transparent"}
-                _hover={{ backgroundColor: "transparent", opacity: 0.5 }}
-                onClick={handleNextPokemon}
-              />
-            </div>
-            <div className="info">
-              <Types />
-              <h2>About</h2>
-              <About />
-              <p className="description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                iaculis eros vitae tellus condimentum maximus sit amet in eros.
-              </p>
-              <h2>Base Stats</h2>
-              <BaseStats />
-            </div>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      isCentered
+      motionPreset="slideInRight"
+    >
+      <ModalOverlay backdropFilter="blur(5px)" />
+      <ModalContent
+        bg={"transparent"}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowLeft") {
+            handlePreviousPokemon();
+          } else if (event.key === "ArrowRight") {
+            handleNextPokemon();
+          }
+        }}
+      >
+        <div className={"pokemon-screen " + firstType + " " + slideAnimation}>
+          <div className="title">
+            <IconButton
+              aria-label="Close"
+              isRound
+              icon={<ArrowBackIcon boxSize={"2rem"} color={"#FFFFFF"} />}
+              backgroundColor={"transparent"}
+              _hover={{ backgroundColor: "transparent", opacity: 0.5 }}
+              onClick={onClose}
+            />
+            <h1 className="name">{pokemon.name}</h1>
+            <p className="number">#{pokemon.id}</p>
           </div>
-        </ModalContent>
-      </Modal>
+          <img src={pokeball} alt="pokeball" className="pokeball-icon" />
+          <div className="image-container">
+            <IconButton
+              aria-label="Back"
+              isRound
+              icon={<ChevronLeftIcon boxSize={"1.5rem"} color={"#FFFFFF"} />}
+              backgroundColor={"transparent"}
+              _hover={{ backgroundColor: "transparent", opacity: 0.5 }}
+              onClick={handlePreviousPokemon}
+            />
+            <img
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+              alt="pokemon image"
+              className="pokemon-image"
+            />
+            <IconButton
+              aria-label="Back"
+              isRound
+              icon={<ChevronRightIcon boxSize={"1.5rem"} color={"#FFFFFF"} />}
+              backgroundColor={"transparent"}
+              _hover={{ backgroundColor: "transparent", opacity: 0.5 }}
+              onClick={handleNextPokemon}
+            />
+          </div>
+          <div className="info">
+            <Types />
+            <h2>About</h2>
+            <About />
+            <p className="description">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+              iaculis eros vitae tellus condimentum maximus sit amet in eros.
+            </p>
+            <h2>Base Stats</h2>
+            <BaseStats />
+          </div>
+        </div>
+      </ModalContent>
+    </Modal>
   );
 }
 
