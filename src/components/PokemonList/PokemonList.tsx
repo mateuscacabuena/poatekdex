@@ -18,7 +18,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
   return (
     <div className="pokemon-list">
       {isLoading &&
-        Array.from({ length: 40 }).map((_, index) => (
+        Array.from({ length: 251 }).map((_, index) => (
           <Skeleton key={index} height="110px" borderRadius=".5rem" />
         ))}
       {pokemonList.map((pokemon) => (

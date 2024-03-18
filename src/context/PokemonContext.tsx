@@ -21,7 +21,7 @@ export const PokemonProvider = ({ children }: any) => {
 
   async function fetchPokemons() {
     const promises = [];
-    for (let i = 1; i <= 151; i++) {
+    for (let i = 1; i <= 251; i++) {
       promises.push(
         fetch(`https://pokeapi.co/api/v2/pokemon/${i}`).then((response) =>
           response.json()
