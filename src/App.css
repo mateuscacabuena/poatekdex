@@ -22,3 +22,11 @@ main {
   scrollbar-width: none;
   height: 100vh;
 }
+
+.Title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}

@@ -1,10 +1,10 @@
 import "./App.css";
 import SearchBar from "./components/SearchBar/SearchBar";
-import Title from "./components/Title/Title";
 import PokemonList from "./components/PokemonList/PokemonList";
 import { usePokemonContext } from "./hooks/usePokemonContext";
 import { useDisclosure } from "@chakra-ui/react";
 import PokemonScreen from "./components/PokemonScreen/PokemonScreen";
+import pokeball from './assets/pokeball.svg'
 
 function App() {
   const { pokemon } = usePokemonContext();
@@ -13,7 +13,10 @@ function App() {
   return (
     <div className="App">
       <header>
-        <Title />
+        <div className="Title">
+          <img src={pokeball} alt="pokeball" />
+          <h1>Pokédex</h1>
+        </div>
         <SearchBar onOpen={onOpen} />
       </header>
       <main>

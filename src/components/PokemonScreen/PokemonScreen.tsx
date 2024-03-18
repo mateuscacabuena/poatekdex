@@ -104,7 +104,7 @@ function PokemonScreen({ isOpen, onClose }: Props) {
               loading="eager"
             />
             <IconButton
-              aria-label="Back"
+              aria-label="Next"
               isRound
               icon={<ChevronRightIcon boxSize={"1.5rem"} color={"#FFFFFF"} />}
               backgroundColor={"transparent"}
