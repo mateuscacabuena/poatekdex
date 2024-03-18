@@ -44,42 +44,30 @@ function SearchBar({ onOpen }: Props) {
   }
 
   function handleFilter(option: Number) {
+    if (!pokemonList) return;
+    let sortedList = [...pokemonList];
+
     switch (option) {
       case 1:
-        if (pokemonList) {
-          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
-            return a.id - b.id;
-          });
-          setPokemonList(sortedList);
-        }
+        sortedList.sort((a: Pokemon, b: Pokemon) => a.id - b.id);
         break;
       case 2:
-        if (pokemonList) {
-          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
-            return b.id - a.id;
-          });
-          setPokemonList(sortedList);
-        }
+        sortedList.sort((a: Pokemon, b: Pokemon) => b.id - a.id);
         break;
       case 3:
-        if (pokemonList) {
-          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
-            return a.name.localeCompare(b.name);
-          });
-          setPokemonList(sortedList);
-        }
+        sortedList.sort((a: Pokemon, b: Pokemon) =>
+          a.name.localeCompare(b.name)
+        );
         break;
       case 4:
-        if (pokemonList) {
-          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
-            return b.name.localeCompare(a.name);
-          });
-          setPokemonList(sortedList);
-        }
+        sortedList.sort((a: Pokemon, b: Pokemon) =>
+          b.name.localeCompare(a.name)
+        );
         break;
       default:
         console.log("Invalid option");
     }
+    setPokemonList(sortedList);
   }
 
   useEffect(() => {
@@ -103,6 +91,11 @@ function SearchBar({ onOpen }: Props) {
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
+            }}
+            onBlur={() => {
+              setTimeout(() => {
+                setSearchText("");
+              }, 100);
             }}
           />
         </InputGroup>
