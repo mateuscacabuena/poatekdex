@@ -15,11 +15,11 @@ import { usePokemonContext } from "../../hooks/usePokemonContext";
 import { Pokemon } from "../../interface/interfaces";
 import { useEffect, useState } from "react";
 
-interface Props {
+interface SearchBarProps {
   onOpen: () => void;
 }
 
-function SearchBar({ onOpen }: Props) {
+function SearchBar({ onOpen }: SearchBarProps) {
   const { setPokemon, pokemonList, setPokemonList } = usePokemonContext();
   const [selectList, setSelectList] = useState<Pokemon[]>([]);
   const [searchText, setSearchText] = useState("");

@@ -17,12 +17,12 @@ import {
 import { usePokemonContext } from "../../hooks/usePokemonContext";
 import { useState } from "react";
 
-interface Props {
+interface PokemonScreenProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-function PokemonScreen({ isOpen, onClose }: Props) {
+function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
   const { pokemon, setPokemon, pokemonList } = usePokemonContext();
   const [slideAnimation, setSlideAnimation] = useState("");
   const firstType = pokemon.types[0];
