@@ -4,6 +4,7 @@
   padding: 4px;
   position: relative;
   border-radius: 0.25rem;
+  overflow: hidden;
 }
 
 .pokemon-screen .title {
@@ -75,28 +76,54 @@
   padding: 0.5rem 0;
 }
 
-@keyframes slideInLeft {
+@keyframes center-to-left {
   from {
-    transform: translateX(10%);
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-90%);
+  }
+}
+
+@keyframes center-to-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(90%);
+  }
+}
+
+@keyframes right-to-center {
+  from {
+    transform: translateX(90%);
   }
   to {
     transform: translateX(0);
   }
 }
 
-@keyframes slideInRight {
+@keyframes left-to-center {
   from {
-    transform: translateX(-10%);
+    transform: translateX(-90%);
   }
   to {
     transform: translateX(0);
   }
 }
 
-.slide-left {
-  animation: slideInLeft 0.2s forwards;
+.center-to-left {
+  animation: center-to-left 0.2s forwards;
 }
 
-.slide-right {
-  animation: slideInRight 0.2s forwards;
+.center-to-right {
+  animation: center-to-right 0.2s forwards;
+}
+
+.right-to-center {
+  animation: right-to-center 0.2s forwards;
+}
+
+.left-to-center {
+  animation: left-to-center 0.2s forwards;
 }

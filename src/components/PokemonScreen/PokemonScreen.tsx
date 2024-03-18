@@ -30,22 +30,28 @@ function PokemonScreen({ isOpen, onClose }: Props) {
   function handleNextPokemon() {
     const nextPokemon = pokemonList.find((p) => p.id === pokemon.id + 1);
     if (nextPokemon) {
-      setSlideAnimation("slide-left");
+      setSlideAnimation("center-to-left");
       setTimeout(() => {
         setPokemon(nextPokemon);
-        setSlideAnimation("");
-      }, 100);
+        setSlideAnimation("right-to-center");
+        setTimeout(() => {
+          setSlideAnimation("");
+        }, 200);
+      }, 99);
     }
   }
 
   function handlePreviousPokemon() {
     const previousPokemon = pokemonList.find((p) => p.id === pokemon.id - 1);
     if (previousPokemon) {
-      setSlideAnimation("slide-right");
+      setSlideAnimation("center-to-right");
       setTimeout(() => {
         setPokemon(previousPokemon);
-        setSlideAnimation("");
-      }, 100);
+        setSlideAnimation("left-to-center");
+        setTimeout(() => {
+          setSlideAnimation("");
+        }, 200);
+      }, 99);
     }
   }
 
@@ -59,6 +65,7 @@ function PokemonScreen({ isOpen, onClose }: Props) {
       <ModalOverlay backdropFilter="blur(5px)" />
       <ModalContent
         bg={"transparent"}
+        boxShadow={"none"}
         onKeyDown={(event) => {
           if (event.key === "ArrowLeft") {
             handlePreviousPokemon();
@@ -94,6 +101,7 @@ function PokemonScreen({ isOpen, onClose }: Props) {
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
               alt="pokemon image"
               className="pokemon-image"
+              loading="eager"
             />
             <IconButton
               aria-label="Back"
