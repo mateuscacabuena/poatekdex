@@ -1,5 +1,5 @@
 import "./styles.css";
-import { Skeleton, useDisclosure } from "@chakra-ui/react";
+import { Skeleton } from "@chakra-ui/react";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
 import { Pokemon } from "../../interface/interfaces";
 
