@@ -95,7 +95,7 @@ function SearchBar({ onOpen }: SearchBarProps) {
             onBlur={() => {
               setTimeout(() => {
                 setSearchText("");
-              }, 100);
+              }, 300);
             }}
           />
         </InputGroup>
