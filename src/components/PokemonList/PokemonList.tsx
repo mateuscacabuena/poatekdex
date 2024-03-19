@@ -31,7 +31,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
             <p>#{pokemon.id}</p>
           </div>
           <img
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+            src={pokemon.img}
             alt={pokemon.name}
           />
           <div className="name">

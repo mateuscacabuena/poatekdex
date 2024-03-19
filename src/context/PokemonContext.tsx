@@ -42,6 +42,7 @@ export const PokemonProvider = ({ children }: any) => {
       });
       const kilogramsWeight = weight / 10;
       const description = "Descrição";
+      const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
       return {
         abilities: capitalizedAbilities,
@@ -52,6 +53,7 @@ export const PokemonProvider = ({ children }: any) => {
         stats,
         types: capitalizedTypes,
         weight: kilogramsWeight,
+        img: img
       };
     });
 
