@@ -8,7 +8,7 @@ interface PokemonListProps {
 }
 
 function PokemonList({ onOpen }: PokemonListProps) {
-  const { setPokemon, isLoading, pokemonList } = usePokemonContext();
+  const { setPokemon, isLoading, pokemonList, totalPokemons } = usePokemonContext();
 
   function handlePokemonClick(pokemon: Pokemon) {
     setPokemon(pokemon);
@@ -18,7 +18,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
   return (
     <div className="pokemon-list">
       {isLoading &&
-        Array.from({ length: 251 }).map((_, index) => (
+        Array.from({ length: totalPokemons }).map((_, index) => (
           <Skeleton key={index} height="110px" borderRadius=".5rem" />
         ))}
       {pokemonList.map((pokemon) => (
