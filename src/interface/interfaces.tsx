@@ -7,6 +7,7 @@ export interface Pokemon {
     stats: Stat[];
     types: Type[];
     weight: number;
+    img: string;
 };
 
 interface Stat {

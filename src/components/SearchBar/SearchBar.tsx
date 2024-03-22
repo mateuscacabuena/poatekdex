@@ -13,64 +13,110 @@ import { Search } from "../Icon/Search";
 import { Sort } from "../Icon/Sort";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
 import { Pokemon } from "../../interface/interfaces";
+import { useEffect, useState } from "react";
 
-function SearchBar() {
-  const { pokemonList, setPokemonList } = usePokemonContext();
+interface SearchBarProps {
+  onOpen: () => void;
+}
+
+function SearchBar({ onOpen }: SearchBarProps) {
+  const { setPokemon, pokemonList, setPokemonList } = usePokemonContext();
+  const [selectList, setSelectList] = useState<Pokemon[]>([]);
+  const [searchText, setSearchText] = useState("");
+
+  function handleSearch() {
+    if (searchText === "") {
+      setSelectList([]);
+      return;
+    }
+    const searchedList = [...pokemonList]
+      .filter((pokemon: Pokemon) => {
+        return pokemon.name.toLowerCase().startsWith(searchText.toLowerCase());
+      })
+      .slice(0, 7);
+    setSelectList(searchedList);
+  }
+
+  function handleSelect(pokemon: Pokemon) {
+    setSearchText("");
+    setPokemon(pokemon);
+    onOpen();
+  }
 
   function handleFilter(option: Number) {
+    if (!pokemonList) return;
+    let sortedList = [...pokemonList];
+
     switch (option) {
       case 1:
-        if (pokemonList) {
-          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
-            return a.id - b.id;
-          });
-          setPokemonList(sortedList);
-        }
+        sortedList.sort((a: Pokemon, b: Pokemon) => a.id - b.id);
         break;
       case 2:
-        if (pokemonList) {
-          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
-            return b.id - a.id;
-          });
-          setPokemonList(sortedList);
-        }
+        sortedList.sort((a: Pokemon, b: Pokemon) => b.id - a.id);
         break;
       case 3:
-        if (pokemonList) {
-          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
-            return a.name.localeCompare(b.name);
-          });
-          setPokemonList(sortedList);
-        }
+        sortedList.sort((a: Pokemon, b: Pokemon) =>
+          a.name.localeCompare(b.name)
+        );
         break;
       case 4:
-        if (pokemonList) {
-          const sortedList = [...pokemonList].sort((a: Pokemon, b: Pokemon) => {
-            return b.name.localeCompare(a.name);
-          });
-          setPokemonList(sortedList);
-        }
+        sortedList.sort((a: Pokemon, b: Pokemon) =>
+          b.name.localeCompare(a.name)
+        );
         break;
       default:
         console.log("Invalid option");
     }
+    setPokemonList(sortedList);
   }
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchText]);
 
   return (
     <div className="search-bar">
-      <InputGroup color={"#1d1d1d"}>
-        <InputLeftElement pointerEvents="none">
-          <Search boxSize={"1.2rem"} />
-        </InputLeftElement>
-        <Input
-          type="tel"
-          placeholder="Search"
-          _focus={{
-            boxShadow: "0px 1px 3px 1px #00000033",
-            transition: "box-shadow 0.3s ease",
-          }}
-        />
-      </InputGroup>
+      <div className="search">
+        <InputGroup color={"#1d1d1d"}>
+          <InputLeftElement pointerEvents="none">
+            <Search boxSize={"1.2rem"} />
+          </InputLeftElement>
+          <Input
+            type="text"
+            placeholder="Search"
+            _focus={{
+              boxShadow: "0px 1px 3px 1px #00000033",
+              transition: "box-shadow 0.3s ease",
+            }}
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+            onBlur={() => {
+              setTimeout(() => {
+                setSearchText("");
+              }, 300);
+            }}
+          />
+        </InputGroup>
+        {selectList.length > 0 ? (
+          <div className="select">
+            {selectList.map((pokemon) => (
+              <p
+                className="item"
+                key={pokemon.id}
+                onClick={() => {
+                  handleSelect(pokemon);
+                }}
+              >
+                {pokemon.name}
+              </p>
+            ))}
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
       <div className="filter">
         <Menu>
           <MenuButton

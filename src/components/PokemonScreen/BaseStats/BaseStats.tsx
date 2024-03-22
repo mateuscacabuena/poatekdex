@@ -28,6 +28,8 @@ function BaseStats() {
             value={Number(stat.base_stat)}
             max={255}
             size={"xs"}
+            hasStripe
+            isAnimated
             colorScheme={
               Number(stat.base_stat) >= 100
                 ? "green"
