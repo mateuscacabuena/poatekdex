@@ -8,7 +8,7 @@ interface PokemonListProps {
 }
 
 function PokemonList({ onOpen }: PokemonListProps) {
-  const { setPokemon, isLoading, pokemonList } = usePokemonContext();
+  const { setPokemon, isLoading, pokemonList, totalPokemons } = usePokemonContext();
 
   function handlePokemonClick(pokemon: Pokemon) {
     setPokemon(pokemon);
@@ -18,7 +18,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
   return (
     <div className="pokemon-list">
       {isLoading &&
-        Array.from({ length: 251 }).map((_, index) => (
+        Array.from({ length: totalPokemons }).map((_, index) => (
           <Skeleton key={index} height="110px" borderRadius=".5rem" />
         ))}
       {pokemonList.map((pokemon) => (
@@ -31,7 +31,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
             <p>#{pokemon.id}</p>
           </div>
           <img
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+            src={pokemon.img}
             alt={pokemon.name}
           />
           <div className="name">

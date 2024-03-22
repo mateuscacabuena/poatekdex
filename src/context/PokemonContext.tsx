@@ -12,16 +12,18 @@ interface PokemonContextType {
   pokemonList: Pokemon[];
   setPokemonList: (pokemon: Pokemon[]) => void;
   isLoading: boolean;
+  totalPokemons: number;
 }
 
 export const PokemonProvider = ({ children }: any) => {
   const [pokemon, setPokemon] = useState<Pokemon>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const totalPokemons = 251;
 
   async function fetchPokemons() {
     const promises = [];
-    for (let i = 1; i <= 251; i++) {
+    for (let i = 1; i <= totalPokemons; i++) {
       promises.push(
         fetch(`https://pokeapi.co/api/v2/pokemon/${i}`).then((response) =>
           response.json()
@@ -42,6 +44,7 @@ export const PokemonProvider = ({ children }: any) => {
       });
       const kilogramsWeight = weight / 10;
       const description = "Descrição";
+      const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
       return {
         abilities: capitalizedAbilities,
@@ -52,6 +55,7 @@ export const PokemonProvider = ({ children }: any) => {
         stats,
         types: capitalizedTypes,
         weight: kilogramsWeight,
+        img: img
       };
     });
 
@@ -66,7 +70,7 @@ export const PokemonProvider = ({ children }: any) => {
   return (
     <PokemonContext.Provider
       value={
-        { pokemon, setPokemon, pokemonList, setPokemonList, isLoading } as any
+        { pokemon, setPokemon, pokemonList, setPokemonList, isLoading, totalPokemons } as any
       }
     >
       {children}
