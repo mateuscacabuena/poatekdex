@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/icons";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
 import { useState } from "react";
+import { idFormater } from "../../utils/utils";
 
 interface PokemonScreenProps {
   isOpen: boolean;
@@ -85,7 +86,7 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
               onClick={onClose}
             />
             <h1 className="name">{pokemon.name}</h1>
-            <p className="number">#{pokemon.id}</p>
+            <p className="number">#{idFormater(pokemon.id)}</p>
           </div>
           <img src={pokeball} alt="pokeball" className="pokeball-icon" />
           <div className="image-container">
