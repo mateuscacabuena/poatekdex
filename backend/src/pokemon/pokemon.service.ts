@@ -1,13 +1,12 @@
 import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
 import { Pokemon } from "./pokemon.schema";
-import { Model } from "mongoose";
+import { PokemonRepository } from "./repository/pokemon.repository";
 
 @Injectable()
 export class PokemonService {
-    constructor(@InjectModel(Pokemon.name) private pokemonModel: Model<Pokemon>) {}
+    constructor(private readonly pokemonRepository: PokemonRepository ) {}
 
-    async findAll(): Promise<Pokemon[]> {
-        return await this.pokemonModel.find().exec();
+    findAll(): Promise<Pokemon[]> {
+        return this.pokemonRepository.getAll();
     }
 }
