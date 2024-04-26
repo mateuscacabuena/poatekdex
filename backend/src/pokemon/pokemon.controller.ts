@@ -27,7 +27,7 @@ export class PokemonController {
 
   @Post()
   create(@Body() CreatePokemonDto: CreatePokemonDto) {
-      return this.pokemonService.insertOne(CreatePokemonDto);
+    return this.pokemonService.insertOne(CreatePokemonDto);
   }
 
   @Put(':id')
