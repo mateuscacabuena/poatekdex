@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -21,8 +22,12 @@ export class PokemonController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pokemonService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const result = await this.pokemonService.findOne(id);
+
+    if (!result) throw new NotFoundException();
+
+    return result;
   }
 
   @Post()
@@ -31,15 +36,19 @@ export class PokemonController {
   }
 
   @Put(':id')
-  updateOne(
+  async updateOne(
     @Param('id') id: string,
     @Body() UpdatePokemonDto: UpdatePokemonDto,
   ) {
-    return this.pokemonService.updateOne(id, UpdatePokemonDto);
+    const result = await this.pokemonService.updateOne(id, UpdatePokemonDto);
+
+    if (!result) throw new NotFoundException();
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.pokemonService.deleteOne(id);
+  async delete(@Param('id') id: string) {
+    const result = await this.pokemonService.deleteOne(id);
+
+    if (!result) throw new NotFoundException();
   }
 }

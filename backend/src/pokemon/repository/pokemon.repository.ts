@@ -13,8 +13,8 @@ export class PokemonRepository {
     return await this.pokemonModel.find().exec();
   }
 
-  async getById(id: string): Promise<Pokemon> {
-    return await this.pokemonModel.findOne({ id: id }).exec();
+  getById(id: string): Promise<Pokemon> {
+    return this.pokemonModel.findOne({ id: id }).exec();
   }
 
   async add(pokemon: Pokemon): Promise<Pokemon> {
