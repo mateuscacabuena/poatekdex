@@ -9,4 +9,8 @@ export class PokemonService {
   findAll(): Promise<Pokemon[]> {
     return this.pokemonRepository.getAll();
   }
+
+  findOne(id: string): Promise<Pokemon> {
+    return this.pokemonRepository.getById(id);
+  }
 }
