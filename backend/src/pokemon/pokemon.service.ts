@@ -13,4 +13,16 @@ export class PokemonService {
   findOne(id: string): Promise<Pokemon> {
     return this.pokemonRepository.getById(id);
   }
+
+  insertOne(pokemon: Pokemon): Promise<Pokemon> {
+    return this.pokemonRepository.add(pokemon);
+  }
+
+  updateOne(id: string, pokemon: Pokemon): Promise<Pokemon> {
+    return this.pokemonRepository.update(id, pokemon);
+  }
+
+  deleteOne(id: string): Promise<Pokemon> {
+    return this.pokemonRepository.delete(id);
+  }
 }
