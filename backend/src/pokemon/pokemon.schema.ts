@@ -11,14 +11,17 @@ export class Pokemon {
   @Prop()
   name: string;
 
-  @Prop([String])
-  types: string[];
-
+  @Prop()
+  weight: number;
+  
   @Prop()
   height: number;
 
   @Prop()
-  weight: number;
+  image: string;
+
+  @Prop([String])
+  types: string[];
 
   @Prop([String])
   abilities: string[];
@@ -32,9 +35,6 @@ export class Pokemon {
     specialAttack: number;
     specialDefense: number;
   };
-
-  @Prop()
-  image: string;
 }
 
 export const PokemonSchema = SchemaFactory.createForClass(Pokemon);
