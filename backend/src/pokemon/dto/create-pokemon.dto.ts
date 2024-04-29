@@ -1,8 +1,7 @@
 export class CreatePokemonDto {
   id: number;
   name: string;
-  type: [string];
-  baseExperience: number;
+  types: [string];
   height: number;
   weight: number;
   abilities: [string];
@@ -14,5 +13,5 @@ export class CreatePokemonDto {
     specialDefense: number;
     speed: number;
   };
-  imageUrl: string;
+  image: string;
 }

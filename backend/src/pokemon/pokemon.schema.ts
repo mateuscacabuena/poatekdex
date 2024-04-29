@@ -12,10 +12,7 @@ export class Pokemon {
   name: string;
 
   @Prop([String])
-  type: string[];
-
-  @Prop()
-  baseExperience: number;
+  types: string[];
 
   @Prop()
   height: number;
@@ -37,7 +34,7 @@ export class Pokemon {
   };
 
   @Prop()
-  imageUrl: string;
+  image: string;
 }
 
 export const PokemonSchema = SchemaFactory.createForClass(Pokemon);
