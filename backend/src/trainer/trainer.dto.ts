@@ -1,4 +1,4 @@
-export class UpdateTrainerDto {
+export class TrainerDto {
   id: number;
   name: string;
   pokemons: {

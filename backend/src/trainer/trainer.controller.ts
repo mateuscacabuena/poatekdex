@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Put, NotFoundException, Param, Delete } from "@nestjs/common";
 import { TrainerService } from "./trainer.service";
-import { CreateTrainerDto } from "./dto/create-trainer.dto";
-import { UpdateTrainerDto } from "./dto/update-trainer.dto";
+import { TrainerDto } from "./trainer.dto";
 
 @Controller('trainer')
 export class TrainerController {
@@ -10,15 +9,6 @@ export class TrainerController {
     @Get()
     findAll() {
         return this.trainerService.findAll();
-    }
-    
-    @Post()
-    async create(@Body() createTrainerDto: CreateTrainerDto) {
-        const result = await this.trainerService.insertOne(createTrainerDto);
-
-        if (!result) throw new NotFoundException();
-
-        return 'Trainer successfully created!'
     }
 
     @Get(':id')
@@ -30,9 +20,18 @@ export class TrainerController {
         return result
     }
 
+    @Post()
+    async create(@Body() trainerDto: TrainerDto) {
+        const result = await this.trainerService.insertOne(trainerDto);
+
+        if (!result) throw new NotFoundException();
+
+        return 'Trainer successfully created!'
+    }
+
     @Put(':id')
-    updateOne(@Param('id') id: string, @Body() updateTrainerDto: UpdateTrainerDto) {
-        const result = this.trainerService.updateOne(id, updateTrainerDto);
+    updateOne(@Param('id') id: string, @Body() trainerDto: TrainerDto) {
+        const result = this.trainerService.updateOne(id, trainerDto);
 
         if (!result) throw new NotFoundException();
 

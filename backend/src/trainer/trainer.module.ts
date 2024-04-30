@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Trainer, TrainerSchema } from './trainer.schema';
 import { TrainerController } from './trainer.controller';
 import { TrainerService } from './trainer.service';
-import { TrainerRepository } from './repository/trainer.repository';
+import { TrainerRepository } from './trainer.repository';
 
 @Module({
   imports: [
@@ -12,5 +12,4 @@ import { TrainerRepository } from './repository/trainer.repository';
   controllers: [TrainerController],
   providers: [TrainerService, TrainerRepository],
 })
-
 export class TrainerModule {}

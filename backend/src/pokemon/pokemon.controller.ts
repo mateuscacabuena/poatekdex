@@ -9,8 +9,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
-import { CreatePokemonDto } from './dto/create-pokemon.dto';
-import { UpdatePokemonDto } from './dto/update-pokemon.dto';
+import { PokemonDto } from './pokemon.dto';
 
 @Controller('pokemon')
 export class PokemonController {
@@ -31,18 +30,24 @@ export class PokemonController {
   }
 
   @Post()
-  create(@Body() CreatePokemonDto: CreatePokemonDto) {
-    return this.pokemonService.insertOne(CreatePokemonDto);
+  create(@Body() pokemonDto: PokemonDto) {
+    const result = this.pokemonService.insertOne(pokemonDto);
+
+    if (!result) throw new NotFoundException();
+
+    return 'Pokemon successfully created!';
   }
 
   @Put(':id')
   async updateOne(
     @Param('id') id: string,
-    @Body() UpdatePokemonDto: UpdatePokemonDto,
+    @Body() pokemonDto: PokemonDto,
   ) {
-    const result = await this.pokemonService.updateOne(id, UpdatePokemonDto);
+    const result = await this.pokemonService.updateOne(id, pokemonDto);
 
     if (!result) throw new NotFoundException();
+
+    return 'Pokemon successfully updated!';
   }
 
   @Delete(':id')
@@ -50,5 +55,7 @@ export class PokemonController {
     const result = await this.pokemonService.deleteOne(id);
 
     if (!result) throw new NotFoundException();
+
+    return 'Pokemon successfully deleted!';
   }
 }
