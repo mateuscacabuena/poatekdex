@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { Pokemon } from 'src/pokemon/pokemon.schema';
 
 export type TrainerDocument = HydratedDocument<Trainer>;
 
@@ -13,7 +12,11 @@ export class Trainer {
   name: string;
 
   @Prop()
-  pokemons: Pokemon[];
-}
+  pokemons: {
+    id: number;
+    name: string;
+    image: string;
+  }[];
+};
 
 export const TrainerSchema = SchemaFactory.createForClass(Trainer);
