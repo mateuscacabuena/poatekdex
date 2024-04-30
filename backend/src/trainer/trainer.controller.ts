@@ -11,15 +11,6 @@ export class TrainerController {
     findAll() {
         return this.trainerService.findAll();
     }
-    
-    @Post()
-    async create(@Body() createTrainerDto: CreateTrainerDto) {
-        const result = await this.trainerService.insertOne(createTrainerDto);
-
-        if (!result) throw new NotFoundException();
-
-        return 'Trainer successfully created!'
-    }
 
     @Get(':id')
     async findOne(@Param('id') id: string) {
@@ -28,6 +19,15 @@ export class TrainerController {
         if (!result) throw new NotFoundException();
         
         return result
+    }
+
+    @Post()
+    async create(@Body() createTrainerDto: CreateTrainerDto) {
+        const result = await this.trainerService.insertOne(createTrainerDto);
+
+        if (!result) throw new NotFoundException();
+
+        return 'Trainer successfully created!'
     }
 
     @Put(':id')
