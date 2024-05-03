@@ -1,10 +1,12 @@
 import "./App.css";
 import { useNavigate } from "react-router-dom";
+import { usePokemonContext } from "./pokedex/hooks/usePokemonContext";
 
 function App() {
   const navigate = useNavigate();
-  function handleTrainer(trainer: string) {
-    console.log(`Trainer ${trainer} selected!`);
+  const { trainerList } = usePokemonContext();
+
+  function handleTrainer() {
     navigate(`/pokedex`);
   }
 
@@ -15,7 +17,18 @@ function App() {
         <p>Escolha a Pokedex que deseja acessar:</p>
       </header>
       <main className="trainer-content">
-        <p onClick={() => handleTrainer('ash')}>*treinadores*</p>
+        {trainerList  &&
+          trainerList.map((trainer) => (
+            <div
+              className="trainer-card"
+              key={trainer.id}
+              onClick={() => handleTrainer()}
+            >
+              <div className="trainer-name">
+                <p>{trainer.name}</p>
+              </div>
+            </div>
+          ))}
       </main>
     </div>
   );

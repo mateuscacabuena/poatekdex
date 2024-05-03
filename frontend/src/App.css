@@ -31,5 +31,9 @@
 }
 
 .trainer-content {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem;
   border-radius: .5rem;
 }
