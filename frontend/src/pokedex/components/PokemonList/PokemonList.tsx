@@ -1,7 +1,7 @@
 import "./styles.css";
 import { Skeleton } from "@chakra-ui/react";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
-import { Pokemon } from "../../interface/interfaces";
+import { Pokemon } from "../../../interface/interfaces";
 import { idFormater } from "../../utils/utils";
 
 interface PokemonListProps {

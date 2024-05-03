@@ -4,7 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { PokemonProvider } from "./pokedex/context/PokemonContext.tsx";
+import { PokemonProvider } from "./context/PokemonContext.tsx";
 import Pokedex from "./pokedex/index.tsx";
 
 const router = createBrowserRouter([
