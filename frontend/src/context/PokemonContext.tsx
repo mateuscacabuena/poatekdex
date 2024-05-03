@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { Pokemon } from "../interface/interfaces";
+import { Pokemon } from "../pokedex/interface/interfaces";
 import { capitalizeFirstLetter } from "../utils/utils";
 
 export const PokemonContext = createContext<PokemonContextType>(
@@ -55,7 +55,7 @@ export const PokemonProvider = ({ children }: any) => {
         stats,
         types: capitalizedTypes,
         weight: kilogramsWeight,
-        img: img
+        img: img,
       };
     });
 
@@ -70,7 +70,14 @@ export const PokemonProvider = ({ children }: any) => {
   return (
     <PokemonContext.Provider
       value={
-        { pokemon, setPokemon, pokemonList, setPokemonList, isLoading, totalPokemons } as any
+        {
+          pokemon,
+          setPokemon,
+          pokemonList,
+          setPokemonList,
+          isLoading,
+          totalPokemons,
+        } as any
       }
     >
       {children}

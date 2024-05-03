@@ -1,7 +1,7 @@
 import "./styles.css";
 import { Skeleton } from "@chakra-ui/react";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
-import { Pokemon } from "../../interface/interfaces";
+import { Pokemon } from "../../pokedex/interface/interfaces";
 import { idFormater } from "../../utils/utils";
 
 interface PokemonListProps {
@@ -9,7 +9,8 @@ interface PokemonListProps {
 }
 
 function PokemonList({ onOpen }: PokemonListProps) {
-  const { setPokemon, isLoading, pokemonList, totalPokemons } = usePokemonContext();
+  const { setPokemon, isLoading, pokemonList, totalPokemons } =
+    usePokemonContext();
 
   function handlePokemonClick(pokemon: Pokemon) {
     setPokemon(pokemon);
@@ -31,10 +32,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
           <div className="number">
             <p>#{idFormater(pokemon.id)}</p>
           </div>
-          <img
-            src={pokemon.img}
-            alt={pokemon.name}
-          />
+          <img src={pokemon.img} alt={pokemon.name} />
           <div className="name">
             <p>{pokemon.name}</p>
           </div>

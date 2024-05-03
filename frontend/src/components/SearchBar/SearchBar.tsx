@@ -12,7 +12,7 @@ import {
 import { Search } from "../Icon/Search";
 import { Sort } from "../Icon/Sort";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
-import { Pokemon } from "../../interface/interfaces";
+import { Pokemon } from "../../pokedex/interface/interfaces";
 import { useEffect, useState } from "react";
 
 interface SearchBarProps {
