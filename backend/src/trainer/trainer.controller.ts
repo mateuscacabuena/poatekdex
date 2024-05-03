@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Put, NotFoundException, Param, Delete } from "@nestjs/common";
 import { TrainerService } from "./trainer.service";
 import { TrainerDto } from "./trainer.dto";
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('trainer')
 @Controller('trainer')
 export class TrainerController {
     constructor(private readonly trainerService: TrainerService) {}

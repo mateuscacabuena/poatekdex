@@ -18,7 +18,7 @@ export class Pokemon {
   height: number;
 
   @Prop()
-  image: string;
+  imageUrl: string;
 
   @Prop([String])
   types: string[];

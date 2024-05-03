@@ -10,7 +10,9 @@ import {
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { PokemonDto } from './pokemon.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('pokemon')
 @Controller('pokemon')
 export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}

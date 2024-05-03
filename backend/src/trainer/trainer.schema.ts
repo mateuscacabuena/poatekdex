@@ -12,10 +12,13 @@ export class Trainer {
   name: string;
 
   @Prop()
+  imageUrl: string;
+
+  @Prop()
   pokemons: {
     id: number;
     name: string;
-    image: string;
+    imageUrl: string;
   }[];
 };
 
