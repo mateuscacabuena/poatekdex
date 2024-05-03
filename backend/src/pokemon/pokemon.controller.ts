@@ -10,14 +10,20 @@ import {
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { PokemonDto } from './pokemon.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('pokemon')
 @Controller('pokemon')
 export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
   @Get()
-  findAll() {
-    return this.pokemonService.findAll();
+  async findAll() {
+    const result = this.pokemonService.findAll();
+
+    if (!result) throw new NotFoundException();
+
+    return result;
   }
 
   @Get(':id')

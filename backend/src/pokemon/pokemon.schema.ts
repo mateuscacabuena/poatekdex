@@ -3,7 +3,7 @@ import { HydratedDocument } from 'mongoose';
 
 export type PokemonDocument = HydratedDocument<Pokemon>;
 
-@Schema()
+@Schema({ versionKey: false })
 export class Pokemon {
   @Prop()
   id: number;
@@ -18,7 +18,7 @@ export class Pokemon {
   height: number;
 
   @Prop()
-  image: string;
+  imageUrl: string;
 
   @Prop([String])
   types: string[];
