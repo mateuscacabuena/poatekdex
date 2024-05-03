@@ -5,7 +5,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import "./styles.css";
-import pokeball from "../../assets/pokeball.svg";
+import pokeball from "../../../assets/pokeball.svg";
 import About from "./About/About";
 import Types from "./Types/Types";
 import BaseStats from "./BaseStats/BaseStats";

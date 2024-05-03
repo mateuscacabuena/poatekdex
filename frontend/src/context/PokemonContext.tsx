@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-import { Pokemon } from "../interface/interfaces";
-import { capitalizeFirstLetter } from "../utils/utils";
+import { Pokemon, Trainer } from "../interface/interfaces";
+import { capitalizeFirstLetter } from "../pokedex/utils/utils";
+import axios from "axios";
 
 export const PokemonContext = createContext<PokemonContextType>(
   {} as PokemonContextType
@@ -9,6 +10,8 @@ export const PokemonContext = createContext<PokemonContextType>(
 interface PokemonContextType {
   pokemon: Pokemon;
   setPokemon: (pokemon: Pokemon) => void;
+  trainerList: Trainer[];
+  setTrainerList: (trainers: Trainer[]) => void;
   pokemonList: Pokemon[];
   setPokemonList: (pokemon: Pokemon[]) => void;
   isLoading: boolean;
@@ -19,6 +22,7 @@ export const PokemonProvider = ({ children }: any) => {
   const [pokemon, setPokemon] = useState<Pokemon>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const [trainerList, setTrainerList] = useState<Trainer[]>([]);
   const totalPokemons = 251;
 
   async function fetchPokemons() {
@@ -55,7 +59,7 @@ export const PokemonProvider = ({ children }: any) => {
         stats,
         types: capitalizedTypes,
         weight: kilogramsWeight,
-        img: img
+        img: img,
       };
     });
 
@@ -63,14 +67,34 @@ export const PokemonProvider = ({ children }: any) => {
     setIsLoading(false);
   }
 
+  async function fetchTrainers() {
+    try {
+      const response = await axios.get("http://localhost:5000/api/trainer");
+      const trainers = response.data;
+      setTrainerList(trainers);
+    } catch (error) {
+      console.error("Erro ao recuperar os treinadores:", error);
+    }
+  }
+
   useEffect(() => {
     fetchPokemons();
+    fetchTrainers();
   }, []);
 
   return (
     <PokemonContext.Provider
       value={
-        { pokemon, setPokemon, pokemonList, setPokemonList, isLoading, totalPokemons } as any
+        {
+          pokemon,
+          setPokemon,
+          pokemonList,
+          setPokemonList,
+          trainerList,
+          setTrainerList,
+          isLoading,
+          totalPokemons,
+        } as any
       }
     >
       {children}

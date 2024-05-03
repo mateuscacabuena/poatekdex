@@ -1,5 +1,5 @@
-import weight from "../../../assets/weight.svg";
-import straighten from "../../../assets/straighten.svg";
+import weight from "../../../../assets/weight.svg";
+import straighten from "../../../../assets/straighten.svg";
 import "./styles.css";
 import { Divider } from "@chakra-ui/react";
 import { usePokemonContext } from "../../../hooks/usePokemonContext";
