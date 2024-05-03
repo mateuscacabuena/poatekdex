@@ -10,7 +10,11 @@ export class TrainerController {
 
     @Get()
     findAll() {
-        return this.trainerService.findAll();
+        const result =  this.trainerService.findAll();
+
+        if (!result) throw new NotFoundException();
+
+        return result;
     }
 
     @Get(':id')
@@ -24,16 +28,16 @@ export class TrainerController {
 
     @Post()
     async create(@Body() trainerDto: TrainerDto) {
-        const result = await this.trainerService.insertOne(trainerDto);
+        const trainers = await this.trainerService.findAll();
+        const newId = trainers.length + 1;
+        const newTrainer = { id: newId, ...trainerDto };
 
-        if (!result) throw new NotFoundException();
-
-        return 'Trainer successfully created!'
+        return this.trainerService.insertOne(newTrainer);
     }
 
     @Put(':id')
-    updateOne(@Param('id') id: string, @Body() trainerDto: TrainerDto) {
-        const result = this.trainerService.updateOne(id, trainerDto);
+    async updateOne(@Param('id') id: string, @Body() trainerDto: TrainerDto) {
+        const result = await this.trainerService.updateOne(id, trainerDto);
 
         if (!result) throw new NotFoundException();
 

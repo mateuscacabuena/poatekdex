@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 declare const module: any;
 
@@ -24,6 +25,7 @@ async function bootstrap() {
 
   app.enableCors(corsOptions);
   app.setGlobalPrefix('api');
+  app.useGlobalPipes(new ValidationPipe());
 
   if (module.hot) {
     module.hot.accept();

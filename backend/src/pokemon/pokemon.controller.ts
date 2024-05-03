@@ -18,8 +18,12 @@ export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
   @Get()
-  findAll() {
-    return this.pokemonService.findAll();
+  async findAll() {
+    const result = this.pokemonService.findAll();
+
+    if (!result) throw new NotFoundException();
+
+    return result;
   }
 
   @Get(':id')
