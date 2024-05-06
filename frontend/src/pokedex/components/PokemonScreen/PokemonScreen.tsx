@@ -11,12 +11,11 @@ import Types from "./Types/Types";
 import BaseStats from "./BaseStats/BaseStats";
 import {
   ArrowBackIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
 } from "@chakra-ui/icons";
 import { usePokemonContext } from "../../hooks/usePokemonContext";
 import { useState } from "react";
 import { idFormater } from "../../utils/utils";
+import ImageContainer from "./ImageContainer/ImageContainer";
 
 interface PokemonScreenProps {
   isOpen: boolean;
@@ -28,27 +27,20 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
   const [slideAnimation, setSlideAnimation] = useState("");
   const firstType = pokemon.types[0];
 
-  function handleNextPokemon() {
-    const nextPokemon = pokemonList.find((p) => p.id === pokemon.id + 1);
-    if (nextPokemon) {
-      setSlideAnimation("center-to-left");
-      setTimeout(() => {
-        setPokemon(nextPokemon);
-        setSlideAnimation("right-to-center");
-        setTimeout(() => {
-          setSlideAnimation("");
-        }, 200);
-      }, 99);
-    }
-  }
+  function handlePokemon(direction: String) {
+    const offset = direction === "ArrowRight" ? 1 : -1;
+    const newPokemon = pokemonList.find((p) => p.id === pokemon.id + offset);
 
-  function handlePreviousPokemon() {
-    const previousPokemon = pokemonList.find((p) => p.id === pokemon.id - 1);
-    if (previousPokemon) {
-      setSlideAnimation("center-to-right");
+    if (newPokemon) {
+      const slideAnimationIn =
+        direction === "ArrowRight" ? "center-to-left" : "center-to-right";
+      const slideAnimationOut =
+        direction === "ArrowRight" ? "right-to-center" : "left-to-center";
+
+      setSlideAnimation(slideAnimationIn);
       setTimeout(() => {
-        setPokemon(previousPokemon);
-        setSlideAnimation("left-to-center");
+        setPokemon(newPokemon);
+        setSlideAnimation(slideAnimationOut);
         setTimeout(() => {
           setSlideAnimation("");
         }, 200);
@@ -68,11 +60,7 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
         bg={"transparent"}
         boxShadow={"none"}
         onKeyDown={(event) => {
-          if (event.key === "ArrowLeft") {
-            handlePreviousPokemon();
-          } else if (event.key === "ArrowRight") {
-            handleNextPokemon();
-          }
+          handlePokemon(event.key);
         }}
       >
         <div className={"pokemon-screen " + firstType + " " + slideAnimation}>
@@ -89,30 +77,7 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
             <p className="number">#{idFormater(pokemon.id)}</p>
           </div>
           <img src={pokeball} alt="pokeball" className="pokeball-icon" />
-          <div className="image-container">
-            <IconButton
-              aria-label="Back"
-              isRound
-              icon={<ChevronLeftIcon boxSize={"1.5rem"} color={"#FFFFFF"} />}
-              backgroundColor={"transparent"}
-              _hover={{ backgroundColor: "transparent", opacity: 0.5 }}
-              onClick={handlePreviousPokemon}
-            />
-            <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-              alt="pokemon image"
-              className="pokemon-image"
-              loading="eager"
-            />
-            <IconButton
-              aria-label="Next"
-              isRound
-              icon={<ChevronRightIcon boxSize={"1.5rem"} color={"#FFFFFF"} />}
-              backgroundColor={"transparent"}
-              _hover={{ backgroundColor: "transparent", opacity: 0.5 }}
-              onClick={handleNextPokemon}
-            />
-          </div>
+          <ImageContainer handlePokemon={handlePokemon} />
           <div className="info">
             <Types />
             <h2>About</h2>
