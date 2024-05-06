@@ -2,7 +2,7 @@ export interface Trainer {
     id: number
     name: string;
     pokemon: Pokemon[];
-    // img: string;
+    imageUrl: string;
 }
 
 export interface Pokemon {

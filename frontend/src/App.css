@@ -30,10 +30,47 @@
   margin: 0;
 }
 
+.trainer-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.trainer-title img {
+  width: 3rem;
+  height: 3rem;
+  margin: 1rem;
+}
+
 .trainer-content {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   padding: 1rem;
   border-radius: .5rem;
+}
+
+.trainer-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.trainer-avatar {
+  border-radius: 100%;
+  padding: 5px;
+  cursor: pointer;
+  background-color: #FFF;
+  margin: 1.5rem;
+}
+
+.trainer-avatar img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100%;
+}
+
+.trainer-avatar:hover {
+  scale: 1.2;
+  transition: .2s ease-in-out;
 }
