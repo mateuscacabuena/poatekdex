@@ -37,7 +37,7 @@ function About() {
         <div className="attribute">
           <div className="ability">
             {pokemon.abilities.map((ability) => (
-              <p key={String(ability)}>{ability.toString()}</p>
+              <p key={String(ability)}>{ability}</p>
             ))}
           </div>
           <p className="attribute-name">Moves</p>

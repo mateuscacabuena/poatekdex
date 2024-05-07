@@ -18,13 +18,13 @@ function BaseStats() {
       <Divider orientation="vertical" />
       <div className="number">
         {pokemon.stats.map((stat) => (
-          <p key={stat.stat.name}>{stat.base_stat}</p>
+          <p key={stat.name}>{stat.base_stat}</p>
         ))}
       </div>
       <div className="progress">
         {pokemon.stats.map((stat) => (
           <Progress
-            key={stat.stat.name}
+            key={stat.name}
             value={Number(stat.base_stat)}
             max={255}
             size={"xs"}

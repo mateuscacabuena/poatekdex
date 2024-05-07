@@ -6,39 +6,18 @@ export interface Trainer {
 }
 
 export interface Pokemon {
-    abilities: Ability[];
-    description: string;
-    height: number;
-    id: number;
+    id:number
     name: string;
-    stats: Stat[];
-    types: Type[];
     weight: number;
-    img: string;
+    height: number;
+    imageUrl: string;
+    types: [String];
+    abilities: [String];
+    stats: Stat[];
+    // description: string;
 };
 
 interface Stat {
-    base_stat: string;
-    effort: number;
-    stat: {
-        name: string;
-        url: string;
-    };
+    name: string;
+    base_stat: number;
 };
-
-interface Type {
-    slot: number;
-    type: {
-        name: string;
-        url: string;
-    };
-}
-
-interface Ability {
-    ability: {
-        name: string;
-        url: string;
-    };
-    is_hidden: boolean;
-    slot: number;
-}

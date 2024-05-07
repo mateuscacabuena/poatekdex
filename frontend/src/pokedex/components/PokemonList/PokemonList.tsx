@@ -32,7 +32,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
           <div className="number">
             <p>#{idFormater(pokemon.id)}</p>
           </div>
-          <img src={pokemon.img} alt={pokemon.name} />
+          <img src={pokemon.imageUrl} alt={pokemon.name} />
           <div className="name">
             <p>{pokemon.name}</p>
           </div>
