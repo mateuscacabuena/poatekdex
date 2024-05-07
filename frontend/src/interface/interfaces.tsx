@@ -1,7 +1,7 @@
 export interface Trainer {
     id: number
     name: string;
-    pokemon: Pokemon[];
+    pokemons: PokemonTrainer[];
     imageUrl: string;
 }
 
@@ -20,4 +20,10 @@ export interface Pokemon {
 interface Stat {
     name: string;
     base_stat: number;
+};
+
+export interface PokemonTrainer {
+    id: number;
+    name: string;
+    imageUrl: string;
 };

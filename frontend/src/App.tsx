@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { usePokemonContext } from "./pokedex/hooks/usePokemonContext";
 import user from "./assets/user.png";
 import poatek from "./assets/poatek.png";
+import { Trainer } from "./interface/interfaces";
 
 function App() {
   const navigate = useNavigate();
-  const { trainerList } = usePokemonContext();
+  const { trainerList, setTrainer } = usePokemonContext();
 
-  function handleTrainer() {
+  function handleTrainer(trainer: Trainer) {
+    setTrainer(trainer);
     navigate(`/pokedex`);
   }
 
@@ -27,14 +29,14 @@ function App() {
             <div
               className="trainer-card"
               key={trainer.id}
-              onClick={() => handleTrainer()}
+              onClick={() => handleTrainer(trainer)}
             >
               <div className="trainer-avatar">
                 <img src={trainer.imageUrl ?? user} alt={trainer.name} />
               </div>
               <div className="trainer-name">
                 <p>
-                  {trainer.name}, {trainer.pokemon ? trainer.pokemon.length : 0}{" "}
+                  {trainer.name}, {trainer.pokemons ? trainer.pokemons.length : 0}{" "}
                   pokemon(s)
                 </p>
               </div>
