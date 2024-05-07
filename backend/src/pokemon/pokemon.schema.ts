@@ -35,6 +35,9 @@ export class Pokemon {
     specialAttack: number;
     specialDefense: number;
   };
+
+  @Prop()
+  description: string;
 }
 
 export const PokemonSchema = SchemaFactory.createForClass(Pokemon);

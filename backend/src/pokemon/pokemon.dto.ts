@@ -39,4 +39,7 @@ export class PokemonDto {
 
   @ApiProperty({ example: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png', description: 'The image of the Pokemon'})
   imageUrl: string;
+
+  @ApiProperty({ example: "Bulbasaur is a grass and poison Pokémon with 0.7m of height and 6.9kg of weight. In addition, use moves like Overgrow and Chlorophyll to defeat its enemies.", description: 'The description of the Pokemon'})
+  description: string
 }

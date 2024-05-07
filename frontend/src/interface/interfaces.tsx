@@ -14,7 +14,7 @@ export interface Pokemon {
     types: [String];
     abilities: [String];
     stats: Stat[];
-    // description: string;
+    description: string;
 };
 
 interface Stat {
