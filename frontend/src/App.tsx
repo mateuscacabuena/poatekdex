@@ -7,10 +7,10 @@ import { Trainer } from "./interface/interfaces";
 
 function App() {
   const navigate = useNavigate();
-  const { trainerList, setTrainer } = usePokemonContext();
+  const { trainerList } = usePokemonContext();
 
   function handleTrainer(trainer: Trainer) {
-    setTrainer(trainer);
+    localStorage.setItem("trainer", JSON.stringify(trainer));
     navigate(`/pokedex`);
   }
 

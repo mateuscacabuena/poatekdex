@@ -83,8 +83,7 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
             <h2>About</h2>
             <About />
             <p className="description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              iaculis eros vitae tellus condimentum maximus sit amet in eros.
+              {pokemon.description}
             </p>
             <h2>Base Stats</h2>
             <BaseStats />

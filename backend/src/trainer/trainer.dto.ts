@@ -15,7 +15,7 @@ export class TrainerDto {
   @ApiProperty({ example: [
     {
       id: 1,
-      name: 'bulbasaur',
+      name: 'Bulbasaur',
       imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png'
     }
   ], description: 'The pokemons of the Trainer'})

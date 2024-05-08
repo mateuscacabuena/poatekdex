@@ -18,6 +18,7 @@ interface PokemonContextType {
   isLoading: boolean;
   totalPokemons: number;
   pokemonCard: (id: number) => void;
+  getPokemonById: (id: number) => Pokemon;
 }
 
 export const PokemonProvider = ({ children }: any) => {
@@ -55,6 +56,16 @@ export const PokemonProvider = ({ children }: any) => {
     }
   }
 
+  async function getPokemonById (id: number) {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/pokemon/${id}`);
+      const pokemon = response.data;
+      return pokemon;
+    } catch (error) {
+      console.error("Pokemon request error: ", error);
+    }
+  }
+
   useEffect(() => {
     fetchPokemons();
     fetchTrainers();
@@ -74,7 +85,8 @@ export const PokemonProvider = ({ children }: any) => {
           setTrainerList,
           isLoading,
           totalPokemons,
-          pokemonCard
+          pokemonCard,
+          getPokemonById
         } as any
       }
     >

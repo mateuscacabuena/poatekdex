@@ -41,7 +41,7 @@ export class TrainerController {
 
         if (!result) throw new NotFoundException();
 
-        return 'Trainer successfully updated!';
+        return result;
     }
 
     @Delete(':id')
