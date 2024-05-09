@@ -54,6 +54,8 @@
 .trainer-card {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .trainer-avatar {
@@ -61,7 +63,8 @@
   padding: 5px;
   cursor: pointer;
   background-color: #FFF;
-  margin: 1.5rem;
+  margin: 1rem;
+  transition: 0.3s ease-in-out;
 }
 
 .trainer-avatar img {
@@ -71,6 +74,5 @@
 }
 
 .trainer-avatar:hover {
-  scale: 1.2;
-  transition: .2s ease-in-out;
+  transform: scale(1.2);
 }

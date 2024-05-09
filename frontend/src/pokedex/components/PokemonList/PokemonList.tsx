@@ -66,7 +66,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
           onClick={() => catchPokemon(index + 1)}
         >
           <div className="number">
-            <p>#{idFormater(index + 1)}</p>
+            <p>#???</p>
           </div>
           <img
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png`}

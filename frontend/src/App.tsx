@@ -4,10 +4,12 @@ import { useTrainerContext } from "./hooks/useTrainerContext";
 import user from "./assets/user.png";
 import poatek from "./assets/poatek.png";
 import { Trainer } from "./interface/interfaces";
+import { IconButton } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
 
 function App() {
   const navigate = useNavigate();
-  const { trainerList } = useTrainerContext();
+  const { trainerList, excludeTrainer } = useTrainerContext();
 
   function handleTrainer(trainer: Trainer) {
     localStorage.setItem("trainer", JSON.stringify(trainer));
@@ -19,9 +21,9 @@ function App() {
       <header className="trainer-header">
         <div className="trainer-title">
           <img src={poatek} alt={"poatek logo"} />
-          <h1>Bem-vindo à Poatekdex!</h1>
+          <h1>Welcome to Poatekdex!</h1>
         </div>
-        <p>Escolha a Pokedex que deseja acessar:</p>
+        <p>Choose the pokédex you want access:</p>
       </header>
       <main className="trainer-content">
         {trainerList &&
@@ -37,9 +39,15 @@ function App() {
               <div className="trainer-name">
                 <p>
                   {trainer.name},{" "}
-                  {trainer.pokemons ? trainer.pokemons.length : 0} pokemon(s)
+                  {trainer.pokemons ? trainer.pokemons.length : 0} pokémon(s)
                 </p>
               </div>
+              <IconButton
+                aria-label="Exclude Trainer"
+                icon={<CloseIcon />}
+                color="red"
+                onClick={() => excludeTrainer(trainer.id)}
+              />
             </div>
           ))}
       </main>
