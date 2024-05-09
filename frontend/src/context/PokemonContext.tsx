@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { Pokemon, Trainer } from "../interface/interfaces";
-import axios from "axios";
+import { Pokemon } from "../interface/interfaces";
+import PokemonAPI from "../services/pokemonAPI";
 
 export const PokemonContext = createContext<PokemonContextType>(
   {} as PokemonContextType
@@ -9,57 +9,32 @@ export const PokemonContext = createContext<PokemonContextType>(
 interface PokemonContextType {
   pokemon: Pokemon;
   setPokemon: (pokemon: Pokemon) => void;
-  trainer: Trainer;
-  setTrainer: (trainer: Trainer) => void;
-  trainerList: Trainer[];
-  setTrainerList: (trainers: Trainer[]) => void;
   pokemonList: Pokemon[];
-  setPokemonList: (pokemon: Pokemon[]) => void;
+  setPokemonList: (pokemons: Pokemon[]) => void;
   isLoading: boolean;
   totalPokemons: number;
-  pokemonCard: (id: number) => void;
-  getPokemonById: (id: number) => Pokemon;
+  getPokemon: (id: number) => Pokemon;
 }
 
 export const PokemonProvider = ({ children }: any) => {
   const [pokemon, setPokemon] = useState<Pokemon>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
-  const [trainerList, setTrainerList] = useState<Trainer[]>([]);
-  const [trainer, setTrainer] = useState<Trainer>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const totalPokemons = 251;
 
-  async function fetchPokemons() {
-    const response = await axios.get("http://localhost:5000/api/pokemon");
-    const pokemons = response.data;
-    setPokemonList(pokemons);
-    setIsLoading(false);
-  }
-
-  async function fetchTrainers() {
+  async function getPokemons() {
     try {
-      const response = await axios.get("http://localhost:5000/api/trainer");
-      const trainers = response.data;
-      setTrainerList(trainers);
-    } catch (error) {
-      console.error("Trainers request error: ", error);
-    }
-  }
-
-  async function pokemonCard(id: number) {
-    try {
-      const response = await axios.get(`http://localhost:5000/api/pokemon/${id}`);
-      const pokemon = response.data;
-      setPokemon(pokemon);
+      const pokemons = await PokemonAPI.getPokemonList();
+      setPokemonList(pokemons);
+      return pokemons;
     } catch (error) {
       console.error("Pokemon request error: ", error);
     }
   }
 
-  async function getPokemonById (id: number) {
+  async function getPokemon(id: number) {
     try {
-      const response = await axios.get(`http://localhost:5000/api/pokemon/${id}`);
-      const pokemon = response.data;
+      const pokemon = await PokemonAPI.getPokemonById(id);
       return pokemon;
     } catch (error) {
       console.error("Pokemon request error: ", error);
@@ -67,8 +42,8 @@ export const PokemonProvider = ({ children }: any) => {
   }
 
   useEffect(() => {
-    fetchPokemons();
-    fetchTrainers();
+    setIsLoading(false);
+    getPokemons();
   }, []);
 
   return (
@@ -77,16 +52,11 @@ export const PokemonProvider = ({ children }: any) => {
         {
           pokemon,
           setPokemon,
-          trainer,
-          setTrainer,
           pokemonList,
           setPokemonList,
-          trainerList,
-          setTrainerList,
           isLoading,
           totalPokemons,
-          pokemonCard,
-          getPokemonById
+          getPokemon,
         } as any
       }
     >

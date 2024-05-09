@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default class PokemonAPI {
-  static async fetchPokemons() {
+  static async getPokemonList() {
     const response = await axios.get("http://localhost:5000/api/pokemon");
     return response.data;
   }

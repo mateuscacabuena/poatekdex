@@ -1,13 +1,13 @@
 import "./App.css";
 import { useNavigate } from "react-router-dom";
-import { usePokemonContext } from "./hooks/usePokemonContext";
+import { useTrainerContext } from "./hooks/useTrainerContext";
 import user from "./assets/user.png";
 import poatek from "./assets/poatek.png";
 import { Trainer } from "./interface/interfaces";
 
 function App() {
   const navigate = useNavigate();
-  const { trainerList } = usePokemonContext();
+  const { trainerList } = useTrainerContext();
 
   function handleTrainer(trainer: Trainer) {
     localStorage.setItem("trainer", JSON.stringify(trainer));

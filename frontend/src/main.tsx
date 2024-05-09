@@ -5,6 +5,7 @@ import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PokemonProvider } from "./context/PokemonContext.tsx";
+import { TrainerProvider } from "./context/TrainerContext.tsx";
 import Pokedex from "./pokedex/index.tsx";
 
 const router = createBrowserRouter([
@@ -22,7 +23,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider>
       <PokemonProvider>
-        <RouterProvider router={router} />
+        <TrainerProvider>
+          <RouterProvider router={router} />
+        </TrainerProvider>
       </PokemonProvider>
     </ChakraProvider>
   </React.StrictMode>

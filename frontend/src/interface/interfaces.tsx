@@ -1,8 +1,8 @@
 export interface Trainer {
     id: number
     name: string;
-    pokemons: PokemonTrainer[];
     imageUrl: string;
+    pokemons: PokemonTrainer[];
 }
 
 export interface Pokemon {

@@ -3,55 +3,41 @@ import { Skeleton } from "@chakra-ui/react";
 import { usePokemonContext } from "../../../hooks/usePokemonContext";
 import { PokemonTrainer } from "../../../interface/interfaces";
 import { idFormater } from "../../utils/utils";
-import axios from "axios";
+import { useTrainerContext } from "../../../hooks/useTrainerContext";
 
 interface PokemonListProps {
   onOpen: () => void;
 }
 
 function PokemonList({ onOpen }: PokemonListProps) {
-  const { isLoading, totalPokemons, pokemonCard, getPokemonById } =
+  const { isLoading, totalPokemons, getPokemon, setPokemon } =
     usePokemonContext();
 
+  const { addPokemon } = useTrainerContext();
+  
   const trainerPokemonArray: (PokemonTrainer | null)[] = Array.from(
     { length: totalPokemons },
     () => null
   );
 
   const trainer = JSON.parse(localStorage.getItem("trainer")!);
-  console.log(trainer.pokemons);
+
   trainer.pokemons.map((pokemon: any) => {
     trainerPokemonArray[pokemon.id - 1] = pokemon;
   });
 
-  function handlePokemonClick(id: number) {
-    pokemonCard(id);
+  async function handlePokemonClick(id: number) {
+    const pokemon = await getPokemon(id);
+    setPokemon(pokemon);
     onOpen();
   }
 
-  async function addPokemon(id: number) {
-    if (!trainer) return;
+  async function catchPokemon(id: number) {
+    console.log("tentando capturar pokemon: ", id);
+    const newTrainer = await addPokemon(id);
+    console.log("novo treinador: ", newTrainer);
 
-    const pokemon = await getPokemonById(id);
-
-    const obj = {
-      id: pokemon.id,
-      name: pokemon.name,
-      imageUrl: pokemon.imageUrl,
-    };
-
-    const body = {
-      id: trainer.id,
-      name: trainer.name,
-      pokemons: [...trainer.pokemons, obj],
-    };
-
-    const response = await axios.put(
-      `http://localhost:5000/api/trainer/${trainer.id}`,
-      body
-    );
-    localStorage.setItem("trainer", JSON.stringify(response.data));
-
+    localStorage.setItem("trainer", JSON.stringify(newTrainer));
     window.location.reload();
   }
 
@@ -77,7 +63,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
         <div
           className="pokemon-card"
           key={index + 1}
-          onClick={() => addPokemon(index + 1)}
+          onClick={() => catchPokemon(index + 1)}
         >
           <div className="number">
             <p>#{idFormater(index + 1)}</p>
