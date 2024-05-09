@@ -5,6 +5,14 @@ import { usePokemonContext } from "../../../../hooks/usePokemonContext";
 function BaseStats() {
   const { pokemon } = usePokemonContext();
 
+  function colorScheme(base_stat: number) {
+    if (base_stat < 30) return "red";
+    if (base_stat < 60) return "orange";
+    if (base_stat < 90) return "yellow";
+    if (base_stat < 120) return "green";
+    return "blue";
+  }
+
   return (
     <div className="stats">
       <div className="name">
@@ -30,13 +38,7 @@ function BaseStats() {
             size={"xs"}
             hasStripe
             isAnimated
-            colorScheme={
-              Number(stat.base_stat) >= 100
-                ? "green"
-                : Number(stat.base_stat) >= 60
-                ? "yellow"
-                : "red"
-            }
+            colorScheme={colorScheme(stat.base_stat)}
             borderRadius={"10px"}
           />
         ))}
