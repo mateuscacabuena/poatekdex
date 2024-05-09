@@ -8,8 +8,8 @@ export const TrainerContext = createContext<TrainerContextType>(
 );
 
 interface TrainerContextType {
-  // trainer: Trainer;
-  // setTrainer: (trainer: Trainer) => void;
+  trainer: Trainer;
+  setTrainer: (trainer: Trainer) => void;
   trainerList: Trainer[];
   setTrainerList: (trainers: Trainer[]) => void;
   getTrainers: () => Trainer[];
@@ -19,7 +19,7 @@ interface TrainerContextType {
 }
 
 export const TrainerProvider = ({ children }: any) => {
-  // const [trainer, setTrainer] = useState<Trainer>();
+  const [trainer, setTrainer] = useState<Trainer>();
   const [trainerList, setTrainerList] = useState<Trainer[]>([]);
   const { getPokemon } = usePokemonContext();
 
@@ -34,7 +34,7 @@ export const TrainerProvider = ({ children }: any) => {
   }
 
   async function addPokemon(id: number) {
-    const trainer = JSON.parse(localStorage.getItem("trainer")!);
+    // const trainer = JSON.parse(localStorage.getItem("trainer")!);
     if (!trainer) return "Trainer not found";
     try {
       const pokemon = await getPokemon(id);
@@ -53,7 +53,6 @@ export const TrainerProvider = ({ children }: any) => {
       };
 
       const response = await TrainerAPI.updateTrainer(trainer.id, body);
-      console.log("retorna do addPokemon: ", response);
       return response;
     } catch (error) {
       console.error("Pokemon request error: ", error);
@@ -86,8 +85,8 @@ export const TrainerProvider = ({ children }: any) => {
     <TrainerContext.Provider
       value={
         {
-          // trainer,
-          // setTrainer,
+          trainer,
+          setTrainer,
           trainerList,
           setTrainerList,
           getTrainers,

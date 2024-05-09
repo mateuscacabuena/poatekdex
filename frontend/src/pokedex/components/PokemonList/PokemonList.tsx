@@ -1,29 +1,22 @@
 import "./styles.css";
 import { usePokemonContext } from "../../../hooks/usePokemonContext";
-import { PokemonTrainer } from "../../../interface/interfaces";
+import { TrainerPokemon } from "../../../interface/interfaces";
 import { idFormater } from "../../utils/utils";
 import { useTrainerContext } from "../../../hooks/useTrainerContext";
+import { useEffect, useState } from "react";
 
 interface PokemonListProps {
   onOpen: () => void;
 }
 
 function PokemonList({ onOpen }: PokemonListProps) {
-  const { totalPokemons, getPokemon, setPokemon } =
-    usePokemonContext();
+  const { totalPokemons, getPokemon, setPokemon } = usePokemonContext();
 
-  const { addPokemon } = useTrainerContext();
+  const { addPokemon, trainer, setTrainer } = useTrainerContext();
+  const [catchedPokemons, setCatchedPokemons] = useState<
+    (TrainerPokemon | null)[]
+  >([]);
 
-  const trainerPokemonArray: (PokemonTrainer | null)[] = Array.from(
-    { length: totalPokemons },
-    () => null
-  );
-
-  const trainer = JSON.parse(localStorage.getItem("trainer")!);
-
-  trainer.pokemons.map((pokemon: any) => {
-    trainerPokemonArray[pokemon.id - 1] = pokemon;
-  });
 
   async function handlePokemonClick(id: number) {
     const pokemon = await getPokemon(id);
@@ -33,12 +26,23 @@ function PokemonList({ onOpen }: PokemonListProps) {
 
   async function catchPokemon(id: number) {
     const newTrainer = await addPokemon(id);
-
-    localStorage.setItem("trainer", JSON.stringify(newTrainer));
-    window.location.reload();
+    setTrainer(newTrainer);
   }
 
-  function renderPokemonCard(pokemon: PokemonTrainer | null, index: number) {
+  useEffect(() => {
+    const trainerPokemonArray: (TrainerPokemon | null)[] = Array.from(
+      { length: totalPokemons },
+      () => null
+    );
+
+    trainer.pokemons.map((pokemon: any) => {
+      trainerPokemonArray[pokemon.id - 1] = pokemon;
+    });
+
+    setCatchedPokemons(trainerPokemonArray);
+  }, [trainer]);
+
+  function renderPokemonCard(pokemon: TrainerPokemon | null, index: number) {
     if (pokemon) {
       return (
         <div
@@ -49,7 +53,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
           <div className="number">
             <p>#{idFormater(pokemon.id)}</p>
           </div>
-          <img src={pokemon.imageUrl} alt={pokemon.name} loading="lazy"/>
+          <img src={pokemon.imageUrl} alt={pokemon.name} loading="lazy" />
           <div className="name">
             <p>{pokemon.name}</p>
           </div>
@@ -66,7 +70,9 @@ function PokemonList({ onOpen }: PokemonListProps) {
             <p>#???</p>
           </div>
           <img
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png`}
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+              index + 1
+            }.png`}
             className="unknown-image"
             alt={"unknown"}
             loading="lazy"
@@ -80,9 +86,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
   }
 
   return (
-    <div className="pokemon-list">
-      {trainerPokemonArray.map(renderPokemonCard)}
-    </div>
+    <div className="pokemon-list">{catchedPokemons.map(renderPokemonCard)}</div>
   );
 }
 

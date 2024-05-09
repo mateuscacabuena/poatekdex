@@ -24,16 +24,17 @@ import { useState } from "react";
 
 function App() {
   const navigate = useNavigate();
-  const { trainerList, excludeTrainer } = useTrainerContext();
+  const { trainerList, excludeTrainer, setTrainer } = useTrainerContext();
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
   function handleTrainer(trainer: Trainer) {
-    localStorage.setItem("trainer", JSON.stringify(trainer));
+    // localStorage.setItem("trainer", JSON.stringify(trainer));
+    setTrainer(trainer);
     navigate(`/pokedex`);
   }
 
-  function createTrainer() {}
+  function createTrainer() {console.log("teste")}
 
   return (
     <div className="App">

@@ -1,29 +1,29 @@
 export interface Trainer {
-    id: number
-    name: string;
-    imageUrl: string;
-    pokemons: PokemonTrainer[];
+  id: number;
+  name: string;
+  imageUrl: string;
+  pokemons: TrainerPokemon[];
 }
 
 export interface Pokemon {
-    id:number
-    name: string;
-    weight: number;
-    height: number;
-    imageUrl: string;
-    types: [String];
-    abilities: [String];
-    stats: Stat[];
-    description: string;
-};
+  id: number;
+  name: string;
+  weight: number;
+  height: number;
+  imageUrl: string;
+  types: [String];
+  abilities: [String];
+  stats: Stat[];
+  description: string;
+}
 
 interface Stat {
-    name: string;
-    base_stat: number;
-};
+  name: string;
+  base_stat: number;
+}
 
-export interface PokemonTrainer {
-    id: number;
-    name: string;
-    imageUrl: string;
-};
+export interface TrainerPokemon {
+  id: number;
+  name: string;
+  imageUrl: string;
+}
