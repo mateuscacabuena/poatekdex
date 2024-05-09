@@ -74,7 +74,7 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
             <h1 className="name">{pokemon.name}</h1>
             <p className="number">#{idFormater(pokemon.id)}</p>
           </div>
-          <img src={pokeball} alt="pokeball" className="pokeball-icon" />
+          <img src={pokeball} alt="pokeball" className="pokeball-icon" loading="eager"/>
           <ImageContainer handlePokemon={handlePokemon} />
           <div className="info">
             <Types />
