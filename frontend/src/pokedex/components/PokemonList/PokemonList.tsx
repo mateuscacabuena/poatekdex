@@ -1,5 +1,4 @@
 import "./styles.css";
-import { Skeleton } from "@chakra-ui/react";
 import { usePokemonContext } from "../../../hooks/usePokemonContext";
 import { PokemonTrainer } from "../../../interface/interfaces";
 import { idFormater } from "../../utils/utils";
@@ -10,7 +9,7 @@ interface PokemonListProps {
 }
 
 function PokemonList({ onOpen }: PokemonListProps) {
-  const { isLoading, totalPokemons, getPokemon, setPokemon } =
+  const { totalPokemons, getPokemon, setPokemon } =
     usePokemonContext();
 
   const { addPokemon } = useTrainerContext();
@@ -33,9 +32,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
   }
 
   async function catchPokemon(id: number) {
-    console.log("tentando capturar pokemon: ", id);
     const newTrainer = await addPokemon(id);
-    console.log("novo treinador: ", newTrainer);
 
     localStorage.setItem("trainer", JSON.stringify(newTrainer));
     window.location.reload();
@@ -84,10 +81,6 @@ function PokemonList({ onOpen }: PokemonListProps) {
 
   return (
     <div className="pokemon-list">
-      {isLoading &&
-        Array.from({ length: totalPokemons }).map((_, index) => (
-          <Skeleton key={index} height="110px" borderRadius=".5rem" />
-        ))}
       {trainerPokemonArray.map(renderPokemonCard)}
     </div>
   );

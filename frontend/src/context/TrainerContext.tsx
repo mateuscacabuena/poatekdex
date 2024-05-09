@@ -8,16 +8,18 @@ export const TrainerContext = createContext<TrainerContextType>(
 );
 
 interface TrainerContextType {
-  trainer: Trainer;
-  setTrainer: (trainer: Trainer) => void;
+  // trainer: Trainer;
+  // setTrainer: (trainer: Trainer) => void;
   trainerList: Trainer[];
   setTrainerList: (trainers: Trainer[]) => void;
   getTrainers: () => Trainer[];
   addPokemon: (id: number) => Trainer;
+  addTrainer: (trainer: Trainer) => Trainer;
+  excludeTrainer: (id: number) => Trainer;
 }
 
 export const TrainerProvider = ({ children }: any) => {
-  const [trainer, setTrainer] = useState<Trainer>();
+  // const [trainer, setTrainer] = useState<Trainer>();
   const [trainerList, setTrainerList] = useState<Trainer[]>([]);
   const { getPokemon } = usePokemonContext();
 
@@ -58,6 +60,24 @@ export const TrainerProvider = ({ children }: any) => {
     }
   }
 
+  async function excludeTrainer(id: number) {
+    try {
+      const response = await TrainerAPI.deleteTrainer(id);
+      return response;
+    } catch (error) {
+      console.error("Trainer request error: ", error);
+    }
+  }
+
+  async function addTrainer(trainer: Trainer) {
+    try {
+      const response = await TrainerAPI.createTrainer(trainer);
+      return response;
+    } catch (error) {
+      console.error("Trainer request error: ", error);
+    }
+  }
+
   useEffect(() => {
     getTrainers();
   }, []);
@@ -66,12 +86,14 @@ export const TrainerProvider = ({ children }: any) => {
     <TrainerContext.Provider
       value={
         {
-          trainer,
-          setTrainer,
+          // trainer,
+          // setTrainer,
           trainerList,
           setTrainerList,
           getTrainers,
           addPokemon,
+          addTrainer,
+          excludeTrainer,
         } as any
       }
     >
