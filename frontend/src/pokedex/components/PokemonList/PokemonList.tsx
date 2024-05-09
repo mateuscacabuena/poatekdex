@@ -1,6 +1,6 @@
 import "./styles.css";
 import { Skeleton } from "@chakra-ui/react";
-import { usePokemonContext } from "../../hooks/usePokemonContext";
+import { usePokemonContext } from "../../../hooks/usePokemonContext";
 import { PokemonTrainer } from "../../../interface/interfaces";
 import { idFormater } from "../../utils/utils";
 import axios from "axios";
@@ -19,7 +19,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
   );
 
   const trainer = JSON.parse(localStorage.getItem("trainer")!);
-console.log(trainer.pokemons)
+  console.log(trainer.pokemons);
   trainer.pokemons.map((pokemon: any) => {
     trainerPokemonArray[pokemon.id - 1] = pokemon;
   });
@@ -30,25 +30,28 @@ console.log(trainer.pokemons)
   }
 
   async function addPokemon(id: number) {
-    if(!trainer) return;
+    if (!trainer) return;
 
     const pokemon = await getPokemonById(id);
-    
+
     const obj = {
       id: pokemon.id,
       name: pokemon.name,
-      imageUrl: pokemon.imageUrl
-    }
+      imageUrl: pokemon.imageUrl,
+    };
 
     const body = {
       id: trainer.id,
       name: trainer.name,
-      pokemons: [...trainer.pokemons, obj]
-    }
+      pokemons: [...trainer.pokemons, obj],
+    };
 
-    const response = await axios.put(`http://localhost:5000/api/trainer/${trainer.id}`, body);
+    const response = await axios.put(
+      `http://localhost:5000/api/trainer/${trainer.id}`,
+      body
+    );
     localStorage.setItem("trainer", JSON.stringify(response.data));
-    
+
     window.location.reload();
   }
 
@@ -71,7 +74,11 @@ console.log(trainer.pokemons)
       );
     } else {
       return (
-        <div className="pokemon-card" key={index + 1} onClick={() => addPokemon(index + 1)}>
+        <div
+          className="pokemon-card"
+          key={index + 1}
+          onClick={() => addPokemon(index + 1)}
+        >
           <div className="number">
             <p>#{idFormater(index + 1)}</p>
           </div>

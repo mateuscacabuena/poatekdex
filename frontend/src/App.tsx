@@ -1,6 +1,6 @@
 import "./App.css";
 import { useNavigate } from "react-router-dom";
-import { usePokemonContext } from "./pokedex/hooks/usePokemonContext";
+import { usePokemonContext } from "./hooks/usePokemonContext";
 import user from "./assets/user.png";
 import poatek from "./assets/poatek.png";
 import { Trainer } from "./interface/interfaces";
@@ -36,8 +36,8 @@ function App() {
               </div>
               <div className="trainer-name">
                 <p>
-                  {trainer.name}, {trainer.pokemons ? trainer.pokemons.length : 0}{" "}
-                  pokemon(s)
+                  {trainer.name},{" "}
+                  {trainer.pokemons ? trainer.pokemons.length : 0} pokemon(s)
                 </p>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import "./styles.css";
-import { usePokemonContext } from "../../../hooks/usePokemonContext";
+import { usePokemonContext } from "../../../../hooks/usePokemonContext";
 
 function Types() {
   const { pokemon } = usePokemonContext();

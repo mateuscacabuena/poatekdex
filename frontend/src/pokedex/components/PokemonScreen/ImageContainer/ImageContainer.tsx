@@ -1,8 +1,7 @@
-
-import './styles.css';
+import "./styles.css";
 import { IconButton } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { usePokemonContext } from "../../../hooks/usePokemonContext";
+import { usePokemonContext } from "../../../../hooks/usePokemonContext";
 
 interface ImageContainerProps {
   handlePokemon: (direction: string) => void;

@@ -1,6 +1,6 @@
 import { Divider, Progress } from "@chakra-ui/react";
 import "./styles.css";
-import { usePokemonContext } from "../../../hooks/usePokemonContext";
+import { usePokemonContext } from "../../../../hooks/usePokemonContext";
 
 function BaseStats() {
   const { pokemon } = usePokemonContext();

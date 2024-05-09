@@ -9,10 +9,8 @@ import pokeball from "../../../assets/pokeball.svg";
 import About from "./About/About";
 import Types from "./Types/Types";
 import BaseStats from "./BaseStats/BaseStats";
-import {
-  ArrowBackIcon,
-} from "@chakra-ui/icons";
-import { usePokemonContext } from "../../hooks/usePokemonContext";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { usePokemonContext } from "../../../hooks/usePokemonContext";
 import { useState } from "react";
 import { idFormater } from "../../utils/utils";
 import ImageContainer from "./ImageContainer/ImageContainer";
@@ -82,9 +80,7 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
             <Types />
             <h2>About</h2>
             <About />
-            <p className="description">
-              {pokemon.description}
-            </p>
+            <p className="description">{pokemon.description}</p>
             <h2>Base Stats</h2>
             <BaseStats />
           </div>
