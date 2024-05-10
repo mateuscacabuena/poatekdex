@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import TrainerAPI from "../services/trainerAPI";
-import { Trainer } from "../interface/interfaces";
+import { Trainer, TrainerPokemon } from "../interface/interfaces";
 import { usePokemonContext } from "../hooks/usePokemonContext";
 
 export const TrainerContext = createContext<TrainerContextType>(
@@ -16,12 +16,17 @@ interface TrainerContextType {
   addPokemon: (id: number) => Trainer;
   addTrainer: (trainer: Trainer) => Trainer;
   excludeTrainer: (id: number) => Trainer;
+  catchedPokemons: (TrainerPokemon)[];
+  setCatchedPokemons: (catchedPokemons: (TrainerPokemon)[]) => void;
 }
 
 export const TrainerProvider = ({ children }: any) => {
   const [trainer, setTrainer] = useState<Trainer>();
   const [trainerList, setTrainerList] = useState<Trainer[]>([]);
-  const { getPokemon } = usePokemonContext();
+  const [catchedPokemons, setCatchedPokemons] = useState<
+    (TrainerPokemon)[]
+  >([]);
+  const { getPokemon, totalPokemons } = usePokemonContext();
 
   async function getTrainers() {
     try {
@@ -34,7 +39,6 @@ export const TrainerProvider = ({ children }: any) => {
   }
 
   async function addPokemon(id: number) {
-    // const trainer = JSON.parse(localStorage.getItem("trainer")!);
     if (!trainer) return "Trainer not found";
     try {
       const pokemon = await getPokemon(id);
@@ -81,6 +85,23 @@ export const TrainerProvider = ({ children }: any) => {
     getTrainers();
   }, []);
 
+  useEffect(() => {
+    const trainerPokemonArray: TrainerPokemon[] = Array.from(
+      { length: totalPokemons },
+      (_, index) => ({
+        id: index + 1,
+        name: "Unknown",
+        imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png`
+      })
+    );
+
+    trainer?.pokemons.map((pokemon: any) => {
+      trainerPokemonArray[pokemon.id - 1] = pokemon;
+    });
+
+    setCatchedPokemons(trainerPokemonArray);
+  }, [trainer]);
+
   return (
     <TrainerContext.Provider
       value={
@@ -93,6 +114,8 @@ export const TrainerProvider = ({ children }: any) => {
           addPokemon,
           addTrainer,
           excludeTrainer,
+          catchedPokemons,
+          setCatchedPokemons,
         } as any
       }
     >

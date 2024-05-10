@@ -41,7 +41,7 @@ export const PokemonProvider = ({ children }: any) => {
       console.error("Pokemon request error: ", error);
     }
   }
-
+  
   useEffect(() => {
     getPokemons();
   }, []);

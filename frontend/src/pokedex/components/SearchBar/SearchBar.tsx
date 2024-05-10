@@ -12,16 +12,18 @@ import {
 import { Search } from "../Icon/Search";
 import { Sort } from "../Icon/Sort";
 import { usePokemonContext } from "../../../hooks/usePokemonContext";
-import { Pokemon } from "../../../interface/interfaces";
+import { TrainerPokemon } from "../../../interface/interfaces";
 import { useEffect, useState } from "react";
+import { useTrainerContext } from "../../../hooks/useTrainerContext";
 
 interface SearchBarProps {
   onOpen: () => void;
 }
 
 function SearchBar({ onOpen }: SearchBarProps) {
-  const { setPokemon, pokemonList, setPokemonList } = usePokemonContext();
-  const [selectList, setSelectList] = useState<Pokemon[]>([]);
+  const { setPokemon, getPokemon } = usePokemonContext();
+  const { trainer, setCatchedPokemons, catchedPokemons } = useTrainerContext();
+  const [selectList, setSelectList] = useState<TrainerPokemon[]>([]);
   const [searchText, setSearchText] = useState("");
 
   function handleSearch() {
@@ -29,45 +31,47 @@ function SearchBar({ onOpen }: SearchBarProps) {
       setSelectList([]);
       return;
     }
-    const searchedList = [...pokemonList]
-      .filter((pokemon: Pokemon) => {
-        return pokemon.name.toLowerCase().startsWith(searchText.toLowerCase());
+
+    const searchedList = [...trainer.pokemons]
+      .filter((TrainerPokemon: TrainerPokemon) => {
+        return TrainerPokemon.name.toLowerCase().startsWith(searchText.toLowerCase());
       })
       .slice(0, 7);
     setSelectList(searchedList);
   }
 
-  function handleSelect(pokemon: Pokemon) {
+  async function handleSelect(TrainerPokemon: TrainerPokemon) {
+    const pokemon = await getPokemon(TrainerPokemon.id);
     setSearchText("");
     setPokemon(pokemon);
     onOpen();
   }
 
   function handleFilter(option: Number) {
-    if (!pokemonList) return;
-    let sortedList = [...pokemonList];
+    if (!trainer) return;
+    let sortedList = [...catchedPokemons];
 
     switch (option) {
       case 1:
-        sortedList.sort((a: Pokemon, b: Pokemon) => a.id - b.id);
+        sortedList.sort((a: TrainerPokemon, b: TrainerPokemon) => a.id - b.id);
         break;
       case 2:
-        sortedList.sort((a: Pokemon, b: Pokemon) => b.id - a.id);
+        sortedList.sort((a: TrainerPokemon, b: TrainerPokemon) => b.id - a.id);
         break;
       case 3:
-        sortedList.sort((a: Pokemon, b: Pokemon) =>
+        sortedList.sort((a: TrainerPokemon, b: TrainerPokemon) =>
           a.name.localeCompare(b.name)
         );
         break;
       case 4:
-        sortedList.sort((a: Pokemon, b: Pokemon) =>
+        sortedList.sort((a: TrainerPokemon, b: TrainerPokemon) =>
           b.name.localeCompare(a.name)
         );
         break;
       default:
         console.log("Invalid option");
     }
-    setPokemonList(sortedList);
+    setCatchedPokemons(sortedList);
   }
 
   useEffect(() => {
@@ -101,15 +105,15 @@ function SearchBar({ onOpen }: SearchBarProps) {
         </InputGroup>
         {selectList.length > 0 ? (
           <div className="select">
-            {selectList.map((pokemon) => (
+            {selectList.map((TrainerPokemon) => (
               <p
                 className="item"
-                key={pokemon.id}
+                key={TrainerPokemon.id}
                 onClick={() => {
-                  handleSelect(pokemon);
+                  handleSelect(TrainerPokemon);
                 }}
               >
-                {pokemon.name}
+                {TrainerPokemon.name}
               </p>
             ))}
           </div>

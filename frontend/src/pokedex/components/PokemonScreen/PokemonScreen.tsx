@@ -30,7 +30,7 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
   function handlePokemon(direction: String) {
     const offset = direction === "ArrowRight" ? 1 : -1;
     const newPokemon = pokemonList.find((p) => p.id === pokemon.id + offset);
-
+    
     if (newPokemon) {
       const slideAnimationIn =
         direction === "ArrowRight" ? "center-to-left" : "center-to-right";
