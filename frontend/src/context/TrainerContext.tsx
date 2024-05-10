@@ -72,7 +72,7 @@ export const TrainerProvider = ({ children }: any) => {
     }
   }
 
-  async function addTrainer(trainer: Trainer) {
+  async function createTrainer(trainer: Trainer) {
     try {
       const response = await TrainerAPI.createTrainer(trainer);
       return response;
@@ -83,7 +83,7 @@ export const TrainerProvider = ({ children }: any) => {
 
   useEffect(() => {
     getTrainers();
-  }, []);
+  }, [createTrainer, excludeTrainer]);
 
   useEffect(() => {
     const trainerPokemonArray: TrainerPokemon[] = Array.from(
@@ -112,7 +112,7 @@ export const TrainerProvider = ({ children }: any) => {
           setTrainerList,
           getTrainers,
           addPokemon,
-          addTrainer,
+          addTrainer: createTrainer,
           excludeTrainer,
           catchedPokemons,
           setCatchedPokemons,
