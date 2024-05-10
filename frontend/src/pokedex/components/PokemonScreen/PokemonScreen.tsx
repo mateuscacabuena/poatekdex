@@ -14,6 +14,7 @@ import { usePokemonContext } from "../../../hooks/usePokemonContext";
 import { useState } from "react";
 import { idFormater } from "../../utils/utils";
 import ImageContainer from "./ImageContainer/ImageContainer";
+import { useTrainerContext } from "../../../hooks/useTrainerContext";
 
 interface PokemonScreenProps {
   isOpen: boolean;
@@ -21,7 +22,8 @@ interface PokemonScreenProps {
 }
 
 function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
-  const { pokemon, setPokemon, pokemonList } = usePokemonContext();
+  const { pokemon, setPokemon, pokemonList, setIsUnknown } = usePokemonContext();
+  const { trainer } = useTrainerContext();
   const [slideAnimation, setSlideAnimation] = useState("");
   const firstType = pokemon.types[0];
 
@@ -35,9 +37,53 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
       const slideAnimationOut =
         direction === "ArrowRight" ? "right-to-center" : "left-to-center";
 
+      const unknownPokemon = {
+        id: newPokemon.id,
+        name: "???",
+        weight: 0,
+        height: 0,
+        imageUrl: newPokemon.imageUrl,
+        types: ["unknown"],
+        abilities: ["???"],
+        stats: [
+          {
+            name: "hp",
+            base_stat: 0,
+          },
+          {
+            name: "attack",
+            base_stat: 0,
+          },
+          {
+            name: "defense",
+            base_stat: 0,
+          },
+          {
+            name: "special-attack",
+            base_stat: 0,
+          },
+          {
+            name: "special-defense",
+            base_stat: 0,
+          },
+          {
+            name: "speed",
+            base_stat: 0,
+          },
+        ],
+        description: "This pokémon is unknown. Catch it to know more!",
+      };
+
       setSlideAnimation(slideAnimationIn);
       setTimeout(() => {
-        setPokemon(newPokemon);
+        const isPokemonCatched = trainer.pokemons.find((p) => p.id === newPokemon.id);
+        if (isPokemonCatched) {
+          setPokemon(newPokemon);
+          setIsUnknown(false)
+        } else {
+          setPokemon(unknownPokemon);
+          setIsUnknown(true);
+        }
         setSlideAnimation(slideAnimationOut);
         setTimeout(() => {
           setSlideAnimation("");
@@ -74,7 +120,12 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
             <h1 className="name">{pokemon.name}</h1>
             <p className="number">#{idFormater(pokemon.id)}</p>
           </div>
-          <img src={pokeball} alt="pokeball" className="pokeball-icon" loading="eager"/>
+          <img
+            src={pokeball}
+            alt="pokeball"
+            className="pokeball-icon"
+            loading="eager"
+          />
           <ImageContainer handlePokemon={handlePokemon} />
           <div className="info">
             <Types />

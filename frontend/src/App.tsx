@@ -29,7 +29,6 @@ function App() {
   const [imageUrl, setImageUrl] = useState("");
 
   function handleTrainer(trainer: Trainer) {
-    // localStorage.setItem("trainer", JSON.stringify(trainer));
     setTrainer(trainer);
     navigate(`/pokedex`);
   }

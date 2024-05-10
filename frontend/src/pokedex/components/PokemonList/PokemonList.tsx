@@ -10,17 +10,16 @@ interface PokemonListProps {
 }
 
 function PokemonList({ onOpen }: PokemonListProps) {
-  const { totalPokemons, getPokemon, setPokemon } = usePokemonContext();
-
+  const { totalPokemons, getPokemon, setPokemon, setIsUnknown } = usePokemonContext();
   const { addPokemon, trainer, setTrainer } = useTrainerContext();
   const [catchedPokemons, setCatchedPokemons] = useState<
     (TrainerPokemon | null)[]
   >([]);
 
-
   async function handlePokemonClick(id: number) {
     const pokemon = await getPokemon(id);
     setPokemon(pokemon);
+    setIsUnknown(false);
     onOpen();
   }
 
@@ -28,19 +27,6 @@ function PokemonList({ onOpen }: PokemonListProps) {
     const newTrainer = await addPokemon(id);
     setTrainer(newTrainer);
   }
-
-  useEffect(() => {
-    const trainerPokemonArray: (TrainerPokemon | null)[] = Array.from(
-      { length: totalPokemons },
-      () => null
-    );
-
-    trainer.pokemons.map((pokemon: any) => {
-      trainerPokemonArray[pokemon.id - 1] = pokemon;
-    });
-
-    setCatchedPokemons(trainerPokemonArray);
-  }, [trainer]);
 
   function renderPokemonCard(pokemon: TrainerPokemon | null, index: number) {
     if (pokemon) {
@@ -67,7 +53,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
           onClick={() => catchPokemon(index + 1)}
         >
           <div className="number">
-            <p>#???</p>
+            <p>#{idFormater(index + 1)}</p>
           </div>
           <img
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
@@ -84,6 +70,19 @@ function PokemonList({ onOpen }: PokemonListProps) {
       );
     }
   }
+
+  useEffect(() => {
+    const trainerPokemonArray: (TrainerPokemon | null)[] = Array.from(
+      { length: totalPokemons },
+      () => null
+    );
+
+    trainer.pokemons.map((pokemon: any) => {
+      trainerPokemonArray[pokemon.id - 1] = pokemon;
+    });
+
+    setCatchedPokemons(trainerPokemonArray);
+  }, [trainer]);
 
   return (
     <div className="pokemon-list">{catchedPokemons.map(renderPokemonCard)}</div>

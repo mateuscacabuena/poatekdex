@@ -8,7 +8,7 @@ interface ImageContainerProps {
 }
 
 function ImageContainer({ handlePokemon }: ImageContainerProps) {
-  const { pokemon } = usePokemonContext();
+  const { pokemon, isUnknown } = usePokemonContext();
 
   return (
     <div className="image-container">
@@ -23,7 +23,7 @@ function ImageContainer({ handlePokemon }: ImageContainerProps) {
       <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
         alt="pokemon image"
-        className="pokemon-image"
+        className= {isUnknown ? "unknown-image" : "pokemon-image"}
         loading="eager"
       />
       <IconButton

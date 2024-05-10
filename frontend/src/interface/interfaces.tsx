@@ -11,8 +11,8 @@ export interface Pokemon {
   weight: number;
   height: number;
   imageUrl: string;
-  types: [String];
-  abilities: [String];
+  types: String[];
+  abilities: String[];
   stats: Stat[];
   description: string;
 }

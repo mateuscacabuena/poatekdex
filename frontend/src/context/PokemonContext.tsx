@@ -11,7 +11,8 @@ interface PokemonContextType {
   setPokemon: (pokemon: Pokemon) => void;
   pokemonList: Pokemon[];
   setPokemonList: (pokemons: Pokemon[]) => void;
-  isLoading: boolean;
+  isUnknown: boolean;
+  setIsUnknown: (isUnknown: boolean) => void;
   totalPokemons: number;
   getPokemon: (id: number) => Pokemon;
 }
@@ -19,7 +20,7 @@ interface PokemonContextType {
 export const PokemonProvider = ({ children }: any) => {
   const [pokemon, setPokemon] = useState<Pokemon>();
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isUnknown, setIsUnknown] = useState<boolean>(false);
   const totalPokemons = 251;
 
   async function getPokemons() {
@@ -42,7 +43,6 @@ export const PokemonProvider = ({ children }: any) => {
   }
 
   useEffect(() => {
-    setIsLoading(false);
     getPokemons();
   }, []);
 
@@ -54,7 +54,8 @@ export const PokemonProvider = ({ children }: any) => {
           setPokemon,
           pokemonList,
           setPokemonList,
-          isLoading,
+          isUnknown,
+          setIsUnknown,
           totalPokemons,
           getPokemon,
         } as any
