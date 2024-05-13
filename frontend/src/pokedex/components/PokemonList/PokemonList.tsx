@@ -1,40 +1,52 @@
 import "./styles.css";
-import { Skeleton } from "@chakra-ui/react";
-import { usePokemonContext } from "../../hooks/usePokemonContext";
-import { Pokemon } from "../../../interface/interfaces";
-import { idFormater } from "../../utils/utils";
+import { usePokemonContext } from "../../../hooks/usePokemonContext";
+import { idFormater } from "../../../utils/utils";
+import { useTrainerContext } from "../../../hooks/useTrainerContext";
 
 interface PokemonListProps {
   onOpen: () => void;
 }
 
 function PokemonList({ onOpen }: PokemonListProps) {
-  const { setPokemon, isLoading, pokemonList, totalPokemons } =
-    usePokemonContext();
+  const { getPokemon, setPokemon, setIsUnknown } = usePokemonContext();
+  const { addPokemon, setTrainer, catchedPokemons } = useTrainerContext();
 
-  function handlePokemonClick(pokemon: Pokemon) {
+  async function handlePokemonClick(id: number) {
+    const pokemon = await getPokemon(id);
     setPokemon(pokemon);
+    setIsUnknown(false);
     onOpen();
+  }
+
+  async function catchPokemon(id: number) {
+    const newTrainer = await addPokemon(id);
+    localStorage.setItem("trainer", JSON.stringify(newTrainer));
+    setTrainer(newTrainer);
   }
 
   return (
     <div className="pokemon-list">
-      {isLoading &&
-        Array.from({ length: totalPokemons }).map((_, index) => (
-          <Skeleton key={index} height="110px" borderRadius=".5rem" />
-        ))}
-      {pokemonList.map((pokemon) => (
+      {catchedPokemons.map((pokemonTrainer) => (
         <div
           className="pokemon-card"
-          key={pokemon.id}
-          onClick={() => handlePokemonClick(pokemon)}
+          key={pokemonTrainer.id}
+          onClick={
+            pokemonTrainer.name == "Unknown"
+              ? () => catchPokemon(pokemonTrainer.id)
+              : () => handlePokemonClick(pokemonTrainer.id)
+          }
         >
           <div className="number">
-            <p>#{idFormater(pokemon.id)}</p>
+            <p>#{idFormater(pokemonTrainer.id)}</p>
           </div>
-          <img src={pokemon.img} alt={pokemon.name} />
+          <img
+            src={pokemonTrainer.imageUrl}
+            alt={pokemonTrainer.name}
+            loading="lazy"
+            className={pokemonTrainer.name == "Unknown" ? "unknown-image" : ""}
+          />
           <div className="name">
-            <p>{pokemon.name}</p>
+            <p>{pokemonTrainer.name}</p>
           </div>
         </div>
       ))}

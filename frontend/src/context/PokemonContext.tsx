@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { Pokemon, Trainer } from "../interface/interfaces";
-import { capitalizeFirstLetter } from "../pokedex/utils/utils";
-import axios from "axios";
+import { Pokemon } from "../interface/interfaces";
+import PokemonAPI from "../services/pokemonAPI";
 
 export const PokemonContext = createContext<PokemonContextType>(
   {} as PokemonContextType
@@ -10,76 +9,41 @@ export const PokemonContext = createContext<PokemonContextType>(
 interface PokemonContextType {
   pokemon: Pokemon;
   setPokemon: (pokemon: Pokemon) => void;
-  trainerList: Trainer[];
-  setTrainerList: (trainers: Trainer[]) => void;
   pokemonList: Pokemon[];
-  setPokemonList: (pokemon: Pokemon[]) => void;
-  isLoading: boolean;
+  setPokemonList: (pokemons: Pokemon[]) => void;
+  isUnknown: boolean;
+  setIsUnknown: (isUnknown: boolean) => void;
   totalPokemons: number;
+  getPokemon: (id: number) => Pokemon;
 }
 
 export const PokemonProvider = ({ children }: any) => {
   const [pokemon, setPokemon] = useState<Pokemon>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
-  const [trainerList, setTrainerList] = useState<Trainer[]>([]);
+  const [isUnknown, setIsUnknown] = useState<boolean>(false);
   const totalPokemons = 251;
 
-  async function fetchPokemons() {
-    const promises = [];
-    for (let i = 1; i <= totalPokemons; i++) {
-      promises.push(
-        fetch(`https://pokeapi.co/api/v2/pokemon/${i}`).then((response) =>
-          response.json()
-        )
-      );
-    }
-
-    const responses = await Promise.all(promises);
-    const pokemons = responses.map((response) => {
-      const { abilities, height, id, name, stats, types, weight } = response;
-      const capitalizedAbilities = abilities.map((ability: any) => {
-        return capitalizeFirstLetter(ability.ability.name);
-      });
-      const metresHeight = height / 10;
-      const capitalizedName = capitalizeFirstLetter(name);
-      const capitalizedTypes = types.map((type: any) => {
-        return capitalizeFirstLetter(type.type.name);
-      });
-      const kilogramsWeight = weight / 10;
-      const description = "Descrição";
-      const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-
-      return {
-        abilities: capitalizedAbilities,
-        description,
-        height: metresHeight,
-        id,
-        name: capitalizedName,
-        stats,
-        types: capitalizedTypes,
-        weight: kilogramsWeight,
-        img: img,
-      };
-    });
-
-    setPokemonList(pokemons);
-    setIsLoading(false);
-  }
-
-  async function fetchTrainers() {
+  async function getPokemons() {
     try {
-      const response = await axios.get("http://localhost:5000/api/trainer");
-      const trainers = response.data;
-      setTrainerList(trainers);
+      const pokemons = await PokemonAPI.getPokemonList();
+      setPokemonList(pokemons);
+      return pokemons;
     } catch (error) {
-      console.error("Erro ao recuperar os treinadores:", error);
+      console.error("Pokemon request error: ", error);
     }
   }
 
+  async function getPokemon(id: number) {
+    try {
+      const pokemon = await PokemonAPI.getPokemonById(id);
+      return pokemon;
+    } catch (error) {
+      console.error("Pokemon request error: ", error);
+    }
+  }
+  
   useEffect(() => {
-    fetchPokemons();
-    fetchTrainers();
+    getPokemons();
   }, []);
 
   return (
@@ -90,10 +54,10 @@ export const PokemonProvider = ({ children }: any) => {
           setPokemon,
           pokemonList,
           setPokemonList,
-          trainerList,
-          setTrainerList,
-          isLoading,
+          isUnknown,
+          setIsUnknown,
           totalPokemons,
+          getPokemon,
         } as any
       }
     >

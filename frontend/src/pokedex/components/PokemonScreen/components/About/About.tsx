@@ -1,8 +1,8 @@
-import weight from "../../../../assets/weight.svg";
-import straighten from "../../../../assets/straighten.svg";
+import weight from "../../../../../assets/weight.svg";
+import straighten from "../../../../../assets/straighten.svg";
 import "./styles.css";
 import { Divider } from "@chakra-ui/react";
-import { usePokemonContext } from "../../../hooks/usePokemonContext";
+import { usePokemonContext } from "../../../../../hooks/usePokemonContext";
 
 function About() {
   const { pokemon } = usePokemonContext();
@@ -37,7 +37,7 @@ function About() {
         <div className="attribute">
           <div className="ability">
             {pokemon.abilities.map((ability) => (
-              <p key={String(ability)}>{ability.toString()}</p>
+              <p key={String(ability)}>{ability}</p>
             ))}
           </div>
           <p className="attribute-name">Moves</p>

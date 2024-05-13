@@ -1,35 +1,19 @@
 import "./App.css";
-import { useNavigate } from "react-router-dom";
-import { usePokemonContext } from "./pokedex/hooks/usePokemonContext";
+import SelectTrainer from "./trainer/SelectTrainer";
+import poatek from "./assets/poatek.png";
 
 function App() {
-  const navigate = useNavigate();
-  const { trainerList } = usePokemonContext();
-
-  function handleTrainer() {
-    navigate(`/pokedex`);
-  }
 
   return (
     <div className="App">
-      <header className="trainer-header">
-        <h1>Bem-vindo à Poatekdex!</h1>
-        <p>Escolha a Pokedex que deseja acessar:</p>
+      <header>
+        <div className="title">
+          <img src={poatek} alt={"poatek logo"} />
+          <h1>Welcome to Poatekdex!</h1>
+        </div>
+        <p>Choose the pokédex you want access:</p>
       </header>
-      <main className="trainer-content">
-        {trainerList  &&
-          trainerList.map((trainer) => (
-            <div
-              className="trainer-card"
-              key={trainer.id}
-              onClick={() => handleTrainer()}
-            >
-              <div className="trainer-name">
-                <p>{trainer.name}</p>
-              </div>
-            </div>
-          ))}
-      </main>
+      <SelectTrainer />
     </div>
   );
 }

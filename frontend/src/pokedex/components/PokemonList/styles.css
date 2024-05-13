@@ -68,3 +68,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.unknown-image {
+  filter: brightness(0) saturate(100%) invert(18%) sepia(10%) saturate(322%) hue-rotate(325deg) brightness(101%) contrast(73%);
+}
