@@ -14,18 +14,16 @@ interface TrainerContextType {
   setTrainerList: (trainers: Trainer[]) => void;
   getTrainers: () => Trainer[];
   addPokemon: (id: number) => Trainer;
-  addTrainer: (trainer: Trainer) => Trainer;
+  createTrainer: (trainer: Trainer) => Trainer;
   excludeTrainer: (id: number) => Trainer;
-  catchedPokemons: (TrainerPokemon)[];
-  setCatchedPokemons: (catchedPokemons: (TrainerPokemon)[]) => void;
+  catchedPokemons: TrainerPokemon[];
+  setCatchedPokemons: (catchedPokemons: TrainerPokemon[]) => void;
 }
 
 export const TrainerProvider = ({ children }: any) => {
   const [trainer, setTrainer] = useState<Trainer>();
   const [trainerList, setTrainerList] = useState<Trainer[]>([]);
-  const [catchedPokemons, setCatchedPokemons] = useState<
-    (TrainerPokemon)[]
-  >([]);
+  const [catchedPokemons, setCatchedPokemons] = useState<TrainerPokemon[]>([]);
   const { getPokemon, totalPokemons } = usePokemonContext();
 
   async function getTrainers() {
@@ -35,6 +33,24 @@ export const TrainerProvider = ({ children }: any) => {
       return trainers;
     } catch (error) {
       console.error("Trainers request error: ", error);
+    }
+  }
+
+  async function createTrainer(trainer: Trainer) {
+    try {
+      const response = await TrainerAPI.createTrainer(trainer);
+      return response;
+    } catch (error) {
+      console.error("Trainer request error: ", error);
+    }
+  }
+
+  async function excludeTrainer(id: number) {
+    try {
+      const response = await TrainerAPI.deleteTrainer(id);
+      return response;
+    } catch (error) {
+      console.error("Trainer request error: ", error);
     }
   }
 
@@ -63,35 +79,15 @@ export const TrainerProvider = ({ children }: any) => {
     }
   }
 
-  async function excludeTrainer(id: number) {
-    try {
-      const response = await TrainerAPI.deleteTrainer(id);
-      return response;
-    } catch (error) {
-      console.error("Trainer request error: ", error);
-    }
-  }
-
-  async function createTrainer(trainer: Trainer) {
-    try {
-      const response = await TrainerAPI.createTrainer(trainer);
-      return response;
-    } catch (error) {
-      console.error("Trainer request error: ", error);
-    }
-  }
-
-  useEffect(() => {
-    getTrainers();
-  }, [createTrainer, excludeTrainer]);
-
   useEffect(() => {
     const trainerPokemonArray: TrainerPokemon[] = Array.from(
       { length: totalPokemons },
       (_, index) => ({
         id: index + 1,
         name: "Unknown",
-        imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png`
+        imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+          index + 1
+        }.png`,
       })
     );
 
@@ -101,6 +97,17 @@ export const TrainerProvider = ({ children }: any) => {
 
     setCatchedPokemons(trainerPokemonArray);
   }, [trainer]);
+
+  useEffect(() => {
+    getTrainers();
+  }, [createTrainer, excludeTrainer]);
+
+  useEffect(() => {
+    const localTrainer = localStorage.getItem("trainer");
+    if (localTrainer) {
+      setTrainer(JSON.parse(localTrainer));
+    }
+  }, []);
 
   return (
     <TrainerContext.Provider
@@ -112,7 +119,7 @@ export const TrainerProvider = ({ children }: any) => {
           setTrainerList,
           getTrainers,
           addPokemon,
-          addTrainer: createTrainer,
+          createTrainer,
           excludeTrainer,
           catchedPokemons,
           setCatchedPokemons,

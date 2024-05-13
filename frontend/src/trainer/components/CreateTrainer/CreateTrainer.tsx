@@ -13,14 +13,18 @@ import {
 import { useState } from "react";
 import TrainerAPI from "../../../services/trainerAPI";
 
-function CreateTrainerButton() {
+function CreateTrainer() {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   async function createTrainer() {
+    const id = await TrainerAPI.getTrainerList().then(
+      (trainers) => trainers.length
+    );
+
     const newTrainer = {
-      id: 0,
+      id: id + 1,
       name: name,
       imageUrl: imageUrl,
       pokemons: [],
@@ -48,14 +52,18 @@ function CreateTrainerButton() {
         <PopoverBody>
           <Input
             placeholder="Trainer Name"
+            my={1}
+            borderColor={"#DC0A2D"}
             onChange={(e) => setName(e.target.value)}
           />
           <Input
             placeholder="Trainer Image URL"
+            my={1}
+            borderColor={"#DC0A2D"}
             onChange={(e) => setImageUrl(e.target.value)}
           />
         </PopoverBody>
-        <PopoverFooter>
+        <PopoverFooter display={"flex"} justifyContent={"flex-end"}>
           <Button
             colorScheme="red"
             color={"white"}
@@ -70,4 +78,4 @@ function CreateTrainerButton() {
   );
 }
 
-export default CreateTrainerButton;
+export default CreateTrainer;

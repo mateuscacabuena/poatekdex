@@ -1,7 +1,7 @@
 import "./styles.css";
 import { IconButton } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { usePokemonContext } from "../../../../hooks/usePokemonContext";
+import { usePokemonContext } from "../../../../../hooks/usePokemonContext";
 
 interface ImageContainerProps {
   handlePokemon: (direction: string) => void;
@@ -23,7 +23,7 @@ function ImageContainer({ handlePokemon }: ImageContainerProps) {
       <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
         alt="pokemon image"
-        className= {isUnknown ? "unknown-image" : "pokemon-image"}
+        className={isUnknown ? "unknown-image" : "pokemon-image"}
         loading="eager"
       />
       <IconButton

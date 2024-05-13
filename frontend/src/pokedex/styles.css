@@ -1,47 +1,48 @@
 .Pokedex {
-    background-color: #DC0A2D;
-    max-height: 100vh;
-    color: white;
-    padding: 4px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .pokedex-header {
-    display: flex;
-    flex-direction: column;
-    padding: .75rem .75rem 1rem .75rem;
-    gap: .5rem;
-  }
-  
-  .pokedex-content {
-    background-color: #FFF;
-    border-radius: .5rem;
-    padding: 1rem .5rem .5rem;
-    overflow-y: scroll; 
-    scrollbar-width: none;
-    height: 100vh;
-  }
-  
-  .pokedex-title, .pokedex-trainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+  background-color: #dc0a2d;
+  max-height: 100vh;
+  color: white;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+}
 
-  .pokedex-trainer {
-    align-items: center;
-    gap: 1rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
+.pokedex-header {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0.75rem 1rem 0.75rem;
+  gap: 0.5rem;
+}
 
-  .change-trainer {
-    cursor: pointer;
-    font-size: small;
-  }
+.pokedex-content {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 1rem 0.5rem 0.5rem;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  height: 100vh;
+}
 
-  .change-trainer:hover {
-    text-decoration: underline;
-  }
+.pokedex-title,
+.pokedex-trainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pokedex-trainer {
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.change-trainer {
+  cursor: pointer;
+  font-size: small;
+}
+
+.change-trainer:hover {
+  text-decoration: underline;
+}

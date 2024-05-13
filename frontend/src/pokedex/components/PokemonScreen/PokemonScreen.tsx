@@ -6,14 +6,14 @@ import {
 } from "@chakra-ui/react";
 import "./styles.css";
 import pokeball from "../../../assets/pokeball.svg";
-import About from "./About/About";
-import Types from "./Types/Types";
-import BaseStats from "./BaseStats/BaseStats";
+import About from "./components/About/About";
+import Types from "./components/Types/Types";
+import BaseStats from "./components/BaseStats/BaseStats";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { usePokemonContext } from "../../../hooks/usePokemonContext";
 import { useState } from "react";
-import { idFormater } from "../../utils/utils";
-import ImageContainer from "./ImageContainer/ImageContainer";
+import { idFormater } from "../../../utils/utils";
+import ImageContainer from "./components/ImageContainer/ImageContainer";
 import { useTrainerContext } from "../../../hooks/useTrainerContext";
 
 interface PokemonScreenProps {
@@ -22,7 +22,8 @@ interface PokemonScreenProps {
 }
 
 function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
-  const { pokemon, setPokemon, pokemonList, setIsUnknown } = usePokemonContext();
+  const { pokemon, setPokemon, pokemonList, setIsUnknown } =
+    usePokemonContext();
   const { trainer } = useTrainerContext();
   const [slideAnimation, setSlideAnimation] = useState("");
   const firstType = pokemon.types[0];
@@ -30,7 +31,7 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
   function handlePokemon(direction: String) {
     const offset = direction === "ArrowRight" ? 1 : -1;
     const newPokemon = pokemonList.find((p) => p.id === pokemon.id + offset);
-    
+
     if (newPokemon) {
       const slideAnimationIn =
         direction === "ArrowRight" ? "center-to-left" : "center-to-right";
@@ -76,10 +77,12 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
 
       setSlideAnimation(slideAnimationIn);
       setTimeout(() => {
-        const isPokemonCatched = trainer.pokemons.find((p) => p.id === newPokemon.id);
+        const isPokemonCatched = trainer.pokemons.find(
+          (p) => p.id === newPokemon.id
+        );
         if (isPokemonCatched) {
           setPokemon(newPokemon);
-          setIsUnknown(false)
+          setIsUnknown(false);
         } else {
           setPokemon(unknownPokemon);
           setIsUnknown(true);

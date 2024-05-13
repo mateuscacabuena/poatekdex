@@ -1,6 +1,6 @@
 import "./styles.css";
 import { usePokemonContext } from "../../../hooks/usePokemonContext";
-import { idFormater } from "../../utils/utils";
+import { idFormater } from "../../../utils/utils";
 import { useTrainerContext } from "../../../hooks/useTrainerContext";
 
 interface PokemonListProps {
@@ -20,6 +20,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
 
   async function catchPokemon(id: number) {
     const newTrainer = await addPokemon(id);
+    localStorage.setItem("trainer", JSON.stringify(newTrainer));
     setTrainer(newTrainer);
   }
 

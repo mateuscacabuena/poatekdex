@@ -1,5 +1,5 @@
 import "./App.css";
-import SelectTrainer from "./trainer";
+import SelectTrainer from "./trainer/SelectTrainer";
 import poatek from "./assets/poatek.png";
 
 function App() {
