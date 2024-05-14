@@ -1,37 +1,29 @@
-export interface Pokemon {
-    abilities: Ability[];
-    description: string;
-    height: number;
-    id: number;
-    name: string;
-    stats: Stat[];
-    types: Type[];
-    weight: number;
-    img: string;
-};
-
-interface Stat {
-    base_stat: string;
-    effort: number;
-    stat: {
-        name: string;
-        url: string;
-    };
-};
-
-interface Type {
-    slot: number;
-    type: {
-        name: string;
-        url: string;
-    };
+export interface Trainer {
+  id: number;
+  name: string;
+  imageUrl: string;
+  pokemons: TrainerPokemon[];
 }
 
-interface Ability {
-    ability: {
-        name: string;
-        url: string;
-    };
-    is_hidden: boolean;
-    slot: number;
+export interface Pokemon {
+  id: number;
+  name: string;
+  weight: number;
+  height: number;
+  imageUrl: string;
+  types: String[];
+  abilities: String[];
+  stats: Stat[];
+  description: string;
+}
+
+interface Stat {
+  name: string;
+  base_stat: number;
+}
+
+export interface TrainerPokemon {
+  id: number;
+  name: string;
+  imageUrl: string;
 }

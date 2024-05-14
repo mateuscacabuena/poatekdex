@@ -1,0 +1,39 @@
+.trainer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trainer-list {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.trainer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.trainer-avatar {
+  border-radius: 100%;
+  padding: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  margin: 1rem;
+  transition: 0.3s ease-in-out;
+}
+
+.trainer-avatar img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100%;
+}
+
+.trainer-avatar:hover {
+  transform: scale(1.2);
+}
