@@ -101,11 +101,11 @@ describe('TrainerController', () => {
       // Arrange
       jest
         .spyOn(trainerService, 'findAll')
-        .mockRejectedValue(new Error('Failed to fetch trainers'));
+        .mockRejectedValueOnce(new Error());
 
       // Assert
       expect(trainerController.findAll()).rejects.toThrow(
-        new Error('Failed to fetch trainers'),
+        new Error(),
       );
     });
   });
@@ -131,6 +131,33 @@ describe('TrainerController', () => {
 
       // Assert
       expect(result).toEqual(newTrainer);
+      expect(trainerService.insertOne).toHaveBeenCalledTimes(1);
+      expect(trainerService.insertOne).toHaveBeenCalledWith(body);
+    });
+
+    it('should throw an exception', () => {
+      // Arrange
+      const body: TrainerDto = {
+        id: 4,
+        name: 'May',
+        imageUrl: 'https://example.com/may.jpg',
+        pokemons: [
+          {
+            id: 1,
+            name: 'Bulbasaur',
+            imageUrl: 'https://example.com/bulbasaur.jpg',
+          },
+        ],
+      };
+      
+      jest
+        .spyOn(trainerService, 'insertOne')
+        .mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(trainerController.create(newTrainer)).rejects.toThrow(
+        new Error(),
+      );
     });
   });
 });
