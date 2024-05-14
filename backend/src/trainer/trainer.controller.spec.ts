@@ -56,6 +56,19 @@ const newTrainer: Trainer = {
   ],
 };
 
+const updatedTrainer: Trainer = {
+  id: 1,
+  name: 'Ash Ketchum Updated',
+  imageUrl: 'https://example.com/ash.jpg',
+  pokemons: [
+    {
+      id: 25,
+      name: 'Pikachu',
+      imageUrl: 'https://example.com/pikachu.jpg',
+    },
+  ],
+};
+
 describe('TrainerController', () => {
   let trainerController: TrainerController;
   let trainerService: TrainerService;
@@ -70,7 +83,7 @@ describe('TrainerController', () => {
             findAll: jest.fn().mockResolvedValue(trainerList),
             findOne: jest.fn().mockResolvedValue(trainerList[0]),
             insertOne: jest.fn().mockResolvedValue(newTrainer),
-            updateOne: jest.fn(),
+            updateOne: jest.fn().mockResolvedValue(updatedTrainer),
             deleteOne: jest.fn(),
           },
         },
@@ -181,6 +194,57 @@ describe('TrainerController', () => {
 
       // Assert
       expect(trainerController.findOne(id)).rejects.toThrow();
+    });
+  });
+
+  describe('update', () => {
+    it('should update a trainer successfully', async () => {
+      // Arrange
+      const id = '1';
+      const body: TrainerDto = {
+        id: 1,
+        name: 'Ash Ketchum Updated',
+        imageUrl: 'https://example.com/ash.jpg',
+        pokemons: [
+          {
+            id: 25,
+            name: 'Pikachu',
+            imageUrl: 'https://example.com/pikachu.jpg',
+          },
+        ],
+      };
+
+      // Act
+      const result = await trainerController.updateOne(id, body);
+
+      // Assert
+      expect(result).toEqual(updatedTrainer);
+      expect(trainerService.updateOne).toHaveBeenCalledTimes(1);
+      expect(trainerService.updateOne).toHaveBeenCalledWith(id, body);
+    });
+
+    it('should throw an exception', () => {
+      // Arrange
+      const id = '1';
+      const body: TrainerDto = {
+        id: 1,
+        name: 'Ash Ketchum Updated',
+        imageUrl: 'https://example.com/ash.jpg',
+        pokemons: [
+          {
+            id: 25,
+            name: 'Pikachu',
+            imageUrl: 'https://example.com/pikachu.jpg',
+          },
+        ],
+      };
+
+      jest
+        .spyOn(trainerService, 'updateOne')
+        .mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(trainerController.updateOne(id, body)).rejects.toThrow();
     });
   });
 });
