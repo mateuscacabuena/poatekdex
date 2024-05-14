@@ -104,9 +104,7 @@ describe('TrainerController', () => {
         .mockRejectedValueOnce(new Error());
 
       // Assert
-      expect(trainerController.findAll()).rejects.toThrow(
-        new Error(),
-      );
+      expect(trainerController.findAll()).rejects.toThrow();
     });
   });
 
@@ -155,9 +153,7 @@ describe('TrainerController', () => {
         .mockRejectedValueOnce(new Error());
 
       // Assert
-      expect(trainerController.create(newTrainer)).rejects.toThrow(
-        new Error(),
-      );
+      expect(trainerController.create(newTrainer)).rejects.toThrow();
     });
   });
 
