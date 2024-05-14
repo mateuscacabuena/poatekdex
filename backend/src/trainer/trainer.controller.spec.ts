@@ -84,7 +84,7 @@ describe('TrainerController', () => {
             findOne: jest.fn().mockResolvedValue(trainerList[0]),
             insertOne: jest.fn().mockResolvedValue(newTrainer),
             updateOne: jest.fn().mockResolvedValue(updatedTrainer),
-            deleteOne: jest.fn(),
+            deleteOne: jest.fn().mockResolvedValue('Trainer successfully deleted!'),
           },
         },
       ],
@@ -245,6 +245,33 @@ describe('TrainerController', () => {
 
       // Assert
       expect(trainerController.updateOne(id, body)).rejects.toThrow();
+    });
+  });
+
+  describe('destroy', () => {
+    it('should delete a trainer successfully', async () => {
+      // Arrange
+      const id = '1';
+
+      // Act
+      const result = await trainerController.deleteOne(id);
+
+      // Assert
+      expect(result).toEqual('Trainer successfully deleted!');
+      expect(trainerService.deleteOne).toHaveBeenCalledTimes(1);
+      expect(trainerService.deleteOne).toHaveBeenCalledWith(id);
+    });
+
+    it('should throw an exception', () => {
+      // Arrange
+      const id = '1';
+
+      jest
+        .spyOn(trainerService, 'deleteOne')
+        .mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(trainerController.deleteOne(id)).rejects.toThrow();
     });
   });
 });
