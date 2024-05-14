@@ -68,7 +68,7 @@ describe('TrainerController', () => {
           provide: TrainerService,
           useValue: {
             findAll: jest.fn().mockResolvedValue(trainerList),
-            findOne: jest.fn(),
+            findOne: jest.fn().mockResolvedValue(trainerList[0]),
             insertOne: jest.fn().mockResolvedValue(newTrainer),
             updateOne: jest.fn(),
             deleteOne: jest.fn(),
@@ -149,7 +149,7 @@ describe('TrainerController', () => {
           },
         ],
       };
-      
+
       jest
         .spyOn(trainerService, 'insertOne')
         .mockRejectedValueOnce(new Error());
@@ -158,6 +158,33 @@ describe('TrainerController', () => {
       expect(trainerController.create(newTrainer)).rejects.toThrow(
         new Error(),
       );
+    });
+  });
+
+  describe('show', () => {
+    it('should get a trainer successfully', async () => {
+      // Arrange
+      const id = '1';
+
+      // Act
+      const result = await trainerController.findOne(id);
+
+      // Assert
+      expect(result).toEqual(trainerList[0]);
+      expect(trainerService.findOne).toHaveBeenCalledTimes(1);
+      expect(trainerService.findOne).toHaveBeenCalledWith(id);
+    });
+
+    it('should throw an exception', () => {
+      // Arrange
+      const id = '1';
+
+      jest
+        .spyOn(trainerService, 'findOne')
+        .mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(trainerController.findOne(id)).rejects.toThrow();
     });
   });
 });
