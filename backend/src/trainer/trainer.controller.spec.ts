@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TrainerController } from './trainer.controller';
 import { TrainerService } from './trainer.service';
 import { Trainer } from './trainer.schema';
+import { TrainerDto } from './trainer.dto';
 
 const trainerList: Trainer[] = [
   {
@@ -42,6 +43,19 @@ const trainerList: Trainer[] = [
   },
 ];
 
+const newTrainer: Trainer = {
+  id: 4,
+  name: 'May',
+  imageUrl: 'https://example.com/may.jpg',
+  pokemons: [
+    {
+      id: 1,
+      name: 'Bulbasaur',
+      imageUrl: 'https://example.com/bulbasaur.jpg',
+    },
+  ],
+};
+
 describe('TrainerController', () => {
   let trainerController: TrainerController;
   let trainerService: TrainerService;
@@ -55,7 +69,7 @@ describe('TrainerController', () => {
           useValue: {
             findAll: jest.fn().mockResolvedValue(trainerList),
             findOne: jest.fn(),
-            insertOne: jest.fn(),
+            insertOne: jest.fn().mockResolvedValue(newTrainer),
             updateOne: jest.fn(),
             deleteOne: jest.fn(),
           },
@@ -85,10 +99,38 @@ describe('TrainerController', () => {
 
     it('should throw an exception', () => {
       // Arrange
-      jest.spyOn(trainerService, 'findAll').mockRejectedValue(new Error('Failed to fetch trainers'));
-      
+      jest
+        .spyOn(trainerService, 'findAll')
+        .mockRejectedValue(new Error('Failed to fetch trainers'));
+
       // Assert
-      expect(trainerController.findAll()).rejects.toThrowError('Failed to fetch trainers');
+      expect(trainerController.findAll()).rejects.toThrow(
+        new Error('Failed to fetch trainers'),
+      );
+    });
+  });
+
+  describe('store', () => {
+    it('should create a new trainer successfully', async () => {
+      // Arrange
+      const body: TrainerDto = {
+        id: 4,
+        name: 'May',
+        imageUrl: 'https://example.com/may.jpg',
+        pokemons: [
+          {
+            id: 1,
+            name: 'Bulbasaur',
+            imageUrl: 'https://example.com/bulbasaur.jpg',
+          },
+        ],
+      };
+
+      // Act
+      const result = await trainerController.create(body);
+
+      // Assert
+      expect(result).toEqual(newTrainer);
     });
   });
 });
