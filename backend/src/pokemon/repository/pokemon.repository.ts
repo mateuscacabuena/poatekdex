@@ -1,6 +1,6 @@
 import { Injectable, Param } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Pokemon } from './pokemon.schema';
+import { Pokemon } from '../pokemon.schema';
 import { Model } from 'mongoose';
 
 @Injectable()

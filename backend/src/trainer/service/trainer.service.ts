@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TrainerRepository } from './trainer.repository';
+import { TrainerRepository } from '../repository/trainer.repository';
 import { Trainer } from '../trainer.schema';
 
 @Injectable()

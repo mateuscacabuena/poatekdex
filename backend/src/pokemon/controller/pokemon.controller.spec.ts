@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PokemonController } from './controller/pokemon.controller';
-import { PokemonService } from './service/pokemon.service';
-import { Pokemon } from './pokemon.schema';
-import { PokemonDto } from './pokemon.dto';
+import { PokemonController } from '../controller/pokemon.controller';
+import { PokemonService } from '../service/pokemon.service';
+import { Pokemon } from '../pokemon.schema';
+import { PokemonDto } from '../pokemon.dto';
 
 const pokemonList: Pokemon[] = [
   {
