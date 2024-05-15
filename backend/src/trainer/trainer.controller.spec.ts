@@ -121,6 +121,31 @@ describe('TrainerController', () => {
     });
   });
 
+  describe('show', () => {
+    it('should get a trainer successfully', async () => {
+      // Arrange
+      const id = '1';
+
+      // Act
+      const result = await trainerController.findOne(id);
+
+      // Assert
+      expect(result).toEqual(trainerList[0]);
+      expect(trainerService.findOne).toHaveBeenCalledTimes(1);
+      expect(trainerService.findOne).toHaveBeenCalledWith(id);
+    });
+
+    it('should throw an exception', () => {
+      // Arrange
+      const id = '1';
+
+      jest.spyOn(trainerService, 'findOne').mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(trainerController.findOne(id)).rejects.toThrow();
+    });
+  });
+
   describe('store', () => {
     it('should create a new trainer successfully', async () => {
       // Arrange
@@ -167,31 +192,6 @@ describe('TrainerController', () => {
 
       // Assert
       expect(trainerController.create(newTrainer)).rejects.toThrow();
-    });
-  });
-
-  describe('show', () => {
-    it('should get a trainer successfully', async () => {
-      // Arrange
-      const id = '1';
-
-      // Act
-      const result = await trainerController.findOne(id);
-
-      // Assert
-      expect(result).toEqual(trainerList[0]);
-      expect(trainerService.findOne).toHaveBeenCalledTimes(1);
-      expect(trainerService.findOne).toHaveBeenCalledWith(id);
-    });
-
-    it('should throw an exception', () => {
-      // Arrange
-      const id = '1';
-
-      jest.spyOn(trainerService, 'findOne').mockRejectedValueOnce(new Error());
-
-      // Assert
-      expect(trainerController.findOne(id)).rejects.toThrow();
     });
   });
 
