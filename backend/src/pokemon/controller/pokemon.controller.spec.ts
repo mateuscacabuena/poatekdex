@@ -146,7 +146,7 @@ describe('PokemonController', () => {
       jest.spyOn(pokemonService, 'findAll').mockRejectedValueOnce(new Error());
 
       // Assert
-      expect(pokemonController.findAll()).rejects.toThrow();
+      expect(pokemonController.findAll()).rejects.toThrow(new Error());
     });
   });
 
@@ -171,7 +171,7 @@ describe('PokemonController', () => {
       jest.spyOn(pokemonService, 'findOne').mockRejectedValueOnce(new Error());
 
       // Assert
-      expect(pokemonController.findOne(id)).rejects.toThrow();
+      expect(pokemonController.findOne(id)).rejects.toThrow(new Error());
     });
   });
 
@@ -185,7 +185,7 @@ describe('PokemonController', () => {
         height: 0.6,
         imageUrl: 'https://example.com/charmander.jpg',
         types: ['Fire'],
-        abilities: ['Flamethrower'], // ?
+        abilities: ['Flamethrower', 'Ember'],
         stats: {
           hp: 39,
           attack: 52,
@@ -234,7 +234,7 @@ describe('PokemonController', () => {
         .mockRejectedValueOnce(new Error());
 
       // Assert
-      expect(pokemonController.create(body)).rejects.toThrow();
+      expect(pokemonController.create(body)).rejects.toThrow(new Error());
     });
   });
 
@@ -297,7 +297,7 @@ describe('PokemonController', () => {
         .mockRejectedValueOnce(new Error());
 
       // Assert
-      expect(pokemonController.updateOne(id, body)).rejects.toThrow();
+      expect(pokemonController.updateOne(id, body)).rejects.toThrow(new Error());
     });
   });
 
@@ -324,7 +324,7 @@ describe('PokemonController', () => {
         .mockRejectedValueOnce(new Error());
 
       // Assert
-      expect(pokemonController.delete(id)).rejects.toThrow();
+      expect(pokemonController.delete(id)).rejects.toThrow(new Error());
     });
   });
 });
