@@ -68,7 +68,7 @@ const newPokemon: Pokemon = {
   height: 0.6,
   imageUrl: 'https://example.com/charmander.jpg',
   types: ['Fire'],
-  abilities: ['Flamethrower'], // ?
+  abilities: ['Flamethrower', 'Ember'],
   stats: {
     hp: 39,
     attack: 52,
@@ -78,6 +78,25 @@ const newPokemon: Pokemon = {
     specialDefense: 50,
   },
   description: 'The flame on its tail shows the strength of its life force.',
+};
+
+const updatedPokemon: Pokemon = {
+  id: 1,
+  name: 'Bulbasaur With Razor Leaf',
+  weight: 6.9,
+  height: 0.7,
+  imageUrl: 'https://example.com/bulbasaur.jpg',
+  types: ['Grass', 'Poison'],
+  abilities: ['Razor Leaf'],
+  stats: {
+    hp: 45,
+    attack: 49,
+    defense: 49,
+    speed: 45,
+    specialAttack: 65,
+    specialDefense: 65,
+  },
+  description: 'Bulbasaur can be seen napping in bright sunlight.',
 };
 
 describe('PokemonController', () => {
@@ -94,7 +113,7 @@ describe('PokemonController', () => {
             findAll: jest.fn().mockResolvedValue(pokemonList),
             findOne: jest.fn().mockResolvedValue(pokemonList[0]),
             insertOne: jest.fn().mockResolvedValue(newPokemon),
-            updateOne: jest.fn().mockResolvedValue({}),
+            updateOne: jest.fn().mockResolvedValue(updatedPokemon),
             deleteOne: jest.fn().mockResolvedValue({}),
           },
         },
@@ -195,7 +214,7 @@ describe('PokemonController', () => {
         height: 0.6,
         imageUrl: 'https://example.com/charmander.jpg',
         types: ['Fire'],
-        abilities: ['Flamethrower'], // ?
+        abilities: ['Flamethrower', 'Ember'],
         stats: {
           hp: 39,
           attack: 52,
@@ -217,11 +236,68 @@ describe('PokemonController', () => {
     });
   });
 
-  // describe('update', () => {
-  //   it('should update a trainer', () => {
-  //     expect(controller.update(1, updatedTrainer)).toEqual(updatedTrainer);
-  //   });
-  // });
+  describe('update', () => {
+    it('should update a pokemon successfully', async () => {
+      // Arrange
+      const id = '1';
+      const body: PokemonDto = {
+        id: 1,
+        name: 'Bulbasaur With Razor Leaf',
+        weight: 6.9,
+        height: 0.7,
+        imageUrl: 'https://example.com/bulbasaur.jpg',
+        types: ['Grass', 'Poison'],
+        abilities: ['Razor Leaf'],
+        stats: {
+          hp: 45,
+          attack: 49,
+          defense: 49,
+          speed: 45,
+          specialAttack: 65,
+          specialDefense: 65,
+        },
+        description: 'Bulbasaur can be seen napping in bright sunlight.',
+      };
+
+      // Act
+      const result = await pokemonController.updateOne(id, body);
+
+      // Assert
+      expect(result).toEqual(updatedPokemon);
+      expect(pokemonService.updateOne).toHaveBeenCalledTimes(1);
+      expect(pokemonService.updateOne).toHaveBeenCalledWith(id, body);
+    });
+
+    it('should throw an exception', () => {
+      // Arrange
+      const id = '1';
+      const body: PokemonDto = {
+        id: 1,
+        name: 'Bulbasaur With Razor Leaf',
+        weight: 6.9,
+        height: 0.7,
+        imageUrl: 'https://example.com/bulbasaur.jpg',
+        types: ['Grass', 'Poison'],
+        abilities: ['Razor Leaf'],
+        stats: {
+          hp: 45,
+          attack: 49,
+          defense: 49,
+          speed: 45,
+          specialAttack: 65,
+          specialDefense: 65,
+        },
+        description: 'Bulbasaur can be seen napping in bright sunlight.',
+      };
+
+      jest
+        .spyOn(pokemonService, 'updateOne')
+        .mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(pokemonController.updateOne(id, body)).rejects.toThrow();
+    });
+  });
 
   // describe('remove', () => {
   //   it('should remove a trainer', () => {
