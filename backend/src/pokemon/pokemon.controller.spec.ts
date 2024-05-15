@@ -114,7 +114,7 @@ describe('PokemonController', () => {
             findOne: jest.fn().mockResolvedValue(pokemonList[0]),
             insertOne: jest.fn().mockResolvedValue(newPokemon),
             updateOne: jest.fn().mockResolvedValue(updatedPokemon),
-            deleteOne: jest.fn().mockResolvedValue({}),
+            deleteOne: jest.fn().mockResolvedValue('Pokemon successfully deleted!'),
           },
         },
       ],
@@ -299,9 +299,30 @@ describe('PokemonController', () => {
     });
   });
 
-  // describe('remove', () => {
-  //   it('should remove a trainer', () => {
-  //     expect(controller.remove(1)).toEqual(trainers[0]);
-  //   });
-  // });
+  describe('remove', () => {
+    it('should delete a pokemon successfully', async () => {
+        // Arrange
+        const id = '1';
+    
+        // Act
+        const result = await pokemonController.delete(id);
+    
+        // Assert
+        expect(result).toEqual('Pokemon successfully deleted!');
+        expect(pokemonService.deleteOne).toHaveBeenCalledTimes(1);
+        expect(pokemonService.deleteOne).toHaveBeenCalledWith(id);
+    });
+
+    it('should throw an exception', () => {
+        // Arrange
+        const id = '1';
+    
+        jest
+          .spyOn(pokemonService, 'deleteOne')
+          .mockRejectedValueOnce(new Error());
+    
+        // Assert
+        expect(pokemonController.delete(id)).rejects.toThrow();
+    });
+  });
 });
