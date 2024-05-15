@@ -246,7 +246,7 @@ describe('TrainerController', () => {
     });
   });
 
-  describe('destroy', () => {
+  describe('remove', () => {
     it('should delete a trainer successfully', async () => {
       // Arrange
       const id = '1';
