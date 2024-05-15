@@ -72,7 +72,7 @@ describe('PokemonController', () => {
           provide: PokemonService,
           useValue: {
             findAll: jest.fn().mockResolvedValue(pokemonList),
-            findOne: jest.fn().mockResolvedValue({}),
+            findOne: jest.fn().mockResolvedValue(pokemonList),
             insertOne: jest.fn().mockResolvedValue({}),
             updateOne: jest.fn().mockResolvedValue({}),
             deleteOne: jest.fn().mockResolvedValue({}),
@@ -109,11 +109,30 @@ describe('PokemonController', () => {
     });
   });
 
-  // describe('findOne', () => {
-  //   it('should return a trainer', () => {
-  //     expect(controller.findOne(1)).toEqual(trainers[0]);
-  //   });
-  // });
+  describe('show', () => {
+    it('should get a pokemon successfully', async () => {
+      // Arrange
+      const id = '1';
+
+      // Act
+      const result = await pokemonController.findOne(id);
+
+      // Assert
+      expect(result).toEqual(pokemonList[0]);
+      expect(pokemonService.findOne).toHaveBeenCalledTimes(1);
+      expect(pokemonService.findOne).toHaveBeenCalledWith(id);
+    });
+
+    it('should throw an exception', () => {
+      // Arrange
+      const id = '1';
+
+      jest.spyOn(pokemonService, 'findOne').mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(pokemonController.findOne(id)).rejects.toThrow();
+    });
+  });
 
   // describe('create', () => {
   //   it('should create a trainer', () => {
