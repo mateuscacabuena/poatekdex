@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PokemonController } from './pokemon.controller';
 import { PokemonService } from './pokemon.service';
 import { Pokemon } from './pokemon.schema';
+import { PokemonDto } from './pokemon.dto';
 
 const pokemonList: Pokemon[] = [
   {
@@ -60,6 +61,25 @@ const pokemonList: Pokemon[] = [
   },
 ];
 
+const newPokemon: Pokemon = {
+  id: 4,
+  name: 'Charmander',
+  weight: 8.5,
+  height: 0.6,
+  imageUrl: 'https://example.com/charmander.jpg',
+  types: ['Fire'],
+  abilities: ['Flamethrower'], // ?
+  stats: {
+    hp: 39,
+    attack: 52,
+    defense: 43,
+    speed: 65,
+    specialAttack: 60,
+    specialDefense: 50,
+  },
+  description: 'The flame on its tail shows the strength of its life force.',
+};
+
 describe('PokemonController', () => {
   let pokemonController: PokemonController;
   let pokemonService: PokemonService;
@@ -72,8 +92,8 @@ describe('PokemonController', () => {
           provide: PokemonService,
           useValue: {
             findAll: jest.fn().mockResolvedValue(pokemonList),
-            findOne: jest.fn().mockResolvedValue(pokemonList),
-            insertOne: jest.fn().mockResolvedValue({}),
+            findOne: jest.fn().mockResolvedValue(pokemonList[0]),
+            insertOne: jest.fn().mockResolvedValue(newPokemon),
             updateOne: jest.fn().mockResolvedValue({}),
             deleteOne: jest.fn().mockResolvedValue({}),
           },
@@ -134,11 +154,68 @@ describe('PokemonController', () => {
     });
   });
 
-  // describe('create', () => {
-  //   it('should create a trainer', () => {
-  //     expect(controller.create(newTrainer)).toEqual(newTrainer);
-  //   });
-  // });
+  describe('store', () => {
+    it('should create a new pokemon successfully', async () => {
+      // Arrange
+      const body: PokemonDto = {
+        id: 4,
+        name: 'Charmander',
+        weight: 8.5,
+        height: 0.6,
+        imageUrl: 'https://example.com/charmander.jpg',
+        types: ['Fire'],
+        abilities: ['Flamethrower'], // ?
+        stats: {
+          hp: 39,
+          attack: 52,
+          defense: 43,
+          speed: 65,
+          specialAttack: 60,
+          specialDefense: 50,
+        },
+        description:
+          'The flame on its tail shows the strength of its life force.',
+      };
+
+      // Act
+      const result = await pokemonController.create(body);
+
+      // Assert
+      expect(result).toEqual(newPokemon);
+      expect(pokemonService.insertOne).toHaveBeenCalledTimes(1);
+      expect(pokemonService.insertOne).toHaveBeenCalledWith(body);
+    });
+
+    it('should throw an exception', () => {
+      // Arrange
+      const body: PokemonDto = {
+        id: 4,
+        name: 'Charmander',
+        weight: 8.5,
+        height: 0.6,
+        imageUrl: 'https://example.com/charmander.jpg',
+        types: ['Fire'],
+        abilities: ['Flamethrower'], // ?
+        stats: {
+          hp: 39,
+          attack: 52,
+          defense: 43,
+          speed: 65,
+          specialAttack: 60,
+          specialDefense: 50,
+        },
+        description:
+          'The flame on its tail shows the strength of its life force.',
+      };
+
+      jest
+        .spyOn(pokemonService, 'insertOne')
+        .mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(pokemonController.create(body)).rejects.toThrow();
+    });
+  });
 
   // describe('update', () => {
   //   it('should update a trainer', () => {
