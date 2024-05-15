@@ -36,12 +36,12 @@ export class PokemonController {
   }
 
   @Post()
-  create(@Body() pokemonDto: PokemonDto) {
-    const result = this.pokemonService.insertOne(pokemonDto);
+  async create(@Body() pokemonDto: PokemonDto) {
+    const result = await this.pokemonService.insertOne(pokemonDto);
 
     if (!result) throw new NotFoundException();
 
-    return 'Pokemon successfully created!';
+    return result;
   }
 
   @Put(':id')
@@ -53,7 +53,7 @@ export class PokemonController {
 
     if (!result) throw new NotFoundException();
 
-    return 'Pokemon successfully updated!';
+    return result;
   }
 
   @Delete(':id')
