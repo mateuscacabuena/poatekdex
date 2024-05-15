@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { TrainerRepository } from './trainer.repository';
-import { Trainer } from './trainer.schema';
+import { Trainer } from '../trainer.schema';
 
 @Injectable()
 export class TrainerService {

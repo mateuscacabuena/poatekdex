@@ -8,8 +8,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { PokemonService } from './pokemon.service';
-import { PokemonDto } from './pokemon.dto';
+import { PokemonService } from '../service/pokemon.service';
+import { PokemonDto } from '../pokemon.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('pokemon')
@@ -45,10 +45,7 @@ export class PokemonController {
   }
 
   @Put(':id')
-  async updateOne(
-    @Param('id') id: string,
-    @Body() pokemonDto: PokemonDto,
-  ) {
+  async updateOne(@Param('id') id: string, @Body() pokemonDto: PokemonDto) {
     const result = await this.pokemonService.updateOne(id, pokemonDto);
 
     if (!result) throw new NotFoundException();

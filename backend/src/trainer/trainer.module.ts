@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Trainer, TrainerSchema } from './trainer.schema';
 import { TrainerController } from './trainer.controller';
-import { TrainerService } from './trainer.service';
+import { TrainerService } from './service/trainer.service';
 import { TrainerRepository } from './trainer.repository';
 
 @Module({

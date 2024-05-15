@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TrainerController } from './trainer.controller';
-import { TrainerService } from './trainer.service';
-import { Trainer } from './trainer.schema';
-import { TrainerDto } from './trainer.dto';
+import { TrainerService } from '../service/trainer.service';
+import { Trainer } from '../trainer.schema';
+import { TrainerDto } from '../trainer.dto';
 
 const trainerList: Trainer[] = [
   {

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PokemonController } from './pokemon.controller';
-import { PokemonService } from './pokemon.service';
+import { PokemonController } from './controller/pokemon.controller';
+import { PokemonService } from './service/pokemon.service';
 import { Pokemon } from './pokemon.schema';
 import { PokemonDto } from './pokemon.dto';
 
@@ -114,7 +114,9 @@ describe('PokemonController', () => {
             findOne: jest.fn().mockResolvedValue(pokemonList[0]),
             insertOne: jest.fn().mockResolvedValue(newPokemon),
             updateOne: jest.fn().mockResolvedValue(updatedPokemon),
-            deleteOne: jest.fn().mockResolvedValue('Pokemon successfully deleted!'),
+            deleteOne: jest
+              .fn()
+              .mockResolvedValue('Pokemon successfully deleted!'),
           },
         },
       ],
@@ -301,28 +303,28 @@ describe('PokemonController', () => {
 
   describe('remove', () => {
     it('should delete a pokemon successfully', async () => {
-        // Arrange
-        const id = '1';
-    
-        // Act
-        const result = await pokemonController.delete(id);
-    
-        // Assert
-        expect(result).toEqual('Pokemon successfully deleted!');
-        expect(pokemonService.deleteOne).toHaveBeenCalledTimes(1);
-        expect(pokemonService.deleteOne).toHaveBeenCalledWith(id);
+      // Arrange
+      const id = '1';
+
+      // Act
+      const result = await pokemonController.delete(id);
+
+      // Assert
+      expect(result).toEqual('Pokemon successfully deleted!');
+      expect(pokemonService.deleteOne).toHaveBeenCalledTimes(1);
+      expect(pokemonService.deleteOne).toHaveBeenCalledWith(id);
     });
 
     it('should throw an exception', () => {
-        // Arrange
-        const id = '1';
-    
-        jest
-          .spyOn(pokemonService, 'deleteOne')
-          .mockRejectedValueOnce(new Error());
-    
-        // Assert
-        expect(pokemonController.delete(id)).rejects.toThrow();
+      // Arrange
+      const id = '1';
+
+      jest
+        .spyOn(pokemonService, 'deleteOne')
+        .mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(pokemonController.delete(id)).rejects.toThrow();
     });
   });
 });
