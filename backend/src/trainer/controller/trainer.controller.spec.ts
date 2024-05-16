@@ -101,7 +101,7 @@ describe('TrainerController', () => {
     expect(trainerService).toBeDefined();
   });
 
-  describe('index', () => {
+  describe('findAll', () => {
     it('should return a trainer list successfully', async () => {
       // Arrange (Prepare the data)
       // Act (Run the test)
@@ -121,7 +121,7 @@ describe('TrainerController', () => {
     });
   });
 
-  describe('show', () => {
+  describe('findOne', () => {
     it('should get a trainer successfully', async () => {
       // Arrange
       const id = '1';
@@ -146,7 +146,7 @@ describe('TrainerController', () => {
     });
   });
 
-  describe('store', () => {
+  describe('insertOne', () => {
     it('should create a new trainer successfully', async () => {
       // Arrange
       const body: TrainerDto = {
