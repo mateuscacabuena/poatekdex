@@ -12,9 +12,9 @@ The backend was developed with **NestJS**, a Node.js framework that helps build 
 
 ## Features
 
-- **Pokémon Search:** Allows users to search for Pokémon by name or Pokédex number.
+- **Pokémon Search:** Allows users to search for Pokémon by name.
 - **Pokémon Details:** Displays detailed information about each Pokémon, such as types, abilities, and base stats.
-- **Pokémon Listing:** Shows a paginated list of Pokémon, with the ability to filter by types.
+- **Pokémon Listing:** Shows a paginated list of Pokémon, with the ability to filter by name and number.
 - **Responsiveness:** Interface adapted for different screen sizes, providing a consistent user experience on both mobile and desktop devices.
 
 ## Technologies Used
