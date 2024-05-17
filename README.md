@@ -1,4 +1,4 @@
-# Pokedex
+# Poatekdex <img src="https://i.pinimg.com/originals/92/64/d5/9264d5ec77eec85e69b81c66449afb3c.png" alt="Pokedex Logo" width="30" />
 
 This repository contains a Pokedex project developed as a practice to apply the knowledge acquired at the company Batatinha. The project is divided into two main parts:
 
