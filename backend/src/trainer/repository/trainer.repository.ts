@@ -10,11 +10,11 @@ export class TrainerRepository {
   ) {}
 
   async getAll(): Promise<Trainer[]> {
-    return await this.trainerModel.find().exec();
+    return await this.trainerModel.find();
   }
 
   async getById(id: string): Promise<Trainer> {
-    return await this.trainerModel.findOne({ id: id }).exec();
+    return await this.trainerModel.findOne({ id: id });
   }
 
   async add(trainer: Trainer): Promise<Trainer> {
@@ -23,11 +23,10 @@ export class TrainerRepository {
 
   async update(id: string, trainer: Trainer): Promise<Trainer> {
     return await this.trainerModel
-      .findOneAndUpdate({ id: id }, trainer, { new: true })
-      .exec();
+      .findOneAndUpdate({ id: id }, trainer, { new: true });
   }
 
   async delete(id: string): Promise<Trainer> {
-    return await this.trainerModel.findOneAndDelete({ id: id }).exec();
+    return await this.trainerModel.findOneAndDelete({ id: id });
   }
 }

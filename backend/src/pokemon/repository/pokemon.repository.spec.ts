@@ -208,7 +208,7 @@ describe('PokemonRepository', () => {
       };
 
       // Act
-      const result = await pokemonRepository.add(newPokemon);
+      const result = await pokemonRepository.add(body);
 
       // Assert
       expect(result).toEqual(newPokemon);

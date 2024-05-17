@@ -201,7 +201,7 @@ describe('PokemonService', () => {
       };
 
       // Act
-      const result = await pokemonService.insertOne(newPokemon);
+      const result = await pokemonService.insertOne(body);
 
       // Assert
       expect(result).toEqual(newPokemon);

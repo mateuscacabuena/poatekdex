@@ -10,11 +10,11 @@ export class PokemonRepository {
   ) {}
 
   async getAll(): Promise<Pokemon[]> {
-    return await this.pokemonModel.find().exec();
+    return await this.pokemonModel.find();
   }
 
   getById(id: string): Promise<Pokemon> {
-    return this.pokemonModel.findOne({ id: id }).exec();
+    return this.pokemonModel.findOne({ id: id });
   }
 
   async add(pokemon: Pokemon): Promise<Pokemon> {
@@ -22,12 +22,12 @@ export class PokemonRepository {
   }
 
   async update(id: string, pokemon: Pokemon): Promise<Pokemon> {
-    return await this.pokemonModel
-      .findOneAndUpdate({ id: id }, pokemon, { new: true })
-      .exec();
+    return await this.pokemonModel.findOneAndUpdate({ id: id }, pokemon, {
+      new: true,
+    });
   }
 
   async delete(id: string): Promise<Pokemon> {
-    return await this.pokemonModel.findOneAndDelete({ id: id }).exec();
+    return await this.pokemonModel.findOneAndDelete({ id: id });
   }
 }
