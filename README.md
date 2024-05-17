@@ -1,14 +1,14 @@
-# Poatekdex <img src="https://i.pinimg.com/originals/92/64/d5/9264d5ec77eec85e69b81c66449afb3c.png" alt="Pokedex Logo" width="30" />
+# Poatekdex <img src="https://i.pinimg.com/originals/92/64/d5/9264d5ec77eec85e69b81c66449afb3c.png" alt="Pokédex Logo" width="30" />
 
-This repository contains a Pokedex project developed as a practice to apply the knowledge acquired at the company Batatinha. The project is divided into two main parts:
+This repository contains a Pokédex project developed as a practice to apply the knowledge acquired at the company Batatinha. The project is divided into two main parts:
 
 ## Frontend
 
-The frontend was built using **React**, a popular JavaScript library for creating user interfaces. The Pokedex interface allows users to search and view detailed information about various Pokémon, including their types, abilities, stats, and more.
+The frontend was built using **React**, a popular JavaScript library for creating user interfaces. The Pokédex interface allows users to search and view detailed information about various Pokémon, including their types, abilities, stats, and more.
 
 ## Backend
 
-The backend was developed with **NestJS**, a Node.js framework that helps build efficient and scalable server-side applications. The Pokedex backend is responsible for managing and providing data about the Pokémon, interacting with third-party APIs or internal databases to offer accurate and up-to-date information.
+The backend was developed with **NestJS**, a Node.js framework that helps build efficient and scalable server-side applications. The Pokédex backend is responsible for managing and providing data about the Pokémon, interacting with third-party APIs or internal databases to offer accurate and up-to-date information.
 
 ## Features
 
