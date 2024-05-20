@@ -131,7 +131,7 @@ describe('PokemonController', () => {
     expect(pokemonService).toBeDefined();
   });
 
-  describe('index', () => {
+  describe('getAll', () => {
     it('should return a pokemon list successfully', async () => {
       // Act
       const result = await pokemonController.findAll();
@@ -150,7 +150,7 @@ describe('PokemonController', () => {
     });
   });
 
-  describe('show', () => {
+  describe('findOne', () => {
     it('should get a pokemon successfully', async () => {
       // Arrange
       const id = '1';
@@ -175,7 +175,7 @@ describe('PokemonController', () => {
     });
   });
 
-  describe('store', () => {
+  describe('create', () => {
     it('should create a new pokemon successfully', async () => {
       // Arrange
       const body: PokemonDto = {
@@ -238,7 +238,7 @@ describe('PokemonController', () => {
     });
   });
 
-  describe('update', () => {
+  describe('updateOne', () => {
     it('should update a pokemon successfully', async () => {
       // Arrange
       const id = '1';
@@ -301,7 +301,7 @@ describe('PokemonController', () => {
     });
   });
 
-  describe('remove', () => {
+  describe('delete', () => {
     it('should delete a pokemon successfully', async () => {
       // Arrange
       const id = '1';
