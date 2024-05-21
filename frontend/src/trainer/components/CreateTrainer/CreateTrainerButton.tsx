@@ -51,12 +51,14 @@ function CreateTrainerButton() {
         <PopoverHeader>Fill the form below</PopoverHeader>
         <PopoverBody>
           <Input
+            name="name"
             placeholder="Trainer Name"
             my={1}
             borderColor={"#DC0A2D"}
             onChange={(e) => setName(e.target.value)}
           />
           <Input
+            name="imageUrl"
             placeholder="Trainer Image URL"
             my={1}
             borderColor={"#DC0A2D"}
@@ -65,6 +67,7 @@ function CreateTrainerButton() {
         </PopoverBody>
         <PopoverFooter display={"flex"} justifyContent={"flex-end"}>
           <Button
+            type="submit"
             colorScheme="red"
             color={"white"}
             leftIcon={<CheckIcon />}
