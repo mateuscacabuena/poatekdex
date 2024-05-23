@@ -14,7 +14,7 @@ function BaseStats() {
   }
 
   return (
-    <div className="stats">
+    <div className="stats" data-cy="pokemon-stats">
       <div className="name">
         <p>HP</p>
         <p>ATK</p>

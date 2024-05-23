@@ -25,7 +25,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
   }
 
   return (
-    <div className="pokemon-list">
+    <div className="pokemon-list" data-cy="pokemon-list" >
       {catchedPokemons.map((pokemonTrainer) => (
         <div
           className="pokemon-card"

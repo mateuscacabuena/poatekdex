@@ -8,7 +8,7 @@ export class PokemonDto {
   name: string;
 
   @ApiProperty({ example: ['grass', 'poison'], description: 'The types of the Pokemon'})
-  types: [string];
+  types: string[];
 
   @ApiProperty({ example: 7, description: 'The height of the Pokemon'})
   height: number;
@@ -17,7 +17,7 @@ export class PokemonDto {
   weight: number;
 
   @ApiProperty({ example: ['overgrow', 'chlorophyll'], description: 'The abilities of the Pokemon'})
-  abilities: [string];
+  abilities: string[];
 
   @ApiProperty({ example: {
     hp: 45,

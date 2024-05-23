@@ -39,6 +39,7 @@ export const TrainerProvider = ({ children }: any) => {
   async function createTrainer(trainer: Trainer) {
     try {
       const response = await TrainerAPI.createTrainer(trainer);
+      await getTrainers()
       return response;
     } catch (error) {
       console.error("Trainer request error: ", error);
@@ -47,7 +48,9 @@ export const TrainerProvider = ({ children }: any) => {
 
   async function excludeTrainer(id: number) {
     try {
+      if(id === 1) return "You can't delete the first trainer";
       const response = await TrainerAPI.deleteTrainer(id);
+      await getTrainers()
       return response;
     } catch (error) {
       console.error("Trainer request error: ", error);
@@ -100,9 +103,6 @@ export const TrainerProvider = ({ children }: any) => {
 
   useEffect(() => {
     getTrainers();
-  }, [createTrainer, excludeTrainer]);
-
-  useEffect(() => {
     const localTrainer = localStorage.getItem("trainer");
     if (localTrainer) {
       setTrainer(JSON.parse(localTrainer));
