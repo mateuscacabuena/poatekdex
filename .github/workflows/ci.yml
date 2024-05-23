@@ -41,10 +41,13 @@ jobs:
         working-directory: ./frontend
 
       - name: Start backend
-        run: npm run start
+        run: npm run start &
         working-directory: ./backend
         env:
           MONGO_URI: ${{ env.MONGO_URI }}
+
+      - name: Wait for backend to be available
+        run: sleep 30 # Ajuste o tempo conforme necessário para garantir que o backend esteja disponível
 
       - name: Start frontend
         run: npm run dev
