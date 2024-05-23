@@ -18,7 +18,7 @@ describe("Filter Functionality", () => {
 
     it("Then I open the filter menu", () => {
       // Click on the filter button
-      cy.get('[data-cy="menu-button"]').click();
+      cy.get('[aria-label="filter button"]').click();
     });
 
     it("Then I should filter the list by name A-Z", () => {
@@ -36,7 +36,7 @@ describe("Filter Functionality", () => {
   describe("List by name Z-A", () => {
     it("Given I open the filter menu", () => {
       // Click on the filter button
-      cy.get('[data-cy="menu-button"]').click();
+      cy.get('[aria-label="filter button"]').click();
     });
 
     it("Then I should filter the list by name Z-A", () => {
@@ -54,7 +54,7 @@ describe("Filter Functionality", () => {
   describe("List by the highest number", () => {
     it("Given I open the filter menu", () => {
       // Click on the filter button
-      cy.get('[data-cy="menu-button"]').click();
+      cy.get('[aria-label="filter button"]').click();
     });
 
     it("Then I should filter the list by the highest number", () => {
@@ -72,7 +72,7 @@ describe("Filter Functionality", () => {
   describe("List by the lowest number", () => {
     it("Given I open the filter menu", () => {
       // Click on the filter button
-      cy.get('[data-cy="menu-button"]').click();
+      cy.get('[aria-label="filter button"]').click();
     });
 
     it("Then I should filter the list by the lowest number", () => {
