@@ -21,7 +21,7 @@ jobs:
 
       - name: Install backend dependencies
         run: npm install
-        working-directory: poatekdex/backend
+        working-directory: ./backend
 
       - name: Install frontend dependencies
         run: npm install
