@@ -9,6 +9,19 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand({ ping: 1 })'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      MONGO_URI: mongodb://localhost:27017/poatekdex # Ajuste conforme necessário
 
     steps:
       - name: Checkout code
@@ -30,10 +43,14 @@ jobs:
       - name: Start backend
         run: npm run start
         working-directory: ./backend
+        env:
+          MONGO_URI: ${{ env.MONGO_URI }}
 
       - name: Start frontend
         run: npm run dev
         working-directory: ./frontend
+        env:
+          CI: true
 
       - name: Run Cypress tests
         run: npx cypress run
