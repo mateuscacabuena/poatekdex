@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.13.1'
+
+      - name: Install backend dependencies
+        run: npm install
+        working-directory: poatekdex/backend
+
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: poatekdex/frontend
+
+      - name: Start backend
+        run: npm run start &
+        working-directory: poatekdex/backend
+
+      - name: Start frontend
+        run: npm run dev &
+        working-directory: poatekdex/frontend
+        env:
+          CI: true
+
+      - name: Wait for frontend to be available
+        run: npx wait-on http://localhost:5173
+        working-directory: poatekdex/frontend
+
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v5
+
+        with: 
+          browser: chrome
+          start: npm run dev
+          wait-on: 'http://localhost:5173'
+          working-directory: poatekdex/frontend
