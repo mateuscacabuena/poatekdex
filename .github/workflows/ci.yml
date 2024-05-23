@@ -37,11 +37,6 @@ jobs:
         env:
           CI: true
 
-      - name: Wait for frontend to be available
-        run: npx wait-on http://localhost:5173
-        working-directory: ./frontend
-
-
       - name: Run Cypress tests
         run: npx cypress run
         working-directory: ./frontend
