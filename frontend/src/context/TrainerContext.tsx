@@ -48,6 +48,7 @@ export const TrainerProvider = ({ children }: any) => {
 
   async function excludeTrainer(id: number) {
     try {
+      if(id === 1) return "You can't delete the first trainer";
       const response = await TrainerAPI.deleteTrainer(id);
       await getTrainers()
       return response;
