@@ -1,9 +1,5 @@
 import "./styles.css";
-import {
-  Input,
-  InputGroup,
-  InputLeftElement,
-} from "@chakra-ui/react";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { Search } from "../../../Icon/Search";
 import { TrainerPokemon } from "../../../../../interface/interfaces";
 import { useEffect, useState } from "react";
@@ -45,6 +41,7 @@ function SearchInput({ handleSelect }: SearchInputProps) {
           <Search boxSize={"1.2rem"} />
         </InputLeftElement>
         <Input
+          name="search"
           type="text"
           placeholder="Search"
           transition={"0.3s ease"}
@@ -63,7 +60,7 @@ function SearchInput({ handleSelect }: SearchInputProps) {
         />
       </InputGroup>
       {selectList.length > 0 ? (
-        <div className="select">
+        <div className="select" data-cy="select-list">
           {selectList.map((TrainerPokemon) => (
             <p
               className="item"

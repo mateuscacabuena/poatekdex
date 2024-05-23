@@ -8,7 +8,7 @@ function About() {
   const { pokemon } = usePokemonContext();
 
   return (
-    <div className="About">
+    <div className="About" data-cy="pokemon-about">
       <div className="attribute-content">
         <div className="attribute">
           <div className="weight">

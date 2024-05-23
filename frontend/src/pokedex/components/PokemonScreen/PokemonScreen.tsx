@@ -110,7 +110,10 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
           handlePokemon(event.key);
         }}
       >
-        <div className={"pokemon-screen " + firstType + " " + slideAnimation}>
+        <div
+          className={"pokemon-screen " + firstType + " " + slideAnimation}
+          data-cy="pokemon-screen"
+        >
           <div className="title">
             <IconButton
               aria-label="Close"
