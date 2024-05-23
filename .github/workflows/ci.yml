@@ -25,21 +25,21 @@ jobs:
 
       - name: Install frontend dependencies
         run: npm install
-        working-directory: poatekdex/frontend
+        working-directory: ./frontend
 
       - name: Start backend
         run: npm run start &
-        working-directory: poatekdex/backend
+        working-directory: ./backend
 
       - name: Start frontend
         run: npm run dev &
-        working-directory: poatekdex/frontend
+        working-directory: ./frontend
         env:
           CI: true
 
       - name: Wait for frontend to be available
         run: npx wait-on http://localhost:5173
-        working-directory: poatekdex/frontend
+        working-directory: ./frontend
 
 
       - name: Run Cypress tests
@@ -49,4 +49,4 @@ jobs:
           browser: chrome
           start: npm run dev
           wait-on: 'http://localhost:5173'
-          working-directory: poatekdex/frontend
+          working-directory: ./frontend
