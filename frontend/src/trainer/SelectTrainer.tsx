@@ -5,7 +5,7 @@ import user from "../assets/user.png";
 import { Trainer } from "../interface/interfaces";
 import { IconButton } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
-import CreateTrainer from "./components/CreateTrainer/CreateTrainer";
+import CreateTrainerButton from "./components/CreateTrainer/CreateTrainerButton";
 
 function SelectTrainer() {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ function SelectTrainer() {
             </div>
           ))}
       </div>
-      <CreateTrainer />
+      <CreateTrainerButton />
     </main>
   );
 }

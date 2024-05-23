@@ -5,7 +5,7 @@ function Types() {
   const { pokemon } = usePokemonContext();
 
   return (
-    <div className="Types">
+    <div className="Types" data-cy="pokemon-types">
       {pokemon.types.map((type) => (
         <div className={`type ${type}`} key={type.toString()}>
           {type}

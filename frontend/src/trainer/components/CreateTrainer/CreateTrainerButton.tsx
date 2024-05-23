@@ -11,17 +11,16 @@ import {
   PopoverCloseButton,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import TrainerAPI from "../../../services/trainerAPI";
+import { useTrainerContext } from "../../../hooks/useTrainerContext";
 
-function CreateTrainer() {
+function CreateTrainerButton() {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { createTrainer, trainerList } = useTrainerContext();
 
-  async function createTrainer() {
-    const id = await TrainerAPI.getTrainerList().then(
-      (trainers) => trainers.length
-    );
+  function addTrainer() {
+    const id = trainerList.length;
 
     const newTrainer = {
       id: id + 1,
@@ -31,13 +30,14 @@ function CreateTrainer() {
     };
 
     try {
-      const response = await TrainerAPI.createTrainer(newTrainer);
+      const response = createTrainer(newTrainer);
       onClose();
       return response;
     } catch (error) {
       console.error("Trainer request error: ", error);
     }
   }
+
   return (
     <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
       <PopoverTrigger>
@@ -51,12 +51,14 @@ function CreateTrainer() {
         <PopoverHeader>Fill the form below</PopoverHeader>
         <PopoverBody>
           <Input
+            name="name"
             placeholder="Trainer Name"
             my={1}
             borderColor={"#DC0A2D"}
             onChange={(e) => setName(e.target.value)}
           />
           <Input
+            name="imageUrl"
             placeholder="Trainer Image URL"
             my={1}
             borderColor={"#DC0A2D"}
@@ -65,10 +67,11 @@ function CreateTrainer() {
         </PopoverBody>
         <PopoverFooter display={"flex"} justifyContent={"flex-end"}>
           <Button
+            type="submit"
             colorScheme="red"
             color={"white"}
             leftIcon={<CheckIcon />}
-            onClick={() => createTrainer()}
+            onClick={() => addTrainer()}
           >
             Create
           </Button>
@@ -78,4 +81,4 @@ function CreateTrainer() {
   );
 }
 
-export default CreateTrainer;
+export default CreateTrainerButton;
