@@ -28,14 +28,12 @@ jobs:
         working-directory: ./frontend
 
       - name: Start backend
-        run: npm run start &
+        run: npm run start
         working-directory: ./backend
 
       - name: Start frontend
-        run: npm run dev &
+        run: npm run dev
         working-directory: ./frontend
-        env:
-          CI: true
 
       - name: Run Cypress tests
         run: npx cypress run
