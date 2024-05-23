@@ -22,6 +22,7 @@ describe("Trainer Screen", () => {
     };
     it("Given I am on the select trainer page", () => {
       cy.visit("/");
+      cy.url().should("include", "/");
     });
 
     it("Then I click on the create trainer button", () => {
@@ -52,26 +53,26 @@ describe("Trainer Screen", () => {
   });
 
   describe("Choose a trainer", () => {
-    it("Given I am on the select trainer page", () => {
-      cy.visit("/");
-    });
-
-    it("Then I click on a trainer", () => {
+    it("Given I click on a trainer", () => {
       cy.get(".trainer-avatar").first().click();
     });
 
-    it("Then I should be on the pokedex page", () => {
+    it("And I should be on the pokedex page", () => {
       cy.url().should("include", "/pokedex");
+      cy.visit("/");
     });
   });
 
+
   describe("Deleting a trainer", () => {
-    it("Given I am on the select trainer page", () => {
-      cy.visit("/");
+    it("Given I click on the delete trainer button", () => {
+      // Open the popover
+      cy.get('button[aria-label="Exclude Trainer"]').last().click();
     });
 
-    it("Then I click on the delete trainer button", () => {
-      cy.get('button[aria-label="Exclude Trainer"]').last().click();
+    it("And I should not see the deleted trainer in the list", () => {
+      // Verify the trainer is not in the list
+      cy.get(".trainer-card").should("not.contain", "Mateus");
     });
   });
 });
