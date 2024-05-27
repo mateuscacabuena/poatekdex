@@ -52,6 +52,7 @@ function CreateTrainerButton() {
         <PopoverBody>
           <Input
             name="name"
+            data-cy="name"
             placeholder="Trainer Name"
             my={1}
             borderColor={"#DC0A2D"}
@@ -59,6 +60,7 @@ function CreateTrainerButton() {
           />
           <Input
             name="imageUrl"
+            data-cy="imageUrl"
             placeholder="Trainer Image URL"
             my={1}
             borderColor={"#DC0A2D"}
@@ -68,6 +70,7 @@ function CreateTrainerButton() {
         <PopoverFooter display={"flex"} justifyContent={"flex-end"}>
           <Button
             type="submit"
+            data-cy="submit"
             colorScheme="red"
             color={"white"}
             leftIcon={<CheckIcon />}

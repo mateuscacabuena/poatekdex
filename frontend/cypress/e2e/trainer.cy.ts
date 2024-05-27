@@ -2,13 +2,13 @@
 
 class TrainerForm {
   fillName(name: string) {
-    cy.get('input[name="name"]').type(name);
+    cy.get('[data-cy="name"]').type(name);
   }
   fillImageUrl(imageUrl: string) {
-    cy.get('input[name="imageUrl"]').type(imageUrl);
+    cy.get('[data-cy="imageUrl"]').type(imageUrl);
   }
   submit() {
-    cy.get('button[type="submit"]').click();
+    cy.get('[data-cy="submit"]').click();
   }
 }
 
@@ -27,19 +27,19 @@ describe("Trainer Screen", () => {
 
     it("Then I click on the create trainer button", () => {
       // Open the popover
-      cy.get("button").contains("Create Trainer").click();
-      cy.get('input[name="name"]').should("be.visible");
-      cy.get('input[name="imageUrl"]').should("be.visible");
+      cy.contains("Create Trainer").click();
+      cy.get('[data-cy="name"]').should("be.visible");
+      cy.get('[data-cy="imageUrl"]').should("be.visible");
     });
 
     it(`Then I enter "${input.name}" in the trainer name field`, () => {
       form.fillName(input.name);
-      cy.get('input[name="name"]').should("have.value", input.name);
+      cy.get('[data-cy="name"]').should("have.value", input.name);
     });
 
     it(`Then I enter a link in the trainer image url field`, () => {
       form.fillImageUrl(input.imageUrl);
-      cy.get('input[name="imageUrl"]').should("have.value", input.imageUrl);
+      cy.get('[data-cy="imageUrl"]').should("have.value", input.imageUrl);
     });
 
     it("Then I submit the form", () => {
@@ -47,14 +47,14 @@ describe("Trainer Screen", () => {
     });
 
     it("And I should see the new trainer in the list", () => {
-      cy.get(".trainer-card").last().should("contain", input.name);
-      cy.get(".trainer-card").last().should("contain", "0 pokémon(s)");
+      cy.get('[data-cy="trainer-card"]').last().should("contain", input.name);
+      cy.get('[data-cy="trainer-card"]').last().should("contain", "0 pokémon(s)");
     });
   });
 
   describe("Choose a trainer", () => {
     it("Given I click on a trainer", () => {
-      cy.get(".trainer-avatar").first().click();
+      cy.get('[data-cy="trainer-avatar"]').last().click();
     });
 
     it("And I should be on the pokedex page", () => {
@@ -67,12 +67,12 @@ describe("Trainer Screen", () => {
   describe("Deleting a trainer", () => {
     it("Given I click on the delete trainer button", () => {
       // Open the popover
-      cy.get('button[aria-label="Exclude Trainer"]').last().click();
+      cy.get('[data-cy="exclude-trainer"]').last().click();
     });
 
     it("And I should not see the deleted trainer in the list", () => {
       // Verify the trainer is not in the list
-      cy.get(".trainer-card").should("not.contain", "Mateus");
+      cy.get('[data-cy="trainer-card"]').should("not.contain", "Mateus");
     });
   });
 });

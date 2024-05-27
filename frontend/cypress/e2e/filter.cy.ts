@@ -2,7 +2,7 @@
 
 function init() {
   cy.visit("/");
-  cy.get(".trainer-card").first().click();
+  cy.get('[data-cy="trainer-card"]').first().click();
 }
 
 function finish() {
@@ -18,12 +18,12 @@ describe("Filter Functionality", () => {
 
     it("Then I open the filter menu", () => {
       // Click on the filter button
-      cy.get('[aria-label="filter button"]').click();
+      cy.get('[data-cy="filter-button"]').click();
     });
 
     it("Then I should filter the list by name A-Z", () => {
       // Click on the filter option for "A-Z"
-      cy.get("button").contains("A-Z").click();
+      cy.contains("A-Z").click();
 
       // Verify the list is sorted by name A-Z
       cy.get('[data-cy="pokemon-list"]')
@@ -36,12 +36,12 @@ describe("Filter Functionality", () => {
   describe("List by name Z-A", () => {
     it("Given I open the filter menu", () => {
       // Click on the filter button
-      cy.get('[aria-label="filter button"]').click();
+      cy.get('[data-cy="filter-button"]').click();
     });
 
     it("Then I should filter the list by name Z-A", () => {
       // Click on the filter option for "Z-A"
-      cy.get("button").contains("Z-A").click();
+      cy.contains("Z-A").click();
 
       // Verify the list is sorted by name Z-A
       cy.get('[data-cy="pokemon-list"]')
@@ -54,12 +54,12 @@ describe("Filter Functionality", () => {
   describe("List by the highest number", () => {
     it("Given I open the filter menu", () => {
       // Click on the filter button
-      cy.get('[aria-label="filter button"]').click();
+      cy.get('[data-cy="filter-button"]').click();
     });
 
     it("Then I should filter the list by the highest number", () => {
       // Click on the filter option for "Z-A"
-      cy.get("button").contains("Highest Number").click();
+      cy.contains("Highest Number").click();
 
       // Verify the list is sorted by highest number
       cy.get('[data-cy="pokemon-list"]')
@@ -72,12 +72,12 @@ describe("Filter Functionality", () => {
   describe("List by the lowest number", () => {
     it("Given I open the filter menu", () => {
       // Click on the filter button
-      cy.get('[aria-label="filter button"]').click();
+      cy.get('[data-cy="filter-button"]').click();
     });
 
     it("Then I should filter the list by the lowest number", () => {
       // Click on the filter option for "Z-A"
-      cy.get("button").contains("Lowest Number").click();
+      cy.contains("Lowest Number").click();
 
       // Verify the list is sorted by lowest number
       cy.get('[data-cy="pokemon-list"]')

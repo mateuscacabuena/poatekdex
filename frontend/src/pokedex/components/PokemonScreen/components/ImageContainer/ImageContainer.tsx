@@ -13,7 +13,8 @@ function ImageContainer({ handlePokemon }: ImageContainerProps) {
   return (
     <div className="image-container">
       <IconButton
-        aria-label="Back"
+        aria-label="back"
+        data-cy="back"
         isRound
         icon={<ChevronLeftIcon boxSize={"1.5rem"} color={"#FFFFFF"} />}
         backgroundColor={"transparent"}
@@ -27,7 +28,8 @@ function ImageContainer({ handlePokemon }: ImageContainerProps) {
         loading="eager"
       />
       <IconButton
-        aria-label="Next"
+        aria-label="next"
+        data-cy="next"
         isRound
         icon={<ChevronRightIcon boxSize={"1.5rem"} color={"#FFFFFF"} />}
         backgroundColor={"transparent"}

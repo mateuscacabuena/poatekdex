@@ -4,7 +4,7 @@ describe("Pokemon Screen", () => {
   describe("Viewing a Pokemon", () => {
     it("Given I am on the Pokedex page", () => {
       cy.visit("/");
-      cy.get(".trainer-card").first().click();
+      cy.get('[data-cy="trainer-card"]').first().click();
       cy.url().should("include", "/pokedex");
     });
 
@@ -48,7 +48,7 @@ describe("Pokemon Screen", () => {
   describe("Viewing a Pokemon and Going Next", () => {
     it("Given I am viewing a pokemon and go next", () => {
       // Click on the first pokemon in the list
-      cy.get('button[aria-label="Next"]').click();
+      cy.get('[data-cy="next"]').click();
     });
 
     it("Then I should see the next pokemon name", () => {
@@ -81,7 +81,7 @@ describe("Pokemon Screen", () => {
   describe("Viewing a Pokemon and Going Back", () => {
     it("Given I am viewing a pokemon and go back", () => {
       // Click on the first pokemon in the list
-      cy.get('button[aria-label="Back"]').click();
+      cy.get('[data-cy="back"]').click();
     });
 
     it("Then I should see the back pokemon name", () => {
@@ -114,7 +114,7 @@ describe("Pokemon Screen", () => {
   describe("Viewing a Pokemon and exiting the Pokemon Screen", () => {
     it("Given I am viewing a pokemon and exit the pokemon screen", () => {
       // Click on the first pokemon in the list
-      cy.get('button[aria-label="Close"]').click();
+      cy.get('[data-cy="close"]').click();
     });
 
     it("Then I should not see the pokemon screen", () => {

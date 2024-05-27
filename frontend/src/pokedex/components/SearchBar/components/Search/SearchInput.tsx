@@ -42,6 +42,7 @@ function SearchInput({ handleSelect }: SearchInputProps) {
         </InputLeftElement>
         <Input
           name="search"
+          data-cy="search"
           type="text"
           placeholder="Search"
           transition={"0.3s ease"}

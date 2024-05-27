@@ -18,7 +18,7 @@ function FilterButton({ handleFilter }: FilterButtonProps) {
       <Menu>
         <MenuButton
           as={IconButton}
-          data-cy="menu-button"
+          data-cy="filter-button"
           aria-label="filter button"
           icon={<Sort boxSize={"1.2rem"} />}
           borderRadius={"2rem"}

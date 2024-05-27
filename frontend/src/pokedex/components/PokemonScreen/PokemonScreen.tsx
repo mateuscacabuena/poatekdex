@@ -116,7 +116,8 @@ function PokemonScreen({ isOpen, onClose }: PokemonScreenProps) {
         >
           <div className="title">
             <IconButton
-              aria-label="Close"
+              aria-label="close"
+              data-cy="close"
               isRound
               icon={<ArrowBackIcon boxSize={"2rem"} color={"#FFFFFF"} />}
               backgroundColor={"transparent"}

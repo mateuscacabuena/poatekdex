@@ -22,8 +22,12 @@ function SelectTrainer() {
       <div className="trainer-list">
         {trainerList &&
           trainerList.map((trainer) => (
-            <div className="trainer-card" key={trainer.id}>
-              <div className="trainer-avatar">
+            <div
+              className="trainer-card"
+              data-cy="trainer-card"
+              key={trainer.id}
+            >
+              <div className="trainer-avatar" data-cy="trainer-avatar">
                 <img
                   src={trainer.imageUrl ?? user}
                   alt={trainer.name}
@@ -38,6 +42,7 @@ function SelectTrainer() {
               </div>
               <IconButton
                 aria-label="Exclude Trainer"
+                data-cy="exclude-trainer"
                 size={"sm"}
                 icon={<CloseIcon />}
                 color="#DC0A2D"
