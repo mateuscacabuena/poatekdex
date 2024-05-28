@@ -42,10 +42,12 @@ jobs:
         working-directory: ./backend
 
       - name: Wait for backend to be available
-        run: npx wait-on tcp:27017
+        run: npx wait-on tcp:3000
 
       - name: Verify backend is running
-        run: curl -f http://localhost:3000/health || exit 1
+        run: |
+          sleep 15
+          curl -f http://localhost:3000/health || exit 1
 
       - name: Start frontend
         run: npm run dev &
@@ -54,10 +56,12 @@ jobs:
           CI: true
 
       - name: Wait for frontend to be available
-        run: npx wait-on http://localhost:3000
+        run: |
+          sleep 5 
+          npx wait-on http://localhost:5173
 
       - name: Verify frontend is running
-        run: curl -f http://localhost:3000 || exit 1
+        run: curl -f http://localhost:5173 || exit 1
 
       - name: Run Cypress tests
         run: npx cypress run
