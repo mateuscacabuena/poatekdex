@@ -20,9 +20,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    env:
-      MONGO_URI: mongodb://localhost:27017/poatekdex # Ajuste conforme necessário
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,11 +40,12 @@ jobs:
       - name: Start backend
         run: npm run start &
         working-directory: ./backend
-        env:
-          MONGO_URI: ${{ env.MONGO_URI }}
 
       - name: Wait for backend to be available
-        run: sleep 15 # Ajuste o tempo conforme necessário para garantir que o backend esteja disponível
+        run: npx wait-on tcp:27017
+
+      - name: Verify backend is running
+        run: curl -f http://localhost:3000/health || exit 1
 
       - name: Start frontend
         run: npm run dev &
@@ -56,7 +54,10 @@ jobs:
           CI: true
 
       - name: Wait for frontend to be available
-        run: sleep 5
+        run: npx wait-on http://localhost:3000
+
+      - name: Verify frontend is running
+        run: curl -f http://localhost:3000 || exit 1
 
       - name: Run Cypress tests
         run: npx cypress run
