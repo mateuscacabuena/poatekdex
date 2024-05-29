@@ -2,6 +2,8 @@ import "./styles.css";
 import { usePokemonContext } from "../../../hooks/usePokemonContext";
 import { idFormater } from "../../../utils/utils";
 import { useTrainerContext } from "../../../hooks/useTrainerContext";
+import { useState } from "react";
+import { Skeleton } from "@chakra-ui/react";
 
 interface PokemonListProps {
   onOpen: () => void;
@@ -10,6 +12,9 @@ interface PokemonListProps {
 function PokemonList({ onOpen }: PokemonListProps) {
   const { getPokemon, setPokemon, setIsUnknown } = usePokemonContext();
   const { addPokemon, setTrainer, catchedPokemons } = useTrainerContext();
+  const [loadedImagesCount, setLoadedImagesCount] = useState(0);
+  const totalImages = catchedPokemons.length;
+  const allImagesLoaded = loadedImagesCount === totalImages;
 
   async function handlePokemonClick(id: number) {
     const pokemon = await getPokemon(id);
@@ -24,8 +29,16 @@ function PokemonList({ onOpen }: PokemonListProps) {
     setTrainer(newTrainer);
   }
 
+  function handleImageLoad() {
+    setLoadedImagesCount((prevCount) => prevCount + 1);
+  }
+
   return (
-    <div className="pokemon-list" data-cy="pokemon-list" >
+    <div className="pokemon-list" data-cy="pokemon-list">
+      {!allImagesLoaded &&
+        Array.from({ length: 251 }).map((_, index) => (
+          <Skeleton key={index} height="110px" borderRadius=".5rem" />
+        ))}
       {catchedPokemons.map((pokemonTrainer) => (
         <div
           className="pokemon-card"
@@ -42,8 +55,9 @@ function PokemonList({ onOpen }: PokemonListProps) {
           <img
             src={pokemonTrainer.imageUrl}
             alt={pokemonTrainer.name}
-            loading="lazy"
+            loading="eager"
             className={pokemonTrainer.name == "Unknown" ? "unknown-image" : ""}
+            onLoad={handleImageLoad}
           />
           <div className="name">
             <p>{pokemonTrainer.name}</p>
