@@ -15,7 +15,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
   const [loadedImagesCount, setLoadedImagesCount] = useState(0);
   const totalImages = catchedPokemons.length;
   const allImagesLoaded = loadedImagesCount === totalImages;
-
+  
   async function handlePokemonClick(id: number) {
     const pokemon = await getPokemon(id);
     setPokemon(pokemon);
@@ -27,10 +27,6 @@ function PokemonList({ onOpen }: PokemonListProps) {
     const newTrainer = await addPokemon(id);
     localStorage.setItem("trainer", JSON.stringify(newTrainer));
     setTrainer(newTrainer);
-  }
-
-  function handleImageLoad() {
-    setLoadedImagesCount((prevCount) => prevCount + 1);
   }
 
   return (
@@ -57,7 +53,7 @@ function PokemonList({ onOpen }: PokemonListProps) {
             alt={pokemonTrainer.name}
             loading="eager"
             className={pokemonTrainer.name == "Unknown" ? "unknown-image" : ""}
-            onLoad={handleImageLoad}
+            onLoad={() => setLoadedImagesCount((prevCount) => prevCount + 1)}
           />
           <div className="name">
             <p>{pokemonTrainer.name}</p>
