@@ -44,6 +44,9 @@ jobs:
         run: npm run test
         working-directory: ./backend
 
+      - name: Give time to backend finish
+        run: sleep 90
+
   cypress-run:
     runs-on: ubuntu-latest
 
@@ -57,7 +60,7 @@ jobs:
           node-version: "20.13.1"
 
       - name: Give time to backend finish
-        run: sleep 30
+        run: sleep 40
 
       - name: Install frontend dependencies
         run: npm install
