@@ -38,20 +38,27 @@ jobs:
         working-directory: ./frontend
 
       - name: Start backend
-        run: npm run start &
+        run: |
+          npm run start &
+          echo $! > backend_pid.txt
         working-directory: ./backend
 
-      - name: Start frontend
-        run: npm run dev &
-        working-directory: ./frontend
-        env:
-          CI: true
-
-      - name: Wait for services to be available
+      - name: Wait for backend to be available
         run: sleep 10
 
       - name: Verify backend is running
         run: curl -f http://localhost:3000 || exit 1
+
+      - name: Start frontend
+        run: |
+          npm run dev &
+          echo $! > frontend_pid.txt
+        working-directory: ./frontend
+        env:
+          CI: true
+
+      - name: Wait for frontend to be available
+        run: sleep 10
 
       - name: Verify frontend is running
         run: curl -f http://localhost:5173 || exit 1
@@ -63,3 +70,9 @@ jobs:
       - name: Run Cypress tests
         run: npx cypress run
         working-directory: ./frontend
+
+      - name: Stop backend
+        run: kill $(cat backend_pid.txt)
+
+      - name: Stop frontend
+        run: kill $(cat frontend_pid.txt)
