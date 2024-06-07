@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  jest-run:
+  integration-test:
     runs-on: ubuntu-latest
     services:
       mongo:
@@ -33,33 +33,13 @@ jobs:
         run: npm install
         working-directory: ./backend
 
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: ./frontend
+
       - name: Start backend
         run: npm run start &
         working-directory: ./backend
-
-      - name: Verify backend is running
-        run: sleep 5
-
-      - name: Run junit tests
-        run: npm run test
-        working-directory: ./backend
-
-  cypress-run:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.13.1"
-
-      - name: Install frontend dependencies
-        run: npm install
-        working-directory:
-          ./frontend
 
       - name: Start frontend
         run: npm run dev &
@@ -67,11 +47,18 @@ jobs:
         env:
           CI: true
 
-      - name: Wait for frontend to be available
-        run: sleep 5
+      - name: Wait for services to be available
+        run: sleep 10
+
+      - name: Verify backend is running
+        run: curl -f http://localhost:3000 || exit 1
 
       - name: Verify frontend is running
         run: curl -f http://localhost:5173 || exit 1
+
+      - name: Run backend tests
+        run: npm run test
+        working-directory: ./backend
 
       - name: Run Cypress tests
         run: npx cypress run
