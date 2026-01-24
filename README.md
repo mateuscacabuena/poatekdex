@@ -1,6 +1,6 @@
 # Poatekdex <img src="https://i.pinimg.com/originals/92/64/d5/9264d5ec77eec85e69b81c66449afb3c.png" alt="Pokédex Logo" width="30" />
 
-This repository contains a Pokédex project developed as a practice to apply the knowledge acquired at the company Batatinha. The project is divided into two main parts:
+This repository contains a Pokédex project developed as a practice to apply the knowledge acquired at the company TELUS Digital. The project is divided into two main parts:
 
 ## Frontend
 
